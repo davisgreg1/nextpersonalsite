@@ -1,0 +1,11 @@
+.frontCover {
+    background-color: red;
+}
+
+.backCover {
+    background-color: blue;
+}
+
+.bookPage {
+    background-color: rgba(208, 223, 208, 1);
+}

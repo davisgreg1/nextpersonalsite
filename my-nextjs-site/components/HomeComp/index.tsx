@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import MyIntro from "@/components/MyIntro";
+import WorkSection from "@/components/WorkSection";
 
 function HomeComp() {
   useEffect(() => {
@@ -23,6 +24,7 @@ function HomeComp() {
   return (
     <main>
       <MyIntro />
+      <WorkSection />
     </main>
   );
 }
