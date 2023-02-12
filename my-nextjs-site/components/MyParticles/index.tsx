@@ -14,12 +14,14 @@ function MyParticles() {
     await loadFull(engine);
   }, []);
   return (
-    <Particles
-      id="tsparticles"
-      init={particlesInit}
-      // loaded={particlesLoaded}
-      options={particlesConfig}
-    />
+    <div className="fixed">
+      <Particles
+        id="tsparticles"
+        init={particlesInit}
+        // loaded={particlesLoaded}
+        options={particlesConfig}
+      />
+    </div>
   );
 }
 
