@@ -6,9 +6,9 @@ function WorkSection() {
   return (
     <section
       id="section-work"
-      className={`flex relative z-10 h-screen flex-row justify-center`}
+      className={`flex relative z-10 h-screen flex-row justify-center snap-start section`}
     >
-      <ParallaxText text="Work" />
+      {/* <ParallaxText text="Work" /> */}
       <div className="flex justify-center items-center xs:max-lg:invisible">
         <FlipBook />
       </div>

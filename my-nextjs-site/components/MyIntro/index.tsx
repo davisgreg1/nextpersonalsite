@@ -1,10 +1,11 @@
 import MorphingWords from "@/components/MorphingWords";
 
+
 function MyIntro() {
   return (
     <section
       id="section-intro"
-      className={`flex relative z-10 h-screen flex-col justify-center ml-4 mb-4`}
+      className={`flex relative z-10 h-screen flex-col justify-center ml-4 mb-4 section`}
     >
       <div className="heading-subtexts-container">
         <h1 className="heading-h1-container">

@@ -23,8 +23,6 @@ body {
   }
 }
 
-.noFoucVisible {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.5s;;
+.section {
+  scroll-snap-align: start;
 }
