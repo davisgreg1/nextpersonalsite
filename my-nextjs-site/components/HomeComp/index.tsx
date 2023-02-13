@@ -2,29 +2,44 @@
 import React, { useEffect } from "react";
 import MyIntro from "@/components/MyIntro";
 import WorkSection from "@/components/WorkSection";
+import SkillsSection from "@/components/SkillsSection";
+import BlogSection from "@/components/BlogSection";
+
 
 function HomeComp() {
+
   useEffect(() => {
-    let domReady = (cb: { (): void; (this: Document, ev: Event): any }) => {
-      document.readyState === "interactive" ||
-      document.readyState === "complete"
-        ? cb()
-        : document.addEventListener("DOMContentLoaded", cb);
+    const sections = document.querySelectorAll(".section");
+    const options = {
+      rootMargin: "0px",
+      threshold: 0.5,
     };
 
-    domReady(() => {
-      const noFouc = document.getElementById("noFouc");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          scrollTo({
+            top: target.offsetTop,
+            behavior: "smooth",
+          })
+          // Perform actions for the current section
+        }
+      });
+    }, options);
+    
 
-      if (noFouc) {
-        noFouc.classList.add("noFoucVisible");
-      }
+    sections.forEach((section) => {
+      observer.observe(section);
     });
   });
 
   return (
-    <main>
+    <main className="snap-mandatory snap-y">
       <MyIntro />
       <WorkSection />
+      <SkillsSection />
+      <BlogSection />
     </main>
   );
 }
