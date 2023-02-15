@@ -14,4 +14,8 @@ export async function fetchEntries() {
   console.log(`Error getting Entries.`);
 }
 
-export default fetchEntries;
+export async function fetchEntry(id: string) {
+  const entry = await client.getEntry(id);
+  if (entry) return entry;
+  console.log(`Error getting Entry.`);
+}
