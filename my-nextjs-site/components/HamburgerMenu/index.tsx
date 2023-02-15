@@ -15,14 +15,14 @@ const menuVariants = {
     x: 0,
     transition: {
       type: "spring",
-      stiffness: 20,
+      stiffness: 200,
     },
   },
   openRight: {
     x: 0,
     transition: {
       type: "spring",
-      stiffness: 20,
+      stiffness: 200,
     },
   },
   closeLeft: {

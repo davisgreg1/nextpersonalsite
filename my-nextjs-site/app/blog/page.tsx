@@ -1,4 +1,3 @@
-"use client"
 import BlogSection from "@/components/BlogSection";
 
 function Blog() {
