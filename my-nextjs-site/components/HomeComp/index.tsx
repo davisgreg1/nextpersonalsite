@@ -1,9 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import MyIntro from "@/components/MyIntro";
-import WorkSection from "@/components/WorkSection";
-import SkillsSection from "@/components/SkillsSection";
-import BlogSection from "@/components/BlogSection";
 
 export default function HomeComp() {
   useEffect(() => {
@@ -33,9 +30,6 @@ export default function HomeComp() {
   return (
     <main className="snap-mandatory snap-y">
       <MyIntro />
-      {/* <WorkSection />
-      <SkillsSection /> */}
-      {/* <BlogSection /> */}
     </main>
   );
 }
