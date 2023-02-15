@@ -14,7 +14,7 @@ function MyParticles() {
     await loadFull(engine);
   }, []);
   return (
-    <div className="fixed">
+    <div>
       <Particles
         id="tsparticles"
         init={particlesInit}

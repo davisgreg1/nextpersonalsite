@@ -1,0 +1,13 @@
+.bar {
+  width: 35px;
+  height: 5px;
+  background-color: rgb(32, 30, 30);
+  margin: 6px 0;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  .bar {
+
+  }
+} */
+

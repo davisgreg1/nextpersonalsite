@@ -1,31 +1,60 @@
-import React, { useState, useEffect } from "react";
-import fetchContentfulData from "@/utils/fetchContentfulData";
+import React, { use, useMemo, useRef, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import fetchEntries from "@/utils/contentfulPosts";
+import BlogPost from "@/components/BlogPost";
+const TinderCard = dynamic(
+  () => {
+    return import("react-tinder-card");
+  },
+  { ssr: false }
+);
 
 function BlogSection() {
-  const [blogPosts, setBlogPosts] = useState([]);
+  const posts = use(fetchEntries());
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  // const [lastDirection, setLastDirection] = useState();
+  // used for outOfFrame closure
+  // const currentIndexRef = useRef(currentIndex);
 
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      const CONTENTFUL_SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
-      const CONTENTFUL_DELIVERY_TOKEN =
-        process.env.NEXT_PUBLIC_CONTENTFUL_DELIVERY_TOKEN;
+  // const childRefs = useMemo(
+  //   () =>
+  //     Array(posts.length)
+  //       .fill(0)
+  //       .map((i) => React.createRef()),
+  //   []
+  // );
 
-      const blogs = await fetchContentfulData(
-        CONTENTFUL_SPACE_ID,
-        CONTENTFUL_DELIVERY_TOKEN
-      );
-      setBlogPosts(blogs);
-    };
+  // useEffect(() => {
+  //   setCurrentIndex(posts.length - 1);
+  // }, [posts]);
 
-    fetchBlogPosts();
-  }, []);
+  const onSwipe = (direction) => {
+    console.log("You swiped: " + direction);
+  };
+
+  const onCardLeftScreen = (myIdentifier) => {
+    console.log(myIdentifier + " left the screen");
+  };
 
   return (
     <section
       id="section-blog"
-      className={`flex relative z-10 h-screen flex-row justify-center snap-start section`}
+      className={`flex relative z-10 h-screen flex-col snap-start section mx-4`}
     >
-      Blog Section here
+      {posts.map((post: { sys: { id: React.Key | null | undefined } }) => (
+        <TinderCard
+          className="swipe"
+          key={post.sys.id}
+          preventSwipe={["up", "down"]}
+          onSwipe={onSwipe}
+          onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+        >
+          <BlogPost key={post.sys.id} post={post} />
+        </TinderCard>
+      ))}
+      {/* {posts.map((post) => (
+        <BlogPost key={post.sys.id} post={post} />
+      ))} */}
     </section>
   );
 }
