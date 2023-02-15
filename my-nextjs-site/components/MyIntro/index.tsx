@@ -11,7 +11,7 @@ function MyIntro() {
         className={`flex relative z-10 h-screen flex-col justify-center ml-4 mb-4 section`}
       >
         <div className="heading-subtexts-container h-28 text-sm md:text-2xl">
-          <h1 className="flex">
+          <h1 className="flex select-none">
             <MorphingLetters str={`Hi,`} />
             <MorphingLetters str={`I'm Greg`} />
           </h1>

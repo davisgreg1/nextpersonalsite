@@ -1,17 +1,13 @@
-"use client";
-import ellipseText from "@/utils/ellipseText";
 import snarkdown from "snarkdown";
 import Link from "next/link";
 import { BlogPostType } from "@/types";
 
 function BlogPost({ post }: { post: BlogPostType }) {
   const {
-    fields: { title, body },
+    fields: { title, body, excerpt },
     sys: { id },
   } = post;
-  const content = snarkdown(body);
-
-  const contentToDisplay = ellipseText(content, 200);
+  const content = snarkdown(excerpt);
 
   return (
     <Link
@@ -24,8 +20,8 @@ function BlogPost({ post }: { post: BlogPostType }) {
           <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
         </span>
         <span
-          className="px-4 py-2"
-          dangerouslySetInnerHTML={{ __html: contentToDisplay }}
+          className="px-4 py-2 line-clamp-2"
+          dangerouslySetInnerHTML={{ __html: content }}
         />
       </span>
     </Link>

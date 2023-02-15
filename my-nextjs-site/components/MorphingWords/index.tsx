@@ -59,7 +59,7 @@ const MorphingWords = () => {
       animate={animate}
       exit="exit"
       transition={wordTransition}
-      className={`font-bold text-4xl ${words[index].color}`}
+      className={`font-bold text-4xl select-none ${words[index].color}`}
     >
       {words[index].word}
     </motion.div>

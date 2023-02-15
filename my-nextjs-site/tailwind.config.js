@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {},
     screens: {
-      'xs': "0px",
+      xs: "0px",
       sm: "375px",
       // => @media (min-width: 375px) { ... }
 
@@ -25,5 +25,5 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };
