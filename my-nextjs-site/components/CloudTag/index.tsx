@@ -280,11 +280,8 @@ const CloudTag = (props: any) => {
 
   return (
     <>
-      {/* {skillsRoute && (
-        <p id="skillsDescriptionText" className="skills-description" />
-      )} */}
       <div className="flex justify-center items-center flex-col">
-        {<p className="pb-8" id="skillDescriptionHome" />}
+        {<p className="pb-8 absolute top-14" id="skillDescriptionHome" />}
         <Cloud
           containerProps={constructedProps.containerProps}
           options={constructedProps.options}

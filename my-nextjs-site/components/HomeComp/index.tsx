@@ -5,9 +5,7 @@ import WorkSection from "@/components/WorkSection";
 import SkillsSection from "@/components/SkillsSection";
 import BlogSection from "@/components/BlogSection";
 
-
-function HomeComp() {
-
+export default function HomeComp() {
   useEffect(() => {
     const sections = document.querySelectorAll(".section");
     const options = {
@@ -22,12 +20,10 @@ function HomeComp() {
           scrollTo({
             top: target.offsetTop,
             behavior: "smooth",
-          })
-          // Perform actions for the current section
+          });
         }
       });
     }, options);
-    
 
     sections.forEach((section) => {
       observer.observe(section);
@@ -37,11 +33,9 @@ function HomeComp() {
   return (
     <main className="snap-mandatory snap-y">
       <MyIntro />
-      <WorkSection />
-      <SkillsSection />
-      <BlogSection />
+      {/* <WorkSection />
+      <SkillsSection /> */}
+      {/* <BlogSection /> */}
     </main>
   );
 }
-
-export default HomeComp;
