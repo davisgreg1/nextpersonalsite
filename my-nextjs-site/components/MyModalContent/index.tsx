@@ -1,0 +1,159 @@
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import Lottie from "react-lottie-player";
+import loadingDots from "@/images/lottie/loadingDots.json";
+
+type ConversationType = {
+  userText: string;
+  botText: string;
+};
+
+export default function MyModalContent() {
+  const computerScreenRef = useRef<HTMLDivElement>(null);
+  const [inputText, setInputText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
+  console.log("🚀 ~ file: index.tsx:16 ~ MyModalContent ~ response", response);
+  const [sendResponse, setSendResponse] = useState(false);
+  const [conversation, setConversation] = useState([]) as any;
+
+  useEffect(() => {
+    async function sendMessage(inputText: string) {
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputText }),
+        });
+        if (response) {
+          const data = await response.json();
+          return data;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (inputText.length > 10 && sendResponse) {
+      try {
+        sendMessage(inputText)
+          .then((data) => {
+            setLoading(false);
+            setResponse(data.choices[0].text);
+            setConversation([
+              ...conversation,
+              {
+                userText: inputText,
+                botText: data.choices[0].text,
+              },
+            ]);
+            setInputText("");
+          })
+          .catch((err) => {
+            setConversation([
+              ...conversation,
+              {
+                userText: inputText,
+                botText: `Sorry, but something went wrong. Please try again later.`,
+              },
+            ]);
+          });
+      } catch (error) {
+        console.log("🚀 ~ file: index.tsx:56 ~ useEffect ~ error", error);
+      }
+    }
+
+    if (sendResponse) {
+      setSendResponse(false);
+    }
+  }, [conversation, inputText, sendResponse]);
+
+  useEffect(() => {
+    // Scroll to the bottom of the container when the list changes
+    if (computerScreenRef.current) {
+      computerScreenRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [conversation]);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      (event.key === "Enter" || (event.key === "Enter" && event.metaKey)) &&
+      inputText.length >= 10
+    ) {
+      handleOnBtnClick();
+    }
+  };
+
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setInputText(e.target.value);
+
+  const handleOnBtnClick = () => {
+    setSendResponse(true);
+    setLoading(true);
+  };
+
+  const screenImgStyle = {
+    backgroundImage: "url(/screen.png)",
+    backgroundSize: "contain",
+    backgroundRepeat: "round",
+    display: "flex",
+  };
+  return (
+    <motion.div
+      className={`z-[99999] opacity-100 h-96 w-96 absolute text-red-600 flex justify-center items-center bottom-[60px] md:bottom-44 right-0`}
+      style={screenImgStyle}
+    >
+      <div className="bg-[#00FF00] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md">
+        {conversation.map((item: ConversationType, index: number) => {
+          return loading ? (
+            <div>
+              <Lottie
+                loop
+                animationData={loadingDots}
+                play
+                rendererSettings={{
+                  preserveAspectRatio: "xMidYMid slice",
+                }}
+                className="h-[140px] w-20"
+              />
+            </div>
+          ) : (
+            <div
+              ref={computerScreenRef}
+              key={index}
+              className="flex flex-col"
+              style={{ fontFamily: "'DEC VT100', monospace" }}
+            >
+              <span
+                id="transition-modal-description"
+                className="break-words text-lg text-blue-500 md:text-xl pl-1 pb-1 pr-1"
+              >
+                {item.userText ? `You: ${item.userText}` : ""}
+              </span>
+              <span
+                id="transition-modal-description"
+                className="break-words text-lg text-black md:text-xl pl-1 pb-1"
+              >
+                {item.botText ? `Greg: ${item.botText}` : ""}
+              </span>
+            </div>
+          );
+        })}
+        <span
+          className="break-words text-lg text-blue-500 md:text-xl pl-1 pr-1"
+          style={{ fontFamily: "'DEC VT100', monospace" }}
+        >
+          {inputText && loading && `You: ${inputText}`}
+        </span>
+      </div>
+      <input
+        value={inputText}
+        placeholder="ask me anything"
+        className="bg-gray-400 h-12 w-60 absolute bottom-[-50px] text-black-500 placeholder-black px-2"
+        onChange={handleInputText}
+        onKeyDown={handleKeyDown}
+      />
+    </motion.div>
+  );
+}
