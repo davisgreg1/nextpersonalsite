@@ -13,7 +13,7 @@ function BlogPost({ post }: { post: BlogPostType }) {
     <Link
       href={`/blog/${id}`}
       id="contentToDisplay"
-      className="prose dark:text-black"
+      className="prose dark:text-black bg-white shadow-lg rounded-lg my-4 p-4"
     >
       <span className="bg-white rounded-lg my-4">
         <span className="px-4 py-2">

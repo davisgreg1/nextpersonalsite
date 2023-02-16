@@ -9,7 +9,7 @@ function BlogSection() {
   return (
     <section
       id="section-blog"
-      className={`flex relative z-10 h-screen flex-col snap-start section mx-4 py-8`}
+      className={`flex relative z-1 h-screen flex-col snap-start section mx-4 py-8`}
     >
       {posts.map((post: BlogPostType) => (
         <BlogPost key={post.sys.id} post={post} />
