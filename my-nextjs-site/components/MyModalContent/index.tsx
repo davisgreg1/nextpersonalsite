@@ -38,6 +38,7 @@ export default function MyModalContent() {
         sendMessage(inputText)
           .then((data) => {
             setLoading(false);
+            setConversation(conversation.pop());
             setConversation([
               ...conversation,
               {
@@ -57,7 +58,7 @@ export default function MyModalContent() {
             ]);
           });
       } catch (error) {
-        console.log("🚀 ~ file: index.tsx:56 ~ useEffect ~ error", error);
+        console.error("🚀 ~ file: index.tsx:56 ~ useEffect ~ error", error);
       }
     }
 
@@ -77,12 +78,20 @@ export default function MyModalContent() {
       (event.key === "Enter" || (event.key === "Enter" && event.metaKey)) &&
       inputText.length >= 10
     ) {
+      setConversation([
+        ...conversation,
+        {
+          userText: inputText,
+          botText: "",
+        },
+      ]);
       handleOnBtnClick();
     }
   };
 
-  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>): void =>
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInputText(e.target.value);
+  };
 
   const handleOnBtnClick = () => {
     setSendResponse(true);
@@ -101,20 +110,9 @@ export default function MyModalContent() {
       style={screenImgStyle}
     >
       <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md">
-        {conversation.map((item: ConversationType, index: number) => {
-          return loading ? (
-            <div>
-              <Lottie
-                loop
-                animationData={loadingDots}
-                play
-                rendererSettings={{
-                  preserveAspectRatio: "xMidYMid slice",
-                }}
-                className="h-[140px] w-20"
-              />
-            </div>
-          ) : (
+        {conversation?.map((item: ConversationType, index: number) => {
+          const lastItemInList = index === conversation.length - 1;
+          return (
             <div
               ref={computerScreenRef}
               key={index}
@@ -129,19 +127,32 @@ export default function MyModalContent() {
               </span>
               <span
                 id="transition-modal-description"
-                className="break-words text-lg  md:text-xl pl-1 pb-1"
+                className="break-words text-lg  md:text-xl pl-1 pb-1 flex flex-row"
               >
-                {item.botText ? `Greg: ${item.botText}` : ""}
+                Greg: $
+                {loading && lastItemInList ? (
+                  <Lottie
+                    loop
+                    animationData={loadingDots}
+                    play
+                    rendererSettings={{
+                      preserveAspectRatio: "xMidYMid slice",
+                    }}
+                    className="h-[30px] w-20"
+                  />
+                ) : (
+                  item.botText
+                )}
               </span>
             </div>
           );
         })}
-        <span
+        {/* <span
           className="break-words text-lg text-blue-500 md:text-xl pl-1 pr-1"
           style={{ fontFamily: "'DEC VT100', monospace" }}
         >
-          {inputText && loading && `You: ${inputText}`}
-        </span>
+          {inputText && `You: ${inputText}`}
+        </span> */}
       </div>
       <input
         value={inputText}
