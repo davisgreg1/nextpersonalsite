@@ -9,6 +9,11 @@
 
 .rotate {
   transform: rotate(180deg);
+  cursor: pointer;
+}
+
+.lottieContainer {
+  cursor: pointer;
 }
 
 /* Define each section as a snap point */
