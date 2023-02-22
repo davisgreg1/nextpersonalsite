@@ -14,7 +14,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
+      <body className="bg-[#0d47a1] dark:bg-black">
         <TopNav />
         <ChatBot />
         <div>{children}</div>
