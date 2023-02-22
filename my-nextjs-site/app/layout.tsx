@@ -1,6 +1,5 @@
 import "./globals.css";
 import TopNav from "@/components/TopNav";
-import ChatBot from "@/components/ChatBot";
 
 export default function RootLayout({
   children,
@@ -16,7 +15,6 @@ export default function RootLayout({
       <head />
       <body className="bg-[#0d47a1] dark:bg-black">
         <TopNav />
-        <ChatBot />
         <div>{children}</div>
       </body>
     </html>

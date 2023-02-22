@@ -31,6 +31,22 @@ export default function About() {
   const prevScrollY = useRef(0);
 
   useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("showAnim");
+        } else {
+          entry.target.classList.remove("showAnim");
+        }
+      });
+    });
+    const hiddenElements = document.querySelectorAll(".hiddenAnim");
+    hiddenElements.forEach((element) => {
+      observer.observe(element);
+    });
+  }, []);
+
+  useEffect(() => {
     const img = new Image();
     img.onload = () => {
       setIsLoaded(true);
@@ -238,29 +254,32 @@ export default function About() {
             </div>
           </section>
         </motion.div>
-        <div ref={(el) => (sectionsRef.current[1] = el)} className="w-full p-4">
+        <div
+          ref={(el) => (sectionsRef.current[1] = el)}
+          className={`w-full p-4`}
+        >
           <section className={`overflow-visible ${styles.section}`}>
-            <div className="flex flex-col justify-center items-center h-full">
-              <p className="flex py-4 px-4 text-base lg:text-2xl">
+            <div className={`flex flex-col justify-center items-center h-full`}>
+              <p className="flex py-4 px-4 text-base lg:text-2xl hiddenAnim">
                 {`  Hi, I'm Gregory Davis, a passionate software developer from
                 Harlem, NY with a love for sports, travel, and animals. I
                 discovered my love for coding in 2017, and since then, I have
                 been actively pursuing my passion for creating innovative
                 websites that are both functional and aesthetically pleasing.`}
               </p>
-              <p className="flex py-4 px-4 text-base lg:text-2xl">
+              <p className="flex py-4 px-4 text-base lg:text-2xl hiddenAnim">
                 {`  When I'm not working on exciting new projects, I'm either on the
                 basketball court shooting some hoops or exploring new
                 destinations. I believe that travel is not only an excellent way
                 to unwind but also a great opportunity to learn about different
                 cultures and lifestyles.`}
               </p>
-              <p className="flex py-4 px-4 text-base lg:text-2xl">
+              <p className="flex py-4 px-4 text-base lg:text-2xl hiddenAnim">
                 {` I'm also an animal lover and enjoy spending time with my furry
                 and less furry friends. There's nothing quite like the
                 unconditional love and companionship that pets provide.`}
               </p>
-              <p className="flex py-4 px-4 text-base lg:text-2xl">
+              <p className="flex py-4 px-4 text-base lg:text-2xl hiddenAnim">
                 {`I'm excited to be on this journey of self-discovery and growth
                 and look forward to using my skills and experiences to create
                 meaningful solutions for real-world problems.`}
@@ -287,7 +306,9 @@ export default function About() {
           <section
             className={`overflow-scroll ${styles.section} ${styles.barChart}`}
           >
-            <div className="w-full flex-col flex justify-center items-center">
+            <div
+              className={`w-full flex-col flex justify-center items-center hiddenAnim`}
+            >
               <BarChart />
               <div onClick={() => scrollToNextSection(2)}>
                 <Lottie
@@ -304,7 +325,10 @@ export default function About() {
             </div>
           </section>
         </div>
-        <div ref={(el) => (sectionsRef.current[3] = el)} className="w-full p-4">
+        <div
+          ref={(el) => (sectionsRef.current[3] = el)}
+          className={`w-full p-4 hiddenAnim`}
+        >
           <section
             id="flipBookSection"
             className={`overflow-scroll ${styles.section} ${styles.barChart}`}
