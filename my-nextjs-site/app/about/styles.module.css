@@ -1,0 +1,31 @@
+/* Set the scroll container to snap to each section */
+.container {
+  scroll-snap-type: y mandatory;
+}
+
+.scrollDown {
+  opacity: 1 - (100vh - 100vh) / 100vh;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Define each section as a snap point */
+.section {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 720px) {
+  .section {
+    width: 65%;
+  }
+}
+
+.barChart {
+  align-items: center;
+}

@@ -1,43 +1,44 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Cloud, renderSimpleIcon, ICloud } from "react-icon-cloud";
 import {
-    siJavascript,
-    siTypescript,
-    siNextdotjs,
-    siNodedotjs,
-    siCss3,
-    siHtml5,
-    siReact,
-    siGit,
-    siExpress,
-    siPostgresql,
-    siAmazonaws,
-    siJest,
-    siVisualstudiocode,
-    siSequelize,
-    siJson,
-    siTrello,
-    siJquery,
-    siNpm,
-    siJira,
-    siRedis,
-    siMacos,
-    siActivision,
-    siAuth0,
-    siAndroidstudio,
-    siXcode,
-    siApollographql,
-    siHonda,
-    siDogecoin,
-    siMcdonalds,
-    siCodewars,
-    siCognizant,
-    siFigma,
-    siSpotify,
-    siTidal,
-    siUsps,
-    siW3c,
+  siJavascript,
+  siTypescript,
+  siNextdotjs,
+  siNodedotjs,
+  siCss3,
+  siHtml5,
+  siReact,
+  siGit,
+  siExpress,
+  siPostgresql,
+  siAmazonaws,
+  siJest,
+  siVisualstudiocode,
+  siSequelize,
+  siJson,
+  siTrello,
+  siJquery,
+  siNpm,
+  siJira,
+  siRedis,
+  siMacos,
+  siActivision,
+  siAuth0,
+  siAndroidstudio,
+  siXcode,
+  siApollographql,
+  siHonda,
+  siDogecoin,
+  siMcdonalds,
+  siCodewars,
+  siCognizant,
+  siFigma,
+  siSpotify,
+  siTidal,
+  siUsps,
+  siW3c,
+  siContentful,
 } from "simple-icons";
 
 const CloudTag = (props: any) => {
@@ -79,6 +80,7 @@ const CloudTag = (props: any) => {
     siTidal,
     siUsps,
     siW3c,
+    siContentful,
   ];
   const [skillSelectedDescription, setSkillSelectedDescription] = useState(
     "Select one of my skills"
@@ -195,6 +197,9 @@ const CloudTag = (props: any) => {
 
       case "W3C":
         return `W3C is a website that I used to lead the push to improve a11y for autozone.com.`;
+
+      case "Contentful":
+        return `Contentful is a content management system that I use with my personal website.`;
     }
   };
 

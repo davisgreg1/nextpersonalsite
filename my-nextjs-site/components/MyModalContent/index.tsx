@@ -12,8 +12,6 @@ export default function MyModalContent() {
   const computerScreenRef = useRef<HTMLDivElement>(null);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState("");
-  console.log("🚀 ~ file: index.tsx:16 ~ MyModalContent ~ response", response);
   const [sendResponse, setSendResponse] = useState(false);
   const [conversation, setConversation] = useState([]) as any;
 
@@ -40,7 +38,6 @@ export default function MyModalContent() {
         sendMessage(inputText)
           .then((data) => {
             setLoading(false);
-            setResponse(data.choices[0].text);
             setConversation([
               ...conversation,
               {
@@ -70,7 +67,6 @@ export default function MyModalContent() {
   }, [conversation, inputText, sendResponse]);
 
   useEffect(() => {
-    // Scroll to the bottom of the container when the list changes
     if (computerScreenRef.current) {
       computerScreenRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -101,10 +97,10 @@ export default function MyModalContent() {
   };
   return (
     <motion.div
-      className={`z-[99999] opacity-100 h-96 w-96 absolute text-red-600 flex justify-center items-center bottom-[60px] md:bottom-44 right-0`}
+      className={`z-[99999] opacity-100 h-96 w-96 absolute flex justify-center items-center bottom-[60px] md:bottom-44 right-0`}
       style={screenImgStyle}
     >
-      <div className="bg-[#00FF00] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md">
+      <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md">
         {conversation.map((item: ConversationType, index: number) => {
           return loading ? (
             <div>
@@ -133,7 +129,7 @@ export default function MyModalContent() {
               </span>
               <span
                 id="transition-modal-description"
-                className="break-words text-lg text-black md:text-xl pl-1 pb-1"
+                className="break-words text-lg  md:text-xl pl-1 pb-1"
               >
                 {item.botText ? `Greg: ${item.botText}` : ""}
               </span>
@@ -150,7 +146,7 @@ export default function MyModalContent() {
       <input
         value={inputText}
         placeholder="ask me anything"
-        className="bg-gray-400 h-12 w-60 absolute bottom-[-50px] text-black-500 placeholder-black px-2"
+        className="bg-gray-400 h-12 w-60 absolute bottom-[-50px]  placeholder-black px-2"
         onChange={handleInputText}
         onKeyDown={handleKeyDown}
       />

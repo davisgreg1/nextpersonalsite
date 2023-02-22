@@ -1,10 +1,8 @@
-"use client";
-
-import Particles from "react-particles";
-import type { Container, Engine } from "tsparticles-engine";
+import React, { useCallback } from "react";
+import Particles from "react-tsparticles";
+import type { Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import particlesConfig from "particlesConfig";
-import { useCallback } from "react";
 
 function MyParticles() {
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -13,12 +11,12 @@ function MyParticles() {
     // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine);
   }, []);
+
   return (
     <div>
       <Particles
         id="tsparticles"
         init={particlesInit}
-        // loaded={particlesLoaded}
         options={particlesConfig}
       />
     </div>

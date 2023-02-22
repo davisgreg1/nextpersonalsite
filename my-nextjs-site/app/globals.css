@@ -33,3 +33,22 @@ body {
 .section {
   scroll-snap-align: start;
 }
+
+@media (prefers-color-scheme: dark) {
+  #tsparticles > canvas {
+    background-color: #000 !important;
+  }
+}
+
+#background-img > img {
+  -webkit-mask-image: linear-gradient(black, transparent);
+  mask-image: linear-gradient(black, transparent);
+}
+
+#horse {
+  height: 100vh;
+}
+
+.react-multiple-carousel__arrow {
+  z-index: 0 !important;
+}
