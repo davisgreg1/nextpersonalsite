@@ -89,9 +89,8 @@ export default function MyModalContent() {
     }
   };
 
-  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setInputText(e.target.value);
-  };
 
   const handleOnBtnClick = () => {
     setSendResponse(true);
@@ -147,12 +146,6 @@ export default function MyModalContent() {
             </div>
           );
         })}
-        {/* <span
-          className="break-words text-lg text-blue-500 md:text-xl pl-1 pr-1"
-          style={{ fontFamily: "'DEC VT100', monospace" }}
-        >
-          {inputText && `You: ${inputText}`}
-        </span> */}
       </div>
       <input
         value={inputText}
