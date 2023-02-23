@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import MyIntro from "@/components/MyIntro";
-import ChatBot from "@/components/ChatBot";
 
 
 export default function HomeComp() {
@@ -32,7 +31,6 @@ export default function HomeComp() {
   return (
     <main className="snap-mandatory snap-y">
       <MyIntro />
-      <ChatBot />
     </main>
   );
 }

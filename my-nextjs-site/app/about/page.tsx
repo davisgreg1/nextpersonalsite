@@ -25,8 +25,6 @@ export default function About() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
-  const [mounted, setMounted] = useState(true);
-
   const [scrollDirection, setScrollDirection] = useState("down");
   const prevScrollY = useRef(0);
 
@@ -70,17 +68,6 @@ export default function About() {
       window.removeEventListener("scroll", handleScrollRotate);
     };
   }, [scrollY]);
-
-  useEffect(() => {
-    const chatBot = document.getElementById("chatBotId");
-
-    if (chatBot && mounted) {
-      chatBot.style.position = "absolute";
-      setMounted(false);
-    } else if (chatBot && !mounted) {
-      chatBot.style.position = "fixed";
-    }
-  }, [mounted]);
 
   const handleScrollRotate = () => {
     const currentScrollY = window.scrollY;
@@ -196,7 +183,7 @@ export default function About() {
       id="about-page-container"
       className="flex h-full overflow-hidden w-full flex-col md:flex-row-reverse"
     >
-      <div className="z-10 xs:hidden md:flex md:w-1/3 h-screen fixed">
+      <div className="z-[1] xs:hidden md:flex md:w-1/3 h-screen fixed">
         {isLoaded ? (
           <ParallaxBackground
             imageUrl={url}
@@ -220,7 +207,7 @@ export default function About() {
           >
             <div className="flex justify-center items-center h-3/4 w-full flex-col">
               <motion.div
-                className={`h-full w-full flex justify-center top-1/2 -z-10 pt-12 md:hidden`}
+                className={`h-full w-full flex justify-center top-1/2 -z-[1] pt-12 md:hidden`}
                 ref={opacityRef}
                 style={{ opacity }}
               >

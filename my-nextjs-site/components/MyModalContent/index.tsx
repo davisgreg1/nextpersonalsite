@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import Draggable from "react-draggable";
+import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie-player";
 import loadingDots from "@/images/lottie/loadingDots.json";
@@ -14,6 +16,7 @@ export default function MyModalContent() {
   const [loading, setLoading] = useState(false);
   const [sendResponse, setSendResponse] = useState(false);
   const [conversation, setConversation] = useState([]) as any;
+  const isLargeScreen = useMediaQuery("only screen and (min-width: 720px)");
 
   useEffect(() => {
     async function sendMessage(inputText: string) {
@@ -97,6 +100,12 @@ export default function MyModalContent() {
     setLoading(true);
   };
 
+  // const handleStart = () => console.log("handleStart");
+  // const handleDrag = () => console.log("handleDrag");
+  // const handleStop = () => console.log("handleStop");
+
+  const defaultPosXY = isLargeScreen ? { x: 0, y: 0 } : { x: -150, y: -150 };
+
   const screenImgStyle = {
     backgroundImage: "url(/screen.png)",
     backgroundSize: "contain",
@@ -104,56 +113,67 @@ export default function MyModalContent() {
     display: "flex",
   };
   return (
-    <motion.div
-      className={`z-[99999] opacity-100 h-96 w-96 absolute flex justify-center items-center bottom-[60px] md:bottom-44 right-0`}
-      style={screenImgStyle}
+    <Draggable
+      axis="both"
+      handle={".handle"}
+      defaultPosition={defaultPosXY}
+      grid={[25, 25]}
+      scale={1}
+      // onStart={handleStart}
+      // onDrag={handleDrag}
+      // onStop={handleStop}
     >
-      <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md">
-        {conversation?.map((item: ConversationType, index: number) => {
-          const lastItemInList = index === conversation.length - 1;
-          return (
-            <div
-              ref={computerScreenRef}
-              key={index}
-              className="flex flex-col"
-              style={{ fontFamily: "'DEC VT100', monospace" }}
-            >
-              <span
-                id="transition-modal-description"
-                className="break-words text-lg text-blue-500 md:text-xl pl-1 pb-1 pr-1"
+      <motion.div
+        className={`z-[1] opacity-100 h-96 w-96 absolute flex justify-center items-center`}
+        style={screenImgStyle}
+      >
+        <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md handle">
+          {conversation?.map((item: ConversationType, index: number) => {
+            const lastItemInList = index === conversation.length - 1;
+            return (
+              <div
+                ref={computerScreenRef}
+                key={index}
+                className="flex flex-col"
+                style={{ fontFamily: "'DEC VT100', monospace" }}
               >
-                {item.userText ? `You: ${item.userText}` : ""}
-              </span>
-              <span
-                id="transition-modal-description"
-                className="break-words text-lg  md:text-xl pl-1 pb-1 flex flex-row"
-              >
-                Greg: $
-                {loading && lastItemInList ? (
-                  <Lottie
-                    loop
-                    animationData={loadingDots}
-                    play
-                    rendererSettings={{
-                      preserveAspectRatio: "xMidYMid slice",
-                    }}
-                    className="h-[30px] w-20"
-                  />
-                ) : (
-                  item.botText
-                )}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-      <input
-        value={inputText}
-        placeholder="ask me anything"
-        className="bg-gray-400 h-12 w-60 absolute bottom-[-50px]  placeholder-black px-2"
-        onChange={handleInputText}
-        onKeyDown={handleKeyDown}
-      />
-    </motion.div>
+                <span
+                  id="transition-modal-description"
+                  className="break-words text-lg text-blue-500 md:text-xl pl-1 pb-1 pr-1"
+                >
+                  {item.userText ? `You: ${item.userText}` : ""}
+                </span>
+                <span
+                  id="transition-modal-description"
+                  className="break-words text-lg  md:text-xl pl-1 pb-1 flex flex-row"
+                >
+                  Greg: $
+                  {loading && lastItemInList ? (
+                    <Lottie
+                      loop
+                      animationData={loadingDots}
+                      play
+                      rendererSettings={{
+                        preserveAspectRatio: "xMidYMid slice",
+                      }}
+                      className="h-[30px] w-20 .computerScreen"
+                    />
+                  ) : (
+                    item.botText
+                  )}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <input
+          value={inputText}
+          placeholder="ask me anything"
+          className="bg-gray-400 h-12 w-60 absolute bottom-[-50px]  placeholder-black px-2"
+          onChange={handleInputText}
+          onKeyDown={handleKeyDown}
+        />
+      </motion.div>
+    </Draggable>
   );
 }
