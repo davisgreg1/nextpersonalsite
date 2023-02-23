@@ -89,7 +89,7 @@ const HamburgerMenu = () => {
   return (
     <div className="relative p-4">
       <motion.div
-        className="hamburger absolute z-50"
+        className="hamburger absolute z-[2]"
         style={{ x }}
         drag={isOpen ? false : "x"}
         dragConstraints={{ left: 0, right: width - 70 }}

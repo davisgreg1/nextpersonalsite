@@ -1,6 +1,7 @@
 import MorphingWords from "@/components/MorphingWords";
 import MorphingLetters from "@/components/MorphingLetters";
 import MyParticles from "@/components/MyParticles";
+import ChatBot from "@/components/ChatBot";
 
 function MyIntro() {
   return (
@@ -8,14 +9,19 @@ function MyIntro() {
       <MyParticles />
       <section
         id="section-intro"
-        className={`z-[1] flex relative h-screen flex-col justify-center ml-4 mb-4 section`}
+        className={`z-[2] flex relative h-screen flex-col justify-end ml-4 mb-4 section`}
       >
-        <div className="heading-subtexts-container h-28 text-sm md:text-2xl">
+        <div className="heading-subtexts-container flex h-1/2 w-full justify-center items-start flex-col text-sm md:text-2xl">
           <h1 className="flex select-none">
             <MorphingLetters str={`Hi,`} />
             <MorphingLetters str={`I'm Greg`} />
           </h1>
           <MorphingWords />
+        </div>
+        <div className="flex w-full h-1/2 justify-end items-end">
+          <div className="h-full w-full flex">
+            <ChatBot />
+          </div>
         </div>
       </section>
     </>
