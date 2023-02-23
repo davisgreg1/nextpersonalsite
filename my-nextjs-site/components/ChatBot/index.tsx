@@ -22,7 +22,7 @@ function ChatBot() {
         } cursor-pointer ${styles.animate}`}
         onClick={handleOnClick}
       />
-      {!showModal && (
+      {showModal && (
         <div className="z-[1] w-full h-full flex justify-center items-center">
           <div className={styles.overlay} onClick={handleOnClick}>
             <div className="h-full w-full flex items-center justify-center">
