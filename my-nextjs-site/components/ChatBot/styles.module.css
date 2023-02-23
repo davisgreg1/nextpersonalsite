@@ -3,15 +3,16 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(50px);
+    transform: translateX(100%);
   }
   100% {
     transform: translateX(0);
   }
 }
 
+
 .animate {
-  animation: move-left-right 10s infinite;
+  animation: move-left-right 30s infinite;
 }
 
 .overlay {
@@ -21,5 +22,5 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.9);
-  z-index: 2;
+  z-index: 3;
 }

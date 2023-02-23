@@ -3,9 +3,10 @@ import { motion } from "framer-motion";
 
 interface MorphingLetterType {
   str: string;
+  noSpacing?: boolean;
 }
 
-const MorphingLetters = ({ str }: MorphingLetterType) => {
+const MorphingLetters = ({ str, noSpacing }: MorphingLetterType) => {
   const letters = str?.split(" ");
 
   const letterVariants = {
@@ -46,7 +47,7 @@ const MorphingLetters = ({ str }: MorphingLetterType) => {
             loop: Infinity,
             ease: "easeInOut",
           }}
-          className="font-bold text-white pr-2 pb-2 text-xl md:text-2xl select-none"
+          className={`font-bold text-white text-xl md:text-2xl select-none ${noSpacing ? "" : "pr-2 pb-2"}`}
           whileHover={{ scale: 2, rotate: 360 }}
         >
           {letter}
