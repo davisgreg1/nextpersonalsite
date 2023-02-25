@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next/types";
 import { fireChatApi } from "@/utils/openAiChat";
 
 export default async function chat(req: NextApiRequest, res: NextApiResponse) {
