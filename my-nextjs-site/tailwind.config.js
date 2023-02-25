@@ -6,12 +6,21 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontSize: {
+      sm: "0.8rem",
+      base: "1rem",
+      xl: "1.25rem",
+      "2xl": "1.563rem",
+      "3xl": "1.953rem",
+      "4xl": "2.441rem",
+      "5xl": "3.052rem",
+    },
     extend: {
       colors: {
-        background: "#fafafa",
+        background: "#F7F7F7",
         foreground: "#0d0b15",
         neutral: {
-          50: "#fafafa",
+          50: "#F7F7F7",
           100: "#f4f4f6",
           200: "#e6e5e8",
           300: "#d4d3d8",
@@ -94,7 +103,10 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
   },
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    require("@tailwindcss/container-queries"),
+  ],
 };
 
 /**
@@ -102,4 +114,3 @@ module.exports = {
  *
  * <body class="bg-background text-foreground dark:bg-foreground dark:text-background"></div>
  */
-

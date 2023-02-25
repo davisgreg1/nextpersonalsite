@@ -117,7 +117,7 @@ export default function MyModalContent() {
       axis="both"
       handle={".handle"}
       defaultPosition={defaultPosXY}
-      grid={[25, 25]}
+      grid={[1, 1]}
       scale={1}
       // onStart={handleStart}
       // onDrag={handleDrag}

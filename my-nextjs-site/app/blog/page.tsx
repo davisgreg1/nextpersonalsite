@@ -1,11 +1,7 @@
 import BlogSection from "@/components/BlogSection";
 
 function Blog() {
-  return (
-    <div className="flex h-full justify-center items-center">
-      <BlogSection />
-    </div>
-  );
+  return <BlogSection />;
 }
 
 export default Blog;

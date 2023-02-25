@@ -1,0 +1,17 @@
+.gridItem {
+    /* background-color: aquamarine; */
+  /* transition: transform 2s ease; */
+}
+
+/* @media screen and (max-width: 720px) {
+    .gridItem {
+      transform: rotateY(360deg);
+    }
+  }
+
+@media screen and (max-width: 1140px) {
+  .gridItem {
+    transform: rotateY(360deg);
+  }
+} */
+

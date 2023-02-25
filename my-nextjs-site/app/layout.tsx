@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata } from "next/types";
 import TopNav from "@/components/TopNav";
 
 export const metadata: Metadata = {
@@ -22,19 +22,6 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  robots: {
-    index: false,
-    follow: true,
-    nocache: true,
-    googleBot: {
-      index: true,
-      follow: false,
-      noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
 };
 
 export default function RootLayout({
@@ -51,7 +38,7 @@ export default function RootLayout({
       <head />
       <body className="bg-[#0d47a1] dark:bg-black">
         <TopNav />
-        <div>{children}</div>
+        {children}
       </body>
     </html>
   );

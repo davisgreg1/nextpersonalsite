@@ -6,5 +6,6 @@ export type BlogPostType = {
   };
   sys: {
     id: string;
+    createdAt: string;
   };
 };
