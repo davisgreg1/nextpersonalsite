@@ -1,0 +1,22 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (prefers-color-scheme: dark) {
+  .content {
+    color: #F7F7F7;
+  }
+}
+
+.content img {
+  align-self: center;
+  margin: 16px;
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 720px) {
+  .content img {
+    max-width: 500px;
+  }
+}
