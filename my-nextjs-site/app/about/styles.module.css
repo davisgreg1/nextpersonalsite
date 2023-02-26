@@ -34,3 +34,13 @@
 .barChart {
   align-items: center;
 }
+
+.rotate svg {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.lottieContainer svg {
+  width: 100px !important;
+  height: 100px !important;
+}

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import styles from "./styles.module.css";
 
 const linkVariants = {
   hover: {
@@ -36,7 +37,7 @@ function TopNav() {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link className={`${isActive("/") ? "underline underline-offset-4" : ""}`} href="/">
+            <Link className={`${styles.menuLink} ${isActive("/") ? "underline underline-offset-4" : ""}`} href="/">
               Home
             </Link>
           </motion.li>
@@ -46,7 +47,7 @@ function TopNav() {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link className={`${isActive("/about") ? "underline underline-offset-4" : ""}`} href="/about">About</Link>
+            <Link className={`${styles.menuLink} ${isActive("/about") ? "underline underline-offset-4" : ""}`} href="/about">About</Link>
           </motion.li>
           <motion.li
             className="px-4"
@@ -54,7 +55,7 @@ function TopNav() {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link className={`${isActive("/skills") ? "underline underline-offset-4" : ""}`} href="/skills">Skills</Link>
+            <Link className={`${styles.menuLink} ${isActive("/skills") ? "underline underline-offset-4" : ""}`} href="/skills">Skills</Link>
           </motion.li>
           <motion.li
             className="px-4"
@@ -62,7 +63,7 @@ function TopNav() {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link className={`${isActive("/blog") ? "underline underline-offset-4" : ""}`} href="/blog">Blog</Link>
+            <Link className={`${styles.menuLink} ${isActive("/blog") ? "underline underline-offset-4" : ""}`} href="/blog">Blog</Link>
           </motion.li>
           <motion.li
             className="px-4"
@@ -70,7 +71,7 @@ function TopNav() {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link className={`${isActive("/contact") ? "underline underline-offset-4" : ""}`} href="/contact">Contact</Link>
+            <Link className={`${styles.menuLink} ${isActive("/contact") ? "underline underline-offset-4" : ""}`} href="/contact">Contact</Link>
           </motion.li>
         </ul>
       </nav>
