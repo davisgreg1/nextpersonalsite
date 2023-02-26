@@ -28,8 +28,8 @@ function TopNav() {
 
   return (
     <>
-      <nav className="z-[3] fixed flex-row hidden md:flex">
-        <ul className="flex pr-1 pt-4 pl-4">
+      <nav id="topNav" className="z-[3] fixed flex-row hidden md:flex">
+        <ul className="flex pr-1 pt-4">
           <motion.li
             className="px-4"
             variants={linkVariants}

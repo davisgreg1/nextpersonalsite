@@ -14,7 +14,7 @@ export default function AIModal() {
         damping: 25,
         mass: 0.5,
       }}
-      className="z-[4] flex w-full h-full"
+      className="z-[4] flex flex-col w-full h-full"
     >
       <MyModalContent />
     </motion.div>
