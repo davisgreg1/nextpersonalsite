@@ -1,0 +1,5 @@
+@media (prefers-color-scheme: dark) {
+    .inputField {
+      border: solid #a7aec7;
+    }
+  }

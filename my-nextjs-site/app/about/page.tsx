@@ -24,6 +24,7 @@ export default function About() {
   const id = isLargeScreen ? "horse" : "background-img";
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showLetters, setShowLetters] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("down");
   const prevScrollY = useRef(0);
@@ -51,6 +52,10 @@ export default function About() {
     };
     img.src = url;
   }, [url]);
+
+  useEffect(() => {
+    setShowLetters(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -220,13 +225,19 @@ export default function About() {
                 />
               </motion.div>
               <div className="flex flex-col items-center">
-                <p className="flex flex-row m-4">
-                  <MorphingLetters str={`A`} />
-                  <MorphingLetters str={`b`} />
-                  <MorphingLetters str={`o`} />
-                  <MorphingLetters str={`u`} />
-                  <MorphingLetters str={`t`} />
-                </p>
+                <span className="flex flex-row m-4">
+                  {showLetters ? (
+                    <>
+                      <MorphingLetters str={`A`} />
+                      <MorphingLetters str={`b`} />
+                      <MorphingLetters str={`o`} />
+                      <MorphingLetters str={`u`} />
+                      <MorphingLetters str={`t`} />
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </span>
                 <div
                   onClick={() => scrollToNextSection(0)}
                   className={`mt-40 ${
@@ -235,7 +246,7 @@ export default function About() {
                       : styles.rotate
                   }`}
                 >
-                  <Lottie loop animationData={scrollDown} play />
+                  <Lottie className="w-[100px] h-[100px]" loop animationData={scrollDown} play />
                 </div>
               </div>
             </div>

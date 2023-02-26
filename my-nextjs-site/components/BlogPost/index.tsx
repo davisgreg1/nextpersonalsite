@@ -32,14 +32,14 @@ function BlogPost({ post }: { post: BlogPostType }) {
       >
         <div className="flex flex-col h-full justify-end items-start pb-[46px] px-4">
           <div className="grid place-items-start grid-rows-3 gap-4">
-            <div className="text-[#a7aec7]">{date}</div>
+            <div className="dark:text-[#a7aec7]">{date}</div>
             <span
               className="line-clamp-2"
               dangerouslySetInnerHTML={{ __html: content }}
             />
             <div>
               <span>By:</span>{" "}
-              <span className="text-[#a7aec7]">Gregory Davis</span>
+              <span className="dark:text-[#a7aec7]">Gregory Davis</span>
             </div>
           </div>
         </div>

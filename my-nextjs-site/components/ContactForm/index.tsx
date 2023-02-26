@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import sendPlane from "@/images/lottie/sendPlane.json";
+import styles from "./styles.module.css"
 
 interface SendEmailType {
   email: string;
@@ -112,7 +113,7 @@ function ContactForm() {
                   }
                 >
                   <Field
-                    className="p-4 rounded-[10px] w-full"
+                    className={`p-4 rounded-[10px] w-full ${styles.inputField}`}
                     type="email"
                     placeholder="What's your email?"
                     name="email"
@@ -137,7 +138,7 @@ function ContactForm() {
                   }
                 >
                   <Field
-                    className="p-4 rounded-[10px] w-full"
+                    className={`p-4 rounded-[10px] w-full ${styles.inputField}`}
                     component="textarea"
                     type="message"
                     placeholder="What's the message?"
@@ -163,7 +164,7 @@ function ContactForm() {
                   }
                 >
                   <Field
-                    className="p-4 rounded-[10px] w-full"
+                    className={`p-4 rounded-[10px] w-full ${styles.inputField}`}
                     placeholder="What's your name?"
                     type="name"
                     name="name"
@@ -188,7 +189,7 @@ function ContactForm() {
                   }
                 >
                   <Field
-                    className="p-4 rounded-[10px] w-full"
+                    className={`p-4 rounded-[10px] w-full ${styles.inputField}`}
                     type="subject"
                     placeholder="What's the subject?"
                     name="subject"

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "react-use";
 import Link from "next/link";
-import type { Route } from 'next';
+import type { Route } from "next";
 import {
   motion,
   AnimatePresence,
@@ -62,7 +62,7 @@ const barVariants = {
   },
 };
 
-const menuItems: Array<{ name: string; path: Route }> = [
+const menuItems = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Skills", path: "/skills" },
@@ -78,13 +78,16 @@ const HamburgerMenu = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const maxDragDistance = width - 70; // subtract the width of the hamburger button
+  const dragConstraints = { left: 0, right: maxDragDistance };
+
   useMotionValueEvent(x, "animationComplete", () => {
     const currentX = x.get();
     const halfOfScreen = width / 2;
     if (currentX < halfOfScreen) {
       x.set(0);
     } else {
-      x.set(width - 70);
+      x.set(maxDragDistance);
     }
   });
 
@@ -101,7 +104,7 @@ const HamburgerMenu = () => {
         className="hamburger absolute z-[2]"
         style={{ x }}
         drag={isOpen ? false : "x"}
-        dragConstraints={{ left: 0, right: width - 70 }}
+        dragConstraints={dragConstraints}
         onClick={handleClick}
         transition={{ type: "spring", damping: 30, stiffness: 200 }}
       >
@@ -139,14 +142,18 @@ const HamburgerMenu = () => {
             exit={x.get() > width / 2 ? "closeRight" : "closeLeft"}
           >
             <nav className="h-full w-64 p-4">
-              {menuItems.map((item) => (
+              {menuItems.map(({ name, path }) => (
                 <Link
-                  key={item.name}
-                  href={item.path}
+                  key={name}
+                  href={path as Route}
                   onClick={handleClick}
-                  className={`${styles.menuItem} text-lg text-gray-800 block mt-4 ${isActive(item.path) ? "underline underline-offset-4" : ""}`}
+                  className={`${
+                    styles.menuItem
+                  } text-lg text-gray-800 block mt-4 ${
+                    isActive(path) ? "underline underline-offset-4" : ""
+                  }`}
                 >
-                  {item.name}
+                  {name}
                 </Link>
               ))}
             </nav>
