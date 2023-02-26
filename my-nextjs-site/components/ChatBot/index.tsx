@@ -12,14 +12,14 @@ function ChatBot() {
   const handleOnClick = () => setShowModal(!showModal);
 
   return (
-    <div id="chatBotId" className="flex w-[60%] md:w-1/3 cursor-pointer">
+    <div id="chatBotId" className="flex w-[60%] md:w-1/3 md:cursor-pointer">
       <Lottie
         loop
         animationData={chatBotJson}
         play
         className={`relative z-[1] flex ${
           showModal ? "top-0" : ""
-        } cursor-pointer ${styles.animate}`}
+        } ${styles.animate}`}
         onClick={handleOnClick}
       />
       {showModal && (

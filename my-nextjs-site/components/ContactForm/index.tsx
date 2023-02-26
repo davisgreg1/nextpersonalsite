@@ -1,12 +1,12 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Lottie from "react-lottie-player";
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
+import { FormError } from "@/components/FormError";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import sendPlane from "@/images/lottie/sendPlane.json";
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
 
 interface SendEmailType {
   email: string;
@@ -19,20 +19,23 @@ function ContactForm() {
   const schema = Yup.object().shape({
     name: Yup.string()
       .matches(/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g, {
-        message: "Name must contain only letters and spaces",
+        message: "Name must contain only letters and spaces.",
         excludeEmptyString: true,
       })
-      .max(40)
+      .max(50, "Name must be less than 50 characters.")
       .required("Name is required."),
     email: Yup.string()
       .email("Invalid email address.")
       .required("Email is required.")
       .nullable(),
     subject: Yup.string()
-      .min(10, "Field must be 4 characters or more.")
-      .max(40, "Field must be 40 characters or less.")
+      .min(10, "Subject must be at least 4 characters.")
+      .max(40, "Subject must be less than 40 characters.")
       .required("Subject is required."),
-    message: Yup.string().max(1000).min(16).required("Message is required."),
+    message: Yup.string()
+      .min(16, "Message must be at least 16 characters.")
+      .max(1000, "Message must be less than 1000 characters.")
+      .required("Message is required."),
   });
 
   const handleSubmit = async (
@@ -54,7 +57,7 @@ function ContactForm() {
       return data.text === "OK"
         ? Swal.fire({
             title: "Thank you!",
-            text: `${values.name}, I received your message and will get back to you as soon as possible.`,
+            text: `${values.name}, your message was sent! I will respond as soon as possible.`,
             icon: "success",
             background: "#0d47a1",
             color: "#fff",
@@ -115,15 +118,11 @@ function ContactForm() {
                   <Field
                     className={`p-4 rounded-[10px] w-full ${styles.inputField}`}
                     type="email"
-                    placeholder="What's your email?"
+                    placeholder={"What's your email?"}
                     name="email"
                   />
                 </motion.div>
-                <ErrorMessage
-                  className="m-1 text-red-500"
-                  name="email"
-                  component="div"
-                />
+                <ErrorMessage name="email" component={FormError} />
               </div>
               <div className="flex flex-col m-2">
                 <motion.div
@@ -145,11 +144,7 @@ function ContactForm() {
                     name="message"
                   />
                 </motion.div>
-                <ErrorMessage
-                  className="m-1 text-red-500"
-                  name="message"
-                  component="div"
-                />
+                <ErrorMessage name="message" component={FormError} />
               </div>
               <div className="flex flex-col m-2">
                 <motion.div
@@ -170,11 +165,7 @@ function ContactForm() {
                     name="name"
                   />
                 </motion.div>
-                <ErrorMessage
-                  className="m-1 text-red-500"
-                  name="name"
-                  component="div"
-                />
+                <ErrorMessage name="name" component={FormError} />
               </div>
               <div className="flex flex-col m-2">
                 <motion.div
@@ -195,11 +186,7 @@ function ContactForm() {
                     name="subject"
                   />
                 </motion.div>
-                <ErrorMessage
-                  className="m-1 text-red-500"
-                  name="subject"
-                  component="div"
-                />
+                <ErrorMessage name="subject" component={FormError} />
               </div>
               <button className="m-4" type="submit" disabled={isSubmitting}>
                 Send It.

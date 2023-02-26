@@ -29,10 +29,10 @@ function TopNav() {
 
   return (
     <>
-      <nav id="topNav" className="z-[3] fixed flex-row hidden md:flex">
-        <ul className="flex pr-1 pt-4">
+      <nav id="topNav" className="z-[3] fixed flex-row hidden md:flex w-[400px]">
+        <ul className="flex pr-1 pt-4 ml-4 w-full justify-between">
           <motion.li
-            className="px-4"
+            className=""
             variants={linkVariants}
             whileHover="hover"
             whileTap="tap"
@@ -42,7 +42,6 @@ function TopNav() {
             </Link>
           </motion.li>
           <motion.li
-            className="px-4"
             variants={linkVariants}
             whileHover="hover"
             whileTap="tap"
@@ -50,7 +49,6 @@ function TopNav() {
             <Link className={`${styles.menuLink} ${isActive("/about") ? "underline underline-offset-4" : ""}`} href="/about">About</Link>
           </motion.li>
           <motion.li
-            className="px-4"
             variants={linkVariants}
             whileHover="hover"
             whileTap="tap"
@@ -58,7 +56,6 @@ function TopNav() {
             <Link className={`${styles.menuLink} ${isActive("/skills") ? "underline underline-offset-4" : ""}`} href="/skills">Skills</Link>
           </motion.li>
           <motion.li
-            className="px-4"
             variants={linkVariants}
             whileHover="hover"
             whileTap="tap"
@@ -66,7 +63,6 @@ function TopNav() {
             <Link className={`${styles.menuLink} ${isActive("/blog") ? "underline underline-offset-4" : ""}`} href="/blog">Blog</Link>
           </motion.li>
           <motion.li
-            className="px-4"
             variants={linkVariants}
             whileHover="hover"
             whileTap="tap"

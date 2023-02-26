@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "DEC VT100";
-  src: url("/_decterm.ttf") format("truetype");
+  src: url("/fonts/_decterm.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

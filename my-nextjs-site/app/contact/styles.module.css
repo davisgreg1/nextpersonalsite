@@ -3,3 +3,11 @@
       border-color: gray;
     }
   }
+
+  @media screen and (max-width: 720px) {
+    .mapContainer {
+      border-radius: 10px;
+      border: solid transparent;
+      overflow: hidden;
+    }
+  }
