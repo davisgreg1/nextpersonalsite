@@ -5,9 +5,11 @@
   margin: 6px 0;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   .bar {
-
+    background-color: #f7f7f7;
   }
-} */
-
+  .menuItem {
+    color: #f7f7f7;
+  }
+}

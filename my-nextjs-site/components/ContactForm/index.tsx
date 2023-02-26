@@ -1,9 +1,11 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import Lottie from "react-lottie-player";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import sendPlane from "@/images/lottie/sendPlane.json";
 
 interface SendEmailType {
   email: string;
@@ -51,7 +53,7 @@ function ContactForm() {
       return data.text === "OK"
         ? Swal.fire({
             title: "Thank you!",
-            text: "I received your message and will get back to you as soon as possible.",
+            text: `${values.name}, I received your message and will get back to you as soon as possible.`,
             icon: "success",
             background: "#0d47a1",
             color: "#fff",
@@ -61,11 +63,11 @@ function ContactForm() {
           })
         : Swal.fire({
             title: "Oops...",
-            text: "Something went wrong!",
+            text: `${values.name}, something went wrong! I'm on it though!`,
             background: "#0d47a1",
             color: "#fff",
             icon: "error",
-            footer: "Try again.",
+            footer: "Try again, later.",
             customClass: {
               confirmButton: "confirm-button-class",
             },
@@ -73,11 +75,10 @@ function ContactForm() {
     } catch (error) {
       return Swal.fire({
         title: "Yikes...",
-        text: "Something went wrong!",
+        text: `${values.name}, check your internet connection and try again.`,
         background: "#0d47a1",
         color: "#fff",
         icon: "error",
-        footer: "Try again.",
         customClass: {
           confirmButton: "confirm-button-class",
         },
@@ -91,72 +92,132 @@ function ContactForm() {
       validationSchema={schema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
-        <Form
-          id="form-element"
-          className="flex flex-col w-full h-full justify-around"
-        >
-          <div className="flex flex-col m-2">
-            <Field
-              className="p-4 rounded-[10px]"
-              type="email"
-              placeholder="What's your email?"
-              name="email"
-            />
-            <ErrorMessage
-              className="m-1 text-red-500"
-              name="email"
-              component="div"
-            />
-          </div>
-          <div className="flex flex-col m-2">
-            <Field
-              className="p-4 rounded-[10px]"
-              component="textarea"
-              type="message"
-              placeholder="What's the message?"
-              name="message"
-            />
-            <ErrorMessage
-              className="m-1 text-red-500"
-              name="message"
-              component="div"
-            />
-          </div>
-          <div className="flex flex-col m-2">
-            <Field
-              className="p-4 rounded-[10px]"
-              placeholder="What's your name?"
-              type="name"
-              name="name"
-            />
-            <ErrorMessage
-              className="m-1 text-red-500"
-              name="name"
-              component="div"
-            />
-          </div>
-          <div className="flex flex-col m-2">
-            <Field
-              className="p-4 rounded-[10px]"
-              type="subject"
-              placeholder="What's the subject?"
-              name="subject"
-            />
-            <ErrorMessage
-              className="m-1 text-red-500"
-              name="subject"
-              component="div"
-            />
-          </div>
-
-          <button className="mt-8" type="submit" disabled={isSubmitting}>
-            Send It.
-          </button>
-        </Form>
-      )}
+      {({ isSubmitting, ...rest }) => {
+        return (
+          <>
+            <Form
+              id="form-element"
+              className="flex flex-col w-full h-full justify-around p-4"
+            >
+              <div className="flex flex-col m-2">
+                <motion.div
+                  className="w-full"
+                  animate={
+                    rest.errors.email && rest.touched.email
+                      ? {
+                          x: [-10, 10, -10, 10, -5, 5, -2, 2, 0],
+                          transition: { duration: 0.5 },
+                        }
+                      : {}
+                  }
+                >
+                  <Field
+                    className="p-4 rounded-[10px] w-full"
+                    type="email"
+                    placeholder="What's your email?"
+                    name="email"
+                  />
+                </motion.div>
+                <ErrorMessage
+                  className="m-1 text-red-500"
+                  name="email"
+                  component="div"
+                />
+              </div>
+              <div className="flex flex-col m-2">
+                <motion.div
+                  className="w-full"
+                  animate={
+                    rest.errors.message && rest.touched.message
+                      ? {
+                          x: [-10, 10, -10, 10, -5, 5, -2, 2, 0],
+                          transition: { duration: 0.5 },
+                        }
+                      : {}
+                  }
+                >
+                  <Field
+                    className="p-4 rounded-[10px] w-full"
+                    component="textarea"
+                    type="message"
+                    placeholder="What's the message?"
+                    name="message"
+                  />
+                </motion.div>
+                <ErrorMessage
+                  className="m-1 text-red-500"
+                  name="message"
+                  component="div"
+                />
+              </div>
+              <div className="flex flex-col m-2">
+                <motion.div
+                  className="w-full"
+                  animate={
+                    rest.errors.name && rest.touched.name
+                      ? {
+                          x: [-10, 10, -10, 10, -5, 5, -2, 2, 0],
+                          transition: { duration: 0.5 },
+                        }
+                      : {}
+                  }
+                >
+                  <Field
+                    className="p-4 rounded-[10px] w-full"
+                    placeholder="What's your name?"
+                    type="name"
+                    name="name"
+                  />
+                </motion.div>
+                <ErrorMessage
+                  className="m-1 text-red-500"
+                  name="name"
+                  component="div"
+                />
+              </div>
+              <div className="flex flex-col m-2">
+                <motion.div
+                  className="w-full"
+                  animate={
+                    rest.errors.subject && rest.touched.subject
+                      ? {
+                          x: [-10, 10, -10, 10, -5, 5, -2, 2, 0],
+                          transition: { duration: 0.5 },
+                        }
+                      : {}
+                  }
+                >
+                  <Field
+                    className="p-4 rounded-[10px] w-full"
+                    type="subject"
+                    placeholder="What's the subject?"
+                    name="subject"
+                  />
+                </motion.div>
+                <ErrorMessage
+                  className="m-1 text-red-500"
+                  name="subject"
+                  component="div"
+                />
+              </div>
+              <button className="m-4" type="submit" disabled={isSubmitting}>
+                Send It.
+              </button>
+            </Form>
+            {isSubmitting ? (
+              <Lottie
+                loop
+                animationData={sendPlane}
+                play
+                className="absolute top-1/2"
+              />
+            ) : (
+              ""
+            )}
+          </>
+        );
+      }}
     </Formik>
   );
 }
-
 export default ContactForm;

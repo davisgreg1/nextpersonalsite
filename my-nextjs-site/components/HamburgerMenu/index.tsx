@@ -1,7 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useWindowSize } from "react-use";
 import Link from "next/link";
+import type { Route } from 'next';
 import {
   motion,
   AnimatePresence,
@@ -60,7 +62,7 @@ const barVariants = {
   },
 };
 
-const menuItems = [
+const menuItems: Array<{ name: string; path: Route }> = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Skills", path: "/skills" },
@@ -69,6 +71,8 @@ const menuItems = [
 ];
 
 const HamburgerMenu = () => {
+  const pathname = usePathname();
+
   const x = useMotionValue(0);
   const { width } = useWindowSize();
 
@@ -86,6 +90,11 @@ const HamburgerMenu = () => {
 
   const handleClick = () => setIsOpen(!isOpen);
 
+
+  const isActive = (route: string) => {
+    return route === pathname;
+  };
+
   return (
     <div className="relative p-4">
       <motion.div
@@ -97,18 +106,18 @@ const HamburgerMenu = () => {
         transition={{ type: "spring", damping: 30, stiffness: 200 }}
       >
         <motion.div
-          className={`${styles.bar} dark:bg-white`}
+          className={`${styles.bar}`}
           variants={barVariants}
           animate={isOpen ? "x" : "closed"}
         />
         <motion.div
-          className={`${styles.bar} dark:bg-white`}
+          className={`${styles.bar}`}
           variants={barVariants}
           animate={isOpen ? "y" : "closed"}
           transition={{ delay: 0.1 }}
         />
         <motion.div
-          className={`${styles.bar} dark:bg-white`}
+          className={`${styles.bar}`}
           variants={barVariants}
           animate={isOpen ? "open" : "closed"}
           transition={{ delay: 0.1 }}
@@ -135,7 +144,7 @@ const HamburgerMenu = () => {
                   key={item.name}
                   href={item.path}
                   onClick={handleClick}
-                  className="text-lg text-gray-800 block mt-4"
+                  className={`${styles.menuItem} text-lg text-gray-800 block mt-4 ${isActive(item.path) ? "underline underline-offset-4" : ""}`}
                 >
                   {item.name}
                 </Link>
