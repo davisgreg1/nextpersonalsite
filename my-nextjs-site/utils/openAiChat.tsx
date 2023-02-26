@@ -2,7 +2,7 @@ export async function fireChatApi(inputText: string) {
   try {
     const DEFAULT_PARAMS = {
       model: "text-davinci-003",
-      prompt: `reply sarcastically using facts in less than 50 characters: ${inputText}`,
+      prompt: `reply sarcastically using facts in less than 100 characters: ${inputText}`,
       temperature: 0.5,
       max_tokens: 60,
       top_p: 0.3,
