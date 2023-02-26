@@ -20,7 +20,7 @@ export default function About() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
 
-  const url = isLargeScreen ? "/myHorse.png" : "/picOfGreg.jpg";
+  const url = isLargeScreen ? "/images/myHorse.png" : "/picOfGreg.jpg";
   const id = isLargeScreen ? "horse" : "background-img";
 
   const [isLoaded, setIsLoaded] = useState(false);

@@ -7,7 +7,6 @@ export default async function contact(
 ) {
   if (req.method === "POST") {
     try {
-
       const response = await sendEmail(req.body);
       if (response) {
         const data = await response;

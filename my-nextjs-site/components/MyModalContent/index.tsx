@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Lottie from "react-lottie-player";
 import loadingDots from "@/images/lottie/loadingDots.json";
 import styles from "./styles.module.css";
+import Cursor from "@/components/Cursor";
 
 type ConversationType = {
   userText: string;
@@ -112,7 +113,7 @@ export default function MyModalContent() {
   const defaultPosXY = isLargeScreen ? { x: 0, y: 0 } : { x: -150, y: -150 };
 
   const screenImgStyle = {
-    backgroundImage: "url(/screen.png)",
+    backgroundImage: "url(/images/screen.png)",
     backgroundSize: "contain",
     backgroundRepeat: "round",
     display: "flex",
@@ -134,9 +135,7 @@ export default function MyModalContent() {
         style={screenImgStyle}
       >
         <div className="z-[2] text-black flex self-start w-4/5 items-center justify-around mt-6">
-          <p className={styles.dragText}>
-            Drag mode: {dragMode ? "1" : "0"}
-          </p>
+          <p className={styles.dragText}>Drag mode: {dragMode ? "1" : "0"}</p>
           <Switch
             onColor={"#146714"}
             height={20}
@@ -164,7 +163,7 @@ export default function MyModalContent() {
                   id="transition-modal-description"
                   className="break-words text-lg  md:text-xl pl-1 pb-1 flex flex-row"
                 >
-                  Greg: $
+                  Greg:
                   {loading && lastItemInList ? (
                     <Lottie
                       loop
@@ -179,6 +178,11 @@ export default function MyModalContent() {
                     item.botText
                   )}
                 </span>
+                {!loading && lastItemInList && (
+                  <span className="pl-1">
+                    <Cursor />
+                  </span>
+                )}
               </div>
             );
           })}
@@ -186,7 +190,7 @@ export default function MyModalContent() {
         <input
           value={inputText}
           placeholder="Ask me anything."
-          className={`bg-gray-400 h-12 w-60 absolute bottom-[-50px] placeholder-black px-2 ${styles.inputText}}`}
+          className={`bg-gray-400 h-12 w-60 absolute bottom-[-50px] rounded-[10px] placeholder-black px-2 ${styles.inputText}}`}
           onChange={handleInputText}
           onKeyDown={handleKeyDown}
         />

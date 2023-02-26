@@ -61,7 +61,7 @@ function Contact() {
         widgetId={widgetId}
         useRef={tawkMessengerRef}
       />
-      <div className="w-full p-4">
+      <div className="w-full p-4 pl-0">
         <motion.div
           className={`${styles.contactFormDiv} flex w-full justify-center h-[600px] border-solid border-2 border-black rounded-[10px] mr-4`}
           initial="hidden"
@@ -72,15 +72,19 @@ function Contact() {
           <ContactForm />
         </motion.div>
       </div>
-      <motion.div
-        className="flex w-[90%] md:w-1/2 h-[50vh] md:h-auto sm:max-md:mt-4"
-        initial="hidden"
-        animate="visible"
-        variants={mapVariants}
-        // whileHover="hover"
+      <div
+        className={`flex w-full h-[500px] md:h-auto pr-4 md:p-0 overflow-visible mb-10 md:mb-0`}
       >
-        <MyMap />
-      </motion.div>
+        <motion.div
+          className={`flex w-full h-full md:h-auto sm:max-md:mt-4 ${styles.mapContainer}`}
+          initial="hidden"
+          animate="visible"
+          variants={mapVariants}
+          // whileHover="hover"
+        >
+          <MyMap />
+        </motion.div>
+      </div>
     </div>
   );
 }
