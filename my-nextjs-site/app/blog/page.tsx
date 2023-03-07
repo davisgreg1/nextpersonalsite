@@ -1,7 +1,5 @@
 import BlogSection from "@/components/BlogSection";
 
-function Blog() {
+export default async function Blog() {
   return <BlogSection />;
 }
-
-export default Blog;

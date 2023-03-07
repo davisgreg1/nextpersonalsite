@@ -46,7 +46,7 @@ const MorphingLetters = ({ str }: MorphingLetterType) => {
             loop: Infinity,
             ease: "easeInOut",
           }}
-          className={`font-bold text-white text-xl md:text-2xl select-none pr-2 pb-2`}
+          className={`font-bold text-white text-xl tablet:text-2xl select-none pr-2 pb-2`}
           whileHover={{ scale: 2, rotate: 360 }}
         >
           {letter}

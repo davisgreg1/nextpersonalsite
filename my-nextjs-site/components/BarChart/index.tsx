@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Chart as ChartJS,
@@ -68,6 +67,6 @@ const options = {
   },
 };
 
-const BarChart = () => <Bar data={data} options={options} />;
+const BarChart = () => <Bar data={data} options={options as any} />;
 
 export default BarChart;

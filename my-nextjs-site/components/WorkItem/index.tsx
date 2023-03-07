@@ -6,7 +6,7 @@ interface WorkItemType {
   body: string;
   image?: string;
   isImg?: boolean;
-  imgURL: string;
+  imgURL: any;
   ImageComponent?: React.ReactNode;
   handleOnClick: () => void;
   buttonText: string;
@@ -18,11 +18,11 @@ export default function WorkItem({
   isImg,
   imgURL,
   buttonText,
-  handleOnClick
+  handleOnClick,
 }: WorkItemType) {
   return (
     <div className="flex flex-col m-6 justify-center items-center">
-      <div className="pb-6">
+      <div className="pb-6 ml-4">
         {isImg && imgURL ? (
           <Image src={imgURL} width={175} height={42} alt="" />
         ) : (

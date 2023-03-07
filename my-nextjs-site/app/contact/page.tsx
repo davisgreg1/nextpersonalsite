@@ -55,7 +55,7 @@ function Contact() {
   const widgetId = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID;
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center h-full mt-24 md:ml-4 md:mt-0 ml-4">
+    <div className="flex flex-col tablet:flex-row justify-between items-center h-full mt-24 tablet:mt-0 ml-4">
       <TawkMessengerReact
         propertyId={propertyId}
         widgetId={widgetId}
@@ -67,20 +67,18 @@ function Contact() {
           initial="hidden"
           animate="visible"
           variants={formVariants}
-          // whileHover="hover"
         >
           <ContactForm />
         </motion.div>
       </div>
       <div
-        className={`flex w-full h-[500px] md:h-auto pr-4 md:p-0 overflow-visible mb-10 md:mb-0`}
+        className={`flex w-full h-[500px] tablet:h-auto pr-4 tablet:p-0 overflow-visible mb-10 tablet:mb-0`}
       >
         <motion.div
-          className={`flex w-full h-full md:h-auto sm:max-md:mt-4 ${styles.mapContainer}`}
+          className={`flex w-full h-full tablet:h-auto sm:max-tablet:mt-4 ${styles.mapContainer}`}
           initial="hidden"
           animate="visible"
           variants={mapVariants}
-          // whileHover="hover"
         >
           <MyMap />
         </motion.div>

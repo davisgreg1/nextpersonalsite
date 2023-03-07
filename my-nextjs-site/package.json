@@ -28,7 +28,7 @@
     "eslint": "8.35.0",
     "eslint-config-next": "^13.2.3",
     "formik": "^2.2.9",
-    "framer-motion": "^10.0.1",
+    "framer-motion": "^10.1.0",
     "googleapis": "^112.0.0",
     "kofi-button": "^1.1.1",
     "next": "^13.2.3",

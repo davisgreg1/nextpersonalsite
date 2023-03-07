@@ -1,6 +1,6 @@
 "use client";
 import Lottie from "react-lottie-player";
-import loading from "@/images/lottie/loading.json";
+import loading from "@/public/images/lottie/loading.json";
 
 function LoadingPage() {
   return (
