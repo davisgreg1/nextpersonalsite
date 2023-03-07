@@ -30,7 +30,7 @@ function CarouselComp({ items }: { items: React.ReactNode[] }) {
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
       infinite={true}
-      autoPlay={true}
+      autoPlay={false}
       autoPlaySpeed={7000}
       keyBoardControl={true}
       customTransition="all .5"

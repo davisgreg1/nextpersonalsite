@@ -1,5 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import Lottie from "react-lottie-player";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useInView } from "react-intersection-observer";
@@ -9,13 +12,17 @@ import BarChart from "@/components/BarChart";
 import WorkItem from "@/components/WorkItem";
 import CarouselComp from "@/components/Carousel";
 import pursuitPng from "@/public/images/pursuit.png";
+import workerJson from "@/public/images/lottie/workerJson.json";
 import mcLogo from "@/public/images/mcLogo.png";
 import styles from "./styles.module.css";
 
-function AboutDesktop() {
+const AboutDesktop = () => {
+  const router = useRouter();
+
   const isLargeScreen = useMediaQuery("only screen and (min-width: 720px)");
 
   const [mounted, setMounted] = useState(false);
+  const [canPush, setCanPush] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
@@ -29,8 +36,16 @@ function AboutDesktop() {
     setMounted(true);
   }, [isLargeScreen]);
 
+  useEffect(() => {
+    setCanPush(true);
+  }, [router]);
+
   const url = "/images/myHorse.png";
   const id = "background-img-2";
+
+  const handleOnClick = () => {
+    if (canPush) router.push("/contact");
+  };
 
   const items = [
     <WorkItem
@@ -116,6 +131,21 @@ function AboutDesktop() {
       isImg={true}
       imgURL={mcLogo}
     />,
+    <WorkItem
+      imgURL=""
+      key="5"
+      body={`I'm currently available to freelance. Contact me and let's get stuff done!`}
+      handleOnClick={handleOnClick}
+      buttonText="Visit"
+      ImageComponent={
+        <Lottie
+          loop
+          animationData={workerJson}
+          play
+          style={{ height: 150, width: 150, marginTop: "-116px" }}
+        />
+      }
+    />,
   ];
 
   return (
@@ -161,6 +191,6 @@ function AboutDesktop() {
       </div>
     </div>
   );
-}
+};
 
 export default AboutDesktop;
