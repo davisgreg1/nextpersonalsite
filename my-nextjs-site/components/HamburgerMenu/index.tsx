@@ -1,9 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "react-use";
-import Link from "next/link";
-import type { Route } from "next";
+import HamburgerLink from "./HamburgerLink";
 import {
   motion,
   AnimatePresence,
@@ -62,17 +61,15 @@ const barVariants = {
   },
 };
 
-const menuItems = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Skills", path: "/skills" },
-  { name: "Blog", path: "/blog" },
-  { name: "Contact", path: "/contact" },
+const hamburgerMenuItems = [
+  { id: 0, name: "Home", icon: "🏠", path: "/" },
+  { id: 1, name: "About", icon: "ℹ️", path: "/about" },
+  { id: 2, name: "Skills", icon: "💻", path: "/skills" },
+  { id: 3, name: "Blog", icon: "✍🏿", path: "/blog" },
+  { id: 4, name: "Contact", icon: "📧", path: "/contact" },
 ];
 
 const HamburgerMenu = () => {
-  const pathname = usePathname();
-
   const x = useMotionValue(0);
   const { width } = useWindowSize();
 
@@ -92,11 +89,6 @@ const HamburgerMenu = () => {
   });
 
   const handleClick = () => setIsOpen(!isOpen);
-
-
-  const isActive = (route: string) => {
-    return route === pathname;
-  };
 
   return (
     <div className="relative p-4">
@@ -141,20 +133,16 @@ const HamburgerMenu = () => {
             animate={x.get() > width / 2 ? "openRight" : "openLeft"}
             exit={x.get() > width / 2 ? "closeRight" : "closeLeft"}
           >
-            <nav className="h-full w-64 p-4">
-              {menuItems.map(({ name, path }) => (
-                <Link
+            <nav className="h-full w-64 p-4 pt-5">
+              {hamburgerMenuItems.map(({ name, path, id, icon }) => (
+                <HamburgerLink
                   key={name}
-                  href={path as Route}
-                  onClick={handleClick}
-                  className={`${
-                    styles.menuItem
-                  } text-lg text-gray-800 block mt-4 ${
-                    isActive(path) ? "underline underline-offset-4" : ""
-                  }`}
-                >
-                  {name}
-                </Link>
+                  name={name}
+                  path={path}
+                  id={id}
+                  icon={icon}
+                  cb={handleClick}
+                />
               ))}
             </nav>
           </motion.div>
