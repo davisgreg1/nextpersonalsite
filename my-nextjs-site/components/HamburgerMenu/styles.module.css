@@ -7,9 +7,34 @@
 
 @media (prefers-color-scheme: dark) {
   .bar {
-    background-color: #f7f7f7;
+    background-color: #a7aec7;
   }
   .menuItem {
-    color: #f7f7f7;
+    color: #a7aec7;
   }
+}
+
+.hamburgerLink {
+  list-style: none;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.hamburgerAnchorLink {
+  display: flex;
+  color: black;
+}
+
+.hamburgerMenuIcon {
+  padding-right: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hamburgerAnchorLink {
+    color: #a7aec7;
+  }
+}
+
+.activePath {
+  text-decoration: underline;
 }
