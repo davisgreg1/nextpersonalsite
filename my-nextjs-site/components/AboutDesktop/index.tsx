@@ -123,7 +123,7 @@ function AboutDesktop() {
       <motion.div
         ref={opacityRef}
         style={{ opacity }}
-        className={`max-w-md flex items-center justify-center self-center w-[500px]`}
+        className={`max-w-md flex items-center justify-center self-center w-[500px] mt-14`}
       >
         <ParallaxImage
           imageUrl={url}
@@ -132,7 +132,7 @@ function AboutDesktop() {
           customStyles={styles.parallaxContainer}
         />
       </motion.div>
-      <div className={`${styles.textContainer} mt-14`}>
+      <div className={`${styles.textContainer} mt-4`}>
         <AboutMeText />
       </div>
 
