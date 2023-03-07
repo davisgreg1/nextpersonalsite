@@ -4,7 +4,7 @@ import Draggable from "react-draggable";
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie-player";
-import loadingDots from "@/images/lottie/loadingDots.json";
+import loadingDots from "@/public/images/lottie/loadingDots.json";
 import styles from "./styles.module.css";
 import Cursor from "@/components/Cursor";
 
@@ -155,13 +155,13 @@ export default function MyModalContent() {
               >
                 <span
                   id="transition-modal-description"
-                  className="break-words text-lg text-blue-500 md:text-xl pl-1 pb-1 pr-1"
+                  className="break-words text-lg text-blue-500 tablet:text-xl pl-1 pb-1 pr-1"
                 >
                   {item.userText ? `You: ${item.userText}` : ""}
                 </span>
                 <span
                   id="transition-modal-description"
-                  className="break-words text-lg  md:text-xl pl-1 pb-1 flex flex-row"
+                  className="break-words text-lg tablet:text-xl pl-1 pb-1 flex flex-row"
                 >
                   Greg:
                   {loading && lastItemInList ? (

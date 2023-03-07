@@ -1,0 +1,38 @@
+.parallaxContainer {
+  width: 100%;
+  height: 530px;
+  background-image: url("/myHorse.png");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border-radius: 4rem;
+  border: solid 40px transparent;
+}
+
+.textContainer {
+  background-color: #0d47a1;
+  z-index: 2;
+  max-width: 1040px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .textContainer {
+    background-color: black;
+  }
+}
+
+.barChartContainer {
+  max-width: 1040px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.barChartContainer canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

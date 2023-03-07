@@ -29,7 +29,7 @@ function TopNav() {
 
   return (
     <>
-      <nav id="topNav" className="z-[3] fixed flex-row hidden md:flex w-[400px]">
+      <nav id="topNav" className="z-[3] fixed flex-row hidden tablet:flex w-[400px]">
         <ul className="flex pr-1 pt-4 ml-4 w-full justify-between">
           <motion.li
             className=""
@@ -71,7 +71,7 @@ function TopNav() {
           </motion.li>
         </ul>
       </nav>
-      <div className="z-[3] flex fixed md:hidden">
+      <div className="z-[3] flex fixed tablet:hidden">
         <HamburgerMenu />
       </div>
     </>

@@ -1,102 +1,36 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
-import { motion, useTransform, useScroll } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Lottie from "react-lottie-player";
-import BarChart from "@/components/BarChart";
-import CarouselComp from "@/components/Carousel";
-import AboutDesktop from "@/components/AboutDesktop";
 import ParallaxImage from "@/components/ParallaxImage";
-import MorphingLetters from "@/components/MorphingLetters";
+import AboutMeText from "@/components/AboutMeText";
+import BarChart from "@/components/BarChart";
 import WorkItem from "@/components/WorkItem";
-import LoadingPage from "../loading";
-import styles from "./styles.module.css";
-import scrollDown from "@/public/images/lottie/scrollDown.json";
+import CarouselComp from "@/components/Carousel";
 import pursuitPng from "@/public/images/pursuit.png";
 import mcLogo from "@/public/images/mcLogo.png";
-import AboutMeText from "@/components/AboutMeText";
+import styles from "./styles.module.css";
 
-export default function About() {
+function AboutDesktop() {
+  const isLargeScreen = useMediaQuery("only screen and (min-width: 720px)");
+
+  const [mounted, setMounted] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
   });
 
-  const sectionsRef = useRef<Array<HTMLDivElement | null>>([]);
   const opacityRef = useRef<HTMLDivElement>(null);
-  const isLargeScreen = useMediaQuery("only screen and (min-width: 720px)");
-
   const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
-
-  const url = "/images/picOfGreg.jpg";
-  const id = "background-img";
-
-  const [showLetters, setShowLetters] = useState(false);
-  const [currentSection, setCurrentSection] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState("down");
-  const prevScrollY = useRef(0);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("showAnim");
-        } else {
-          entry.target.classList.remove("showAnim");
-        }
-      });
-    });
-    const hiddenElements = document.querySelectorAll(".hiddenAnim");
-    hiddenElements.forEach((element) => {
-      observer.observe(element);
-    });
+    setMounted(true);
   }, [isLargeScreen]);
 
-  useEffect(() => {
-    setShowLetters(true);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const opacityValue = 1 - scrollY.get() / 100;
-      if (opacityRef.current) {
-        opacityRef.current.style.opacity = String(opacityValue);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("scroll", handleScrollRotate);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("scroll", handleScrollRotate);
-    };
-  }, [scrollY]);
-
-  const handleScrollRotate = () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > prevScrollY.current) {
-      setScrollDirection("down");
-    } else {
-      setScrollDirection("up");
-    }
-
-    prevScrollY.current = currentScrollY;
-  };
-
-  const scrollToNextSection = (idx: number) => {
-    const whichIdx = scrollDirection === "down" ? idx + 1 : idx;
-    const currentSectionIndex = currentSection;
-    const nextSection = sectionsRef.current[whichIdx];
-    if (nextSection) {
-      const top = nextSection.offsetTop;
-      window.scrollTo({ top, behavior: "smooth" });
-      setCurrentSection(currentSectionIndex + 1);
-    }
-  };
+  const url = "/images/myHorse.png";
+  const id = "background-img-2";
 
   const items = [
     <WorkItem
@@ -185,111 +119,48 @@ export default function About() {
   ];
 
   return (
-    <>
-      <div className={`tablet:hidden ${styles.aboutContainer}`}>
-        <motion.div
-          className="z-[1] fixed w-full overflow-hidden rounded-full border-[16px] border-transparent"
-          ref={opacityRef}
-          style={{ opacity }}
-        >
-          <ParallaxImage
-            imageUrl={url}
-            priority={true}
-            customStyles={styles.parallaxContainer}
-            alt="image of Gregory Davis"
-          />
-        </motion.div>
-        <div className={`flex w-full flex-col ${styles.pageDetailsContainer}`}>
-          <div className="flex items-center justify-center flex-col">
-            <div
-              className="flex mt-40"
-              ref={(el) => (sectionsRef.current[0] = el)}
-            >
-              {" "}
-              {showLetters ? (
-                <>
-                  <MorphingLetters str={`A`} />
-                  <MorphingLetters str={`b`} />
-                  <MorphingLetters str={`o`} />
-                  <MorphingLetters str={`u`} />
-                  <MorphingLetters str={`t`} />
-                </>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div
-              onClick={() => scrollToNextSection(0)}
-              className={`${
-                scrollDirection === "down"
-                  ? styles.lottieContainer
-                  : styles.rotate
-              }`}
-            >
-              <Lottie
-                className="w-[100px] h-[100px]"
-                loop
-                animationData={scrollDown}
-                play
-              />
-            </div>
-            <div className="mt-40" ref={(el) => (sectionsRef.current[1] = el)}>
-              <AboutMeText />
-            </div>
-            <div
-              onClick={() => scrollToNextSection(1)}
-              className={`flex justify-center items-center w-full`}
-            >
-              <Lottie
-                loop
-                animationData={scrollDown}
-                play
-                className={`w-[90px] h-[92px] ${
-                  scrollDirection === "down"
-                    ? styles.lottieContainer
-                    : styles.rotate
-                }`}
-              />
-            </div>
-            {!isLargeScreen && (
-              <div ref={(el) => (sectionsRef.current[2] = el)}>
-                <div className={`${styles.barChartContainer} mt-40`} ref={ref}>
-                  <motion.div
-                    initial={{ x: "100vw" }}
-                    animate={inView ? { x: 0 } : { x: "100vw" }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 120,
-                      duration: 0.5,
-                    }}
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <BarChart />
-                  </motion.div>
-                </div>
-              </div>
-            )}
-            <div onClick={() => scrollToNextSection(2)}>
-              <Lottie
-                loop
-                animationData={scrollDown}
-                play
-                className={`w-[90px] h-[92px] ${
-                  scrollDirection === "down"
-                    ? styles.lottieContainer
-                    : styles.rotate
-                }`}
-              />
-            </div>
-            <div
-              className="mt-40"
-              ref={(el) => (sectionsRef.current[3] = el)}
-            ></div>
-            <CarouselComp items={items} />
-          </div>
-        </div>
+    <div className={`xs:max-tablet:hidden h-full w-full flex flex-col`}>
+      <motion.div
+        ref={opacityRef}
+        style={{ opacity }}
+        className={`max-w-md flex items-center justify-center self-center w-[500px]`}
+      >
+        <ParallaxImage
+          imageUrl={url}
+          priority={true}
+          alt="image of greg on a horse"
+          customStyles={styles.parallaxContainer}
+        />
+      </motion.div>
+      <div className={`${styles.textContainer} mt-14`}>
+        <AboutMeText />
       </div>
-      <AboutDesktop />
-    </>
+
+      <div
+        className={`${styles.barChartContainer} my-14 flex justify-center items-center self-center`}
+      >
+        {isLargeScreen && mounted && (
+          <div className="mt-40 my-14" ref={ref}>
+            <motion.div
+              initial={{ x: "100vw" }}
+              animate={inView ? { x: 0 } : { x: "100vw" }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                duration: 0.5,
+              }}
+              whileHover={{ scale: 1.1 }}
+            >
+              <BarChart />
+            </motion.div>
+          </div>
+        )}
+      </div>
+      <div className={`mx-4 my-14`}>
+        <CarouselComp items={items} />
+      </div>
+    </div>
   );
 }
+
+export default AboutDesktop;

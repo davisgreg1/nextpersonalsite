@@ -5,7 +5,7 @@ import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
 import { FormError } from "@/components/FormError";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-import sendPlane from "@/images/lottie/sendPlane.json";
+import sendPlane from "@/public/images/lottie/sendPlane.json";
 import styles from "./styles.module.css";
 
 interface SendEmailType {
@@ -29,7 +29,7 @@ function ContactForm() {
       .required("Email is required.")
       .nullable(),
     subject: Yup.string()
-      .min(10, "Subject must be at least 4 characters.")
+      .min(10, "Subject must be at least 10 characters.")
       .max(40, "Subject must be less than 40 characters.")
       .required("Subject is required."),
     message: Yup.string()
