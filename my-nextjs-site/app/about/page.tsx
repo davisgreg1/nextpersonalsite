@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -10,14 +11,16 @@ import AboutDesktop from "@/components/AboutDesktop";
 import ParallaxImage from "@/components/ParallaxImage";
 import MorphingLetters from "@/components/MorphingLetters";
 import WorkItem from "@/components/WorkItem";
-import LoadingPage from "../loading";
 import styles from "./styles.module.css";
 import scrollDown from "@/public/images/lottie/scrollDown.json";
+import workerJson from "@/public/images/lottie/workerJson.json";
 import pursuitPng from "@/public/images/pursuit.png";
 import mcLogo from "@/public/images/mcLogo.png";
 import AboutMeText from "@/components/AboutMeText";
 
 export default function About() {
+  const router = useRouter();
+
   const [ref, inView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
@@ -36,6 +39,7 @@ export default function About() {
   const [showLetters, setShowLetters] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [scrollDirection, setScrollDirection] = useState("down");
+  const [canPush, setCanPush] = useState(false);
   const prevScrollY = useRef(0);
 
   useEffect(() => {
@@ -75,6 +79,10 @@ export default function About() {
     };
   }, [scrollY]);
 
+  useEffect(() => {
+    setCanPush(true);
+  }, [router]);
+
   const handleScrollRotate = () => {
     const currentScrollY = window.scrollY;
 
@@ -96,6 +104,10 @@ export default function About() {
       window.scrollTo({ top, behavior: "smooth" });
       setCurrentSection(currentSectionIndex + 1);
     }
+  };
+
+  const handleOnClick = () => {
+    if (canPush) router.push("/contact");
   };
 
   const items = [
@@ -181,6 +193,23 @@ export default function About() {
       buttonText="Visit"
       isImg={true}
       imgURL={mcLogo}
+    />,
+    <WorkItem
+      imgURL=""
+      key="5"
+      body={`I'm currently available to freelance. Contact me and let's get stuff done!`}
+      handleOnClick={handleOnClick}
+      buttonText="Visit"
+      ImageComponent={
+        <div className={styles.workLottie}>
+          <Lottie
+            loop
+            animationData={workerJson}
+            play
+            style={{ height: 125, width: 125 }}
+          />
+        </div>
+      }
     />,
   ];
 
