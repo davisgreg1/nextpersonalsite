@@ -1,6 +1,9 @@
+"use client";
+import { memo } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styles from "./styles.module.css";
+import CustomDots from "./CustomDots";
 
 function CarouselComp({ items }: { items: React.ReactNode[] }) {
   const responsive = {
@@ -22,13 +25,20 @@ function CarouselComp({ items }: { items: React.ReactNode[] }) {
   };
   return (
     <Carousel
+      responsive={responsive}
+      customDot={
+        <CustomDots
+          onClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      }
       swipeable={true}
       centerMode={false}
       draggable={false}
       showDots={true}
       focusOnSelect={true}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
+      ssr={false} // means to render carousel on server-side.
       infinite={true}
       autoPlay={false}
       autoPlaySpeed={7000}
@@ -51,4 +61,4 @@ function CarouselComp({ items }: { items: React.ReactNode[] }) {
   );
 }
 
-export default CarouselComp;
+export default memo(CarouselComp);

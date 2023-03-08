@@ -206,7 +206,13 @@ export default function About() {
             loop
             animationData={workerJson}
             play
-            style={{ height: 125, width: 125 }}
+            style={{
+              height: 125,
+              width: 125,
+              position: "absolute",
+              top: "50px",
+              left: "38%",
+            }}
           />
         </div>
       }

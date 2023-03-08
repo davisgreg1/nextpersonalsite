@@ -1,34 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import React, { useCallback, useState, useMemo, memo } from "react";
+import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
+import Lottie from "react-lottie-player";
+import mapLoading from "@/public/images/lottie/mapLoading.json";
 
-const center = {
-  lat: 40.7465,
-  lng: -74.0014,
-};
-
-type CustomOptionsType = {
-  mapTypeControl?: boolean;
-  zoom?: number;
-  clickableIcons?: boolean;
-  panControl?: boolean;
-  rotateControl?: boolean;
-  scaleControl?: boolean;
-  streetViewControl?: boolean;
-  zoomControl?: boolean;
-  fullscreenControl?: boolean;
-  mapId?: string;
-};
-
-type MyMapProps = {
-  customOptions?: CustomOptionsType;
-};
-
-const MyMap = (props: MyMapProps) => {
-  const { customOptions } = props;
+const MyMap = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || "",
   });
+
+  const center = useMemo(() => ({ lat: 40.7465, lng: -74.0014 }), []);
 
   const containerStyle = {
     width: "100%",
@@ -58,29 +39,40 @@ const MyMap = (props: MyMapProps) => {
     mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID,
   };
 
-  const modifiedCustomOptions = {
-    ...customOptions,
-    mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID,
-  };
-  const options = customOptions ? modifiedCustomOptions : mapOptions;
-
-  return isLoaded ? (
+  return !isLoaded ? (
+    <div
+      className="flex justify-center items-center self-center m-auto h-screen"
+      aria-label="Gregory location"
+    >
+      Map loading...
+      <Lottie
+        loop
+        animationData={mapLoading}
+        play
+        style={{ height: 125, width: 125 }}
+      />
+    </div>
+  ) : (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      options={options}
+      options={mapOptions}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      <Marker
+      <MarkerF
+        key="Greg Map Marker"
         animation={google.maps.Animation.DROP}
         position={center}
         title={`I'm from NYC!`}
+        icon={{
+          url: "/images/mapMarker.svg",
+          anchor: new google.maps.Point(17, 46),
+          scaledSize: new google.maps.Size(37, 37),
+        }}
       />
     </GoogleMap>
-  ) : (
-    <div className="w-1/2" aria-label="gregory location"></div>
   );
 };
 
-export default MyMap;
+export default memo(MyMap);
