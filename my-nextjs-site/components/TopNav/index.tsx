@@ -36,7 +36,6 @@ function TopNav() {
         >
           <ul className="flex pr-1 ml-4 w-full justify-between">
             <motion.li
-              className=""
               variants={linkVariants}
               whileHover="hover"
               whileTap="tap"
