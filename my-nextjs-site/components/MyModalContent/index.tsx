@@ -44,13 +44,16 @@ export default function MyModalContent() {
       try {
         sendMessage(inputText)
           .then((data) => {
+            const {
+              data: { choices },
+            } = data;
             setLoading(false);
             setConversation(conversation.pop());
             setConversation([
               ...conversation,
               {
                 userText: inputText,
-                botText: data.choices[0].text,
+                botText: choices[0].message.content,
               },
             ]);
             setInputText("");
@@ -60,7 +63,7 @@ export default function MyModalContent() {
               ...conversation,
               {
                 userText: inputText,
-                botText: `Sorry, but something went wrong. Please try again later.`,
+                botText: `A.I. is sleeping 😴 now. Try again later.`,
               },
             ]);
           });
