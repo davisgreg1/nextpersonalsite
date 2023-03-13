@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import MyIntro from "@/components/MyIntro";
 
-
 export default function HomeComp() {
   useEffect(() => {
     const sections = document.querySelectorAll(".section");
@@ -29,8 +28,10 @@ export default function HomeComp() {
   });
 
   return (
-    <main className="snap-mandatory snap-y">
-      <MyIntro />
-    </main>
+    <>
+      <main className="snap-mandatory snap-y">
+        <MyIntro />
+      </main>
+    </>
   );
 }

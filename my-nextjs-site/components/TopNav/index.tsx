@@ -21,7 +21,11 @@ const linkVariants = {
 };
 
 function TopNav() {
-  const pathname = usePathname();
+  let pathname = usePathname();
+
+  if (pathname?.includes("/blog/")) {
+    pathname = "/blog";
+  }
 
   const isActive = (route: string) => {
     return route === pathname;
