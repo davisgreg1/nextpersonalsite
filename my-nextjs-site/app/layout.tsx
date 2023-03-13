@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next/types";
 import TopNav from "@/components/TopNav";
+import Provider from "./Provider";
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -37,8 +38,10 @@ export default function RootLayout({
       */}
       <head />
       <body className="bg-[#0d47a1] dark:bg-black">
-        <TopNav />
-        {children}
+        <Provider>
+          <TopNav />
+          {children}
+        </Provider>
       </body>
     </html>
   );

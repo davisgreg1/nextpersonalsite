@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Switch from "react-switch";
 import Draggable from "react-draggable";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -7,6 +8,7 @@ import Lottie from "react-lottie-player";
 import loadingDots from "@/public/images/lottie/loadingDots.json";
 import styles from "./styles.module.css";
 import Cursor from "@/components/Cursor";
+import { AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
 
 type ConversationType = {
   userText: string;
@@ -14,6 +16,9 @@ type ConversationType = {
 };
 
 export default function MyModalContent() {
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+  const userName = session?.user?.name;
   const computerScreenRef = useRef<HTMLDivElement>(null);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -75,7 +80,7 @@ export default function MyModalContent() {
     if (sendResponse) {
       setSendResponse(false);
     }
-  }, [conversation, inputText, sendResponse]);
+  }, [conversation, inputText, sendResponse, session]);
 
   useEffect(() => {
     if (computerScreenRef.current) {
@@ -121,83 +126,114 @@ export default function MyModalContent() {
     backgroundRepeat: "round",
     display: "flex",
   };
+
+  const handleOnClick = (method: string) => {
+    signIn(method);
+  };
+
   return (
-    <Draggable
-      axis="both"
-      handle={".handle"}
-      defaultPosition={defaultPosXY}
-      grid={[1, 1]}
-      scale={1}
-      disabled={!dragMode}
-      // onStart={handleStart}
-      // onDrag={handleDrag}
-      // onStop={handleStop}
-    >
-      <motion.div
-        className={`z-[1] opacity-100 h-96 w-96 absolute flex justify-center items-center`}
-        style={screenImgStyle}
+    <>
+      <Draggable
+        axis="both"
+        handle={".handle"}
+        defaultPosition={defaultPosXY}
+        grid={[1, 1]}
+        scale={1}
+        disabled={!dragMode}
+        // onStart={handleStart}
+        // onDrag={handleDrag}
+        // onStop={handleStop}
       >
-        <div className="z-[2] text-black flex self-start w-4/5 items-center justify-around mt-6">
-          <p className={styles.dragText}>Drag mode: {dragMode ? "1" : "0"}</p>
-          <Switch
-            onColor={"#146714"}
-            height={20}
-            onChange={handleChange}
-            checked={dragMode}
-          />
-        </div>
-        <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md handle">
-          {conversation?.map((item: ConversationType, index: number) => {
-            const lastItemInList = index === conversation.length - 1;
-            return (
-              <div
-                ref={computerScreenRef}
-                key={index}
-                className="flex flex-col"
-                style={{ fontFamily: "'DEC VT100', monospace" }}
-              >
-                <span
-                  id="transition-modal-description"
-                  className="break-words text-lg text-blue-500 tablet:text-xl pl-1 pb-1 pr-1"
-                >
-                  {item.userText ? `You: ${item.userText}` : ""}
-                </span>
-                <span
-                  id="transition-modal-description"
-                  className="break-words text-lg tablet:text-xl pl-1 pb-1 flex flex-row"
-                >
-                  Greg:
-                  {loading && lastItemInList ? (
-                    <Lottie
-                      loop
-                      animationData={loadingDots}
-                      play
-                      rendererSettings={{
-                        preserveAspectRatio: "xMidYMid slice",
-                      }}
-                      className="h-[30px] w-20 .computerScreen"
-                    />
-                  ) : (
-                    item.botText
-                  )}
-                </span>
-                {!loading && lastItemInList && (
-                  <span className="pl-1">
-                    <Cursor />
-                  </span>
-                )}
+        <motion.div
+          className={`z-[1] opacity-100 h-96 w-96 absolute flex justify-center items-center`}
+          style={screenImgStyle}
+        >
+          <div className="z-[2] text-black flex self-start w-4/5 items-center justify-around mt-6">
+            <p className={styles.dragText}>Drag mode: {dragMode ? "1" : "0"}</p>
+            <Switch
+              onColor={"#146714"}
+              height={20}
+              onChange={handleChange}
+              checked={dragMode}
+            />
+          </div>
+          <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md handle">
+            {!userEmail ? (
+              <div>
+                <button onClick={() => handleOnClick("github")}>
+                  <AiFillGithub size={"2rem"} />
+                </button>
+                <button onClick={() => handleOnClick("google")}>
+                  <AiFillGoogleCircle size={"2rem"} />
+                </button>
               </div>
-            );
-          })}
-        </div>
-        <input
-          value={inputText}
-          placeholder="Ask me anything."
-          className={`bg-gray-400 h-12 w-60 absolute bottom-[-50px] rounded-[10px] placeholder-black px-2 ${styles.inputText}}`}
-          onChange={handleInputText}
-          onKeyDown={handleKeyDown}
-        />
-      </motion.div>
-    </Draggable>
+            ) : (
+              <div>
+                <p
+                  className="text-lg tablet:text-xl pl-1 pb-1"
+                  style={{ fontFamily: "'DEC VT100', monospace" }}
+                >
+                  Hi, {userName}!
+                </p>
+                {conversation?.map((item: ConversationType, index: number) => {
+                  const lastItemInList = index === conversation.length - 1;
+                  return (
+                    <div
+                      ref={computerScreenRef}
+                      key={index}
+                      className="flex flex-col"
+                      style={{ fontFamily: "'DEC VT100', monospace" }}
+                    >
+                      <span
+                        id="transition-modal-description"
+                        className="break-words text-lg text-blue-500 tablet:text-xl pl-1 pb-1 pr-1"
+                      >
+                        {item.userText
+                          ? `${userName?.split(" ")[0]}: ${item.userText}`
+                          : ""}
+                      </span>
+                      <span
+                        id="transition-modal-description"
+                        className="break-words text-lg tablet:text-xl pl-1 pb-1 flex flex-row"
+                      >
+                        Greg [A.I.]:
+                        {loading && lastItemInList ? (
+                          <Lottie
+                            loop
+                            animationData={loadingDots}
+                            play
+                            rendererSettings={{
+                              preserveAspectRatio: "xMidYMid slice",
+                            }}
+                            className="h-[30px] w-20 .computerScreen"
+                          />
+                        ) : (
+                          item.botText
+                        )}
+                      </span>
+                      {!loading && lastItemInList && (
+                        <span className="pl-1">
+                          <Cursor />
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <input
+            value={inputText}
+            placeholder={
+              !userEmail ? "Choose an option to sign in." : "Ask me anything."
+            }
+            className={`bg-gray-400 h-12 w-60 absolute bottom-[-50px] rounded-[10px] placeholder-black px-2 ${styles.inputText}}`}
+            onChange={handleInputText}
+            onKeyDown={handleKeyDown}
+            disabled={!userEmail}
+          />
+        </motion.div>
+      </Draggable>
+    </>
   );
 }

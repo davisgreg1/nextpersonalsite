@@ -39,7 +39,11 @@ export const HamburgerLink = ({
   path,
   cb,
 }: HamburgerLinkProps) => {
-  const pathname = usePathname();
+  let pathname = usePathname();
+
+  if (pathname?.includes("/blog/")) {
+    pathname = "/blog";
+  }
 
   const style = {
     border: `3px solid ${colors[id]}`,
