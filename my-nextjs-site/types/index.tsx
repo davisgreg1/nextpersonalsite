@@ -9,3 +9,15 @@ export type BlogPostType = {
     createdAt: string;
   };
 };
+
+export type DBConversationDataType = {
+  id: string;
+  question: string;
+  answer: string;
+  createdAt?: string;
+};
+
+export type DefaultConversationType = {
+  userText: string;
+  botText: string;
+};

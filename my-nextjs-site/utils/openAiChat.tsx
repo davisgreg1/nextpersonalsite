@@ -1,4 +1,6 @@
-export async function fireChatApi(inputText: string) {
+import prisma from "@/lib/prisma";
+
+export async function fireChatApi(inputText: string, email: string) {
   try {
     const DEFAULT_PARAMS = {
       model: "gpt-3.5-turbo",
@@ -13,6 +15,7 @@ export async function fireChatApi(inputText: string) {
       top_p: 0.3,
       frequency_penalty: 0.5,
       presence_penalty: 0,
+      user: email,
     };
     const params_ = { ...DEFAULT_PARAMS };
     const requestOptions = {
@@ -44,7 +47,18 @@ export async function fireChatApi(inputText: string) {
     const [results] = moderationData.results;
 
     if (results.flagged) {
-      return { error: "Your input has been flagged by the AI." };
+      await prisma.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          banned: true,
+        },
+      });
+      return {
+        error:
+          "Your input has been flagged by the AI and you are banned. Do better.",
+      };
     } else {
       const data = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -54,8 +68,6 @@ export async function fireChatApi(inputText: string) {
 
       return response;
     }
-
-
   } catch (error) {
     return error;
   }
