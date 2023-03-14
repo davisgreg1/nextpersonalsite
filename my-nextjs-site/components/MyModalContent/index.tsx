@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import useSwr from "swr";
+import { signIn, useSession } from "next-auth/react";
 import Switch from "react-switch";
 import Draggable from "react-draggable";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -8,16 +9,18 @@ import Lottie from "react-lottie-player";
 import loadingDots from "@/public/images/lottie/loadingDots.json";
 import styles from "./styles.module.css";
 import Cursor from "@/components/Cursor";
-import { AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
-
-type ConversationType = {
-  userText: string;
-  botText: string;
-};
+import {
+  AiFillGithub,
+  AiFillGoogleCircle,
+  AiFillFacebook,
+} from "react-icons/ai";
+import { hashString } from "@/utils/hashFunctions";
+import { DBConversationDataType, DefaultConversationType } from "@/types";
 
 export default function MyModalContent() {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
+  const hashedEmail = hashString(userEmail || "");
   const userName = session?.user?.name;
   const computerScreenRef = useRef<HTMLDivElement>(null);
   const [inputText, setInputText] = useState("");
@@ -28,6 +31,34 @@ export default function MyModalContent() {
   const isLargeScreen = useMediaQuery("only screen and (min-width: 720px)");
 
   useEffect(() => {
+    async function getConversation() {
+      try {
+        const response = await fetch(`/api/chat/${hashedEmail}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response) {
+          const data = await response.json();
+          if (data.data.length > 0) {
+            const newData = data?.data?.map((item: DBConversationDataType) => {
+              return {
+                userText: item.question,
+                botText: item.answer,
+              };
+            });
+            return setConversation(newData);
+          }
+        }
+      } catch (error) {
+        console.error({ error });
+      }
+    }
+    getConversation();
+  }, [hashedEmail]);
+
+  useEffect(() => {
     async function sendMessage(inputText: string) {
       try {
         const response = await fetch("/api/chat", {
@@ -35,7 +66,7 @@ export default function MyModalContent() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ inputText }),
+          body: JSON.stringify({ inputText, email: userEmail }),
         });
         if (response) {
           const data = await response.json();
@@ -80,7 +111,7 @@ export default function MyModalContent() {
     if (sendResponse) {
       setSendResponse(false);
     }
-  }, [conversation, inputText, sendResponse, session]);
+  }, [conversation, inputText, sendResponse, session, userEmail]);
 
   useEffect(() => {
     if (computerScreenRef.current) {
@@ -166,6 +197,9 @@ export default function MyModalContent() {
                 <button onClick={() => handleOnClick("google")}>
                   <AiFillGoogleCircle size={"2rem"} />
                 </button>
+                <button onClick={() => handleOnClick("facebook")}>
+                  <AiFillFacebook size={"2rem"} />
+                </button>
               </div>
             ) : (
               <div>
@@ -175,50 +209,54 @@ export default function MyModalContent() {
                 >
                   Hi, {userName}!
                 </p>
-                {conversation?.map((item: ConversationType, index: number) => {
-                  const lastItemInList = index === conversation.length - 1;
-                  return (
-                    <div
-                      ref={computerScreenRef}
-                      key={index}
-                      className="flex flex-col"
-                      style={{ fontFamily: "'DEC VT100', monospace" }}
-                    >
-                      <span
-                        id="transition-modal-description"
-                        className="break-words text-lg text-blue-500 tablet:text-xl pl-1 pb-1 pr-1"
+                {conversation?.map(
+                  (item: DefaultConversationType, index: number) => {
+                    const lastItemInList = index === conversation.length - 1;
+                    return (
+                      <div
+                        ref={computerScreenRef}
+                        key={index}
+                        className="flex flex-col"
+                        style={{ fontFamily: "'DEC VT100', monospace" }}
                       >
-                        {item.userText
-                          ? `${userName?.split(" ")[0]}: ${item.userText}`
-                          : ""}
-                      </span>
-                      <span
-                        id="transition-modal-description"
-                        className="break-words text-lg tablet:text-xl pl-1 pb-1 flex flex-row"
-                      >
-                        Greg [A.I.]:
-                        {loading && lastItemInList ? (
-                          <Lottie
-                            loop
-                            animationData={loadingDots}
-                            play
-                            rendererSettings={{
-                              preserveAspectRatio: "xMidYMid slice",
-                            }}
-                            className="h-[30px] w-20 .computerScreen"
-                          />
-                        ) : (
-                          item.botText
-                        )}
-                      </span>
-                      {!loading && lastItemInList && (
-                        <span className="pl-1">
-                          <Cursor />
+                        <span
+                          id="transition-modal-description"
+                          className="break-words text-lg text-blue-500 tablet:text-xl pl-1 pb-1 pr-1"
+                        >
+                          {item.userText
+                            ? `${userName?.split(" ")[0] || "You"}: ${
+                                item.userText
+                              }`
+                            : ""}
                         </span>
-                      )}
-                    </div>
-                  );
-                })}
+                        <span
+                          id="transition-modal-description"
+                          className="break-words text-lg tablet:text-xl pl-1 pb-1 flex flex-row"
+                        >
+                          Greg [A.I.]:
+                          {loading && lastItemInList ? (
+                            <Lottie
+                              loop
+                              animationData={loadingDots}
+                              play
+                              rendererSettings={{
+                                preserveAspectRatio: "xMidYMid slice",
+                              }}
+                              className="h-[30px] w-20 .computerScreen"
+                            />
+                          ) : (
+                            item.botText
+                          )}
+                        </span>
+                        {!loading && lastItemInList && (
+                          <span className="pl-1">
+                            <Cursor />
+                          </span>
+                        )}
+                      </div>
+                    );
+                  }
+                )}
               </div>
             )}
           </div>
