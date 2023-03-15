@@ -7,7 +7,8 @@ const words = [
   {word:"Software Engineer", color: "text-red-500"},
   {word:"Full Stack Developer", color: "text-yellow-500"},
   {word:"Tech Enthusiast", color: "text-green-500"},
-  {word:"Dreamer", color: "text-blue-500"}
+  {word:"Dreamer", color: "text-blue-500"},
+  {word:"Athlete", color: "text-rose-500"},
 ];
 
 const wordVariants = {

@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Lottie from "react-lottie-player";
 import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
 import { FormError } from "@/components/FormError";
@@ -16,6 +17,17 @@ interface SendEmailType {
 }
 
 function ContactForm() {
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+  const userName = session?.user?.name;
+
+  const trimmedUserName = userName?.trim();
+
+  const firstName = trimmedUserName?.split(" ")[0];
+
+  const firstNameAvailable = !!firstName;
+  const emailAvailable = !!userEmail;
+
   const schema = Yup.object().shape({
     name: Yup.string()
       .matches(/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g, {
@@ -92,7 +104,12 @@ function ContactForm() {
 
   return (
     <Formik
-      initialValues={{ name: "", email: "", subject: "", message: "" }}
+      initialValues={{
+        name: firstNameAvailable ? trimmedUserName : "",
+        email: emailAvailable ? userEmail : "",
+        subject: "",
+        message: "",
+      }}
       validationSchema={schema}
       onSubmit={handleSubmit}
     >

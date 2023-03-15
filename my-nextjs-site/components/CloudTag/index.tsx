@@ -1,4 +1,6 @@
 "use client";
+import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Cloud, renderSimpleIcon, ICloud } from "react-icon-cloud";
 import {
@@ -41,6 +43,14 @@ import {
   siContentful,
 } from "simple-icons";
 
+type SkillDescription = {
+  [key: string]: string;
+};
+
+type IconType = {
+  title: string;
+};
+
 const CloudTag = (props: any) => {
   const { ssrID } = props;
   const icons = [
@@ -82,125 +92,80 @@ const CloudTag = (props: any) => {
     siW3c,
     siContentful,
   ];
+  const { data: session } = useSession();
+
+  const userName = session?.user?.name;
+
+  const trimmedUserName = userName?.trim();
+
+  const firstName = trimmedUserName?.split(" ")[0];
+
+  const firstNameAvailable = !!firstName;
+
   const [skillSelectedDescription, setSkillSelectedDescription] = useState(
-    "Select one of my skills"
+    `Hi ${
+      firstNameAvailable ? firstName : "friend"
+    }, try clicking on one of my skills below to learn more about it.`
   );
 
-  const renderSkillDescription = (skill: string) => {
-    switch (skill) {
-      case "JavaScript":
-        return `Javascript is my primary language. I have experience with ES6,
-        TypeScript, React, Redux, Node.js, Express, and many other
-        technologies.
-        `;
-      case "Jest":
-        return `Jest is a testing framework for JavaScript I use. Lately, I find myself really enjoying react-testing-library to test my components.`;
+  const skillDescriptions: SkillDescription = {
+    JavaScript: `Javascript is my primary language. I have experience with ES6,
+    TypeScript, React, Redux, Node.js, Express, and many other
+    technologies.
+    `,
+    Jest: `Jest is a testing framework for JavaScript I use. Lately, I find myself really enjoying react-testing-library to test my components.`,
+    "Visual Studio Code": `Visual Studio Code is a code editor that I enjoy using daily.`,
+    JSON: `JSON is a data format that I use daily.`,
+    Trello: `Trello is a project management tool that I use for my team over at Money Captain and any personal projects.`,
+    jQuery: `JQuery is a JavaScript library. Although I have much experience with it, I don't use it as much lately.`,
+    npm: `NPM is a package manager for JavaScript. I use it daily. I also use yarn for managing dependencies.`,
+    Jira: `Jira is a project management tool that I use daily at AutoZone.com.`,
+    Redis: `Redis is a key-value store. I use it for caching data.`,
+    macOS: `MacOS is a platform that I use daily. Windows is OK, but I prefer macOS.`,
+    React: `React is a JavaScript library that I use daily.`,
+    CSS3: `CSS3 is a style sheet language. It's pretty much required to use CSS if you are a front end developer.`,
+    HTML5: `HTML5 is a markup language. One may not have a website without HTML. 🙂`,
+    Git: `Git is a version control system that I use daily. I use GitLab and GitHub.`,
+    Express: `Express is a web framework that I use daily. I really enjoy using it for those full stack projects.`,
+    PostgreSQL: `PostgreSQL is a database that I have a lot of experience with. I recently started trying out Sequelize to help work faster.`,
+    "Amazon AWS": `Amazon AWS is a cloud platform that I use with my personal projects.`,
+    TypeScript: `TypeScript is a JavaScript library. It's awesome. We use it over at AutoZone.com`,
+    "Node.js": `Node.js is a JavaScript runtime. It's pretty amazing with everything it has to offer.`,
+    Sequelize: `Sequelize is a database ORM. I just recently started using it and it's already positively impacted my work efficiency.`,
+    "Next.js": `Next.js is a web framework that I use daily. I built this website with Remix, but NextJS would have been just as much fun to use.`,
+    Activision: `Activision is a video game company that I really enjoy supporting. One of my favorite games is Call of Duty.`,
+    Auth0: `Auth0 is an authentication and authorization platform that I use daily. It's pretty awesome.`,
+    "Android Studio": `Android Studio is an IDE that I use often. I'm currently working on a mobile app for my team over at Money Captain.`,
+    Xcode: `Xcode is an IDE that I use often. I'm currently working on a mobile app for my team over at Money Captain.`,
+    "Apollo GraphQL": `Apollo GraphQL is a GraphQL client that I have an abundance of experience with.`,
+    Honda: `Honda is a car company that I really enjoy supporting. I have a 2022 Honda Pilot Black Edition.`,
+    Dogecoin: `Dogecoin is a cryptocurrency I invest in. I'm a big fan of Elon Musk.`,
+    [`McDonald's`]: `Pretty much an expert at ordering happy meals for the kids when the "I'm huunnnggryyyyy's!!!" start up. 🤣`,
+    Codewars: `Codewars is a website that I use to hone my coding skills.`,
+    Cognizant: `Cognizant is a company at which I am a senior software engineer.`,
+    Figma: `Figma is a design tool that I use daily.`,
+    Spotify: `Spotify is a music streaming service that I use daily. I love all genres of music.`,
+    Tidal: `Tidal is another music streaming service that I use daily. I love the high quality audio.`,
+    USPS: `USPS is a shipping company at which I decided to spend 1 year helping. It was an eye opening experience. Much respect to all the hard working people at USPS.`,
+    W3C: `I leveraged the standards and guidelines of W3C to lead the push to improve a11y for autozone.com.`,
+    Contentful: `Contentful is a content management system I use to create blogs for my personal website.`,
+  };
 
-      case "Visual Studio Code":
-        return `Visual Studio Code is a code editor that I enjoy using daily.`;
+  const bounceIn = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 500,
+        damping: 30,
+      },
+    },
+  };
 
-      case "JSON":
-        return `JSON is a data format that I use daily.`;
-
-      case "Trello":
-        return `Trello is a project management tool that I use for my team over at Money Captain.`;
-
-      case "jQuery":
-        return `JQuery is a JavaScript library. Although I have much experience with it, I don't use it as much lately.`;
-
-      case "npm":
-        return `NPM is a package manager for JavaScript. I use it daily. I also use yarn for managing dependencies.`;
-
-      case "Jira":
-        return `Jira is a project management tool that I use daily for my main job over at AutoZone.com.`;
-
-      case "Redis":
-        return `Redis is a key-value store. I use it for caching data.`;
-
-      case "macOS":
-        return `MacOS is a platform that I use daily. Windows is OK, but I prefer macOS.`;
-
-      case "React":
-        return `React is a JavaScript library that I use daily.`;
-
-      case "CSS3":
-        return `CSS3 is a style sheet language. It's pretty much required to use CSS if you are a dev.`;
-
-      case "HTML5":
-        return `HTML5 is a markup language. One may not have a website without HTML.`;
-
-      case "Git":
-        return `Git is a version control system that I use daily. I use GitLab and GitHub.`;
-
-      case "Express":
-        return `Express is a web framework that I use daily. I really enjoy using it for those full stack projects.`;
-
-      case "PostgreSQL":
-        return `PostgreSQL is a database that I have a lot of experience with. I recently started trying out Sequelize to help work faster.`;
-
-      case "Amazon AWS":
-        return `Amazon AWS is a cloud platform that I use with my personal projects.`;
-
-      case "TypeScript":
-        return `TypeScript is a JavaScript library. It's awesome. We use it over at AutoZone.com`;
-
-      case "Node.js":
-        return `Node.js is a JavaScript runtime. It's pretty amazing with everything it has to offer.`;
-
-      case "Sequelize":
-        return `Sequelize is a database ORM. I just recently started using it and it's already positively impacted my work efficiency.`;
-
-      case "Next.js":
-        return `Next.js is a web framework that I use daily. I built this website with Remix, but NextJS would have been just as much fun to use.`;
-
-      case "Activision":
-        return `Activision is a video game company that I really enjoy supporting. One of my favorite games is Call of Duty.`;
-
-      case "Auth0":
-        return `Auth0 is an authentication and authorization platform that I use daily. It's pretty awesome.`;
-
-      case "Android Studio":
-        return `Android Studio is an IDE that I use often. I'm currently working on a mobile app for my team over at Money Captain.`;
-
-      case "Xcode":
-        return `Xcode is an IDE that I use often. I'm currently working on a mobile app for my team over at Money Captain.`;
-
-      case "Apollo GraphQL":
-        return `Apollo GraphQL is a GraphQL client that I have an abundance of experience with.`;
-
-      case "Honda":
-        return `Honda is a car company that I really enjoy supporting. I have a 2022 Honda Pilot Black Edition.`;
-
-      case "Dogecoin":
-        return `Dogecoin is a cryptocurrency that I really enjoy supporting. I, unfortunately, have a few Dogecoins.`;
-
-      case `McDonald's`:
-        return `Pretty much an expert at ordering happy meals for the kids.`;
-
-      case "Codewars":
-        return `Codewars is a website that I use to hone my coding skills.`;
-
-      case "Cognizant":
-        return `Cognizant is a company at which I am a senior software engineer.`;
-
-      case "Figma":
-        return `Figma is a design tool that I use daily.`;
-
-      case "Spotify":
-        return `Spotify is a music streaming service that I use daily.`;
-
-      case "Tidal":
-        return `Tidal is a music streaming service that I use daily.`;
-
-      case "USPS":
-        return `USPS is a shipping company that I used to work for. It was an eye opening experience.`;
-
-      case "W3C":
-        return `W3C is a website that I used to lead the push to improve a11y for autozone.com.`;
-
-      case "Contentful":
-        return `Contentful is a content management system that I use with my personal website.`;
-    }
+  const renderSkillDescription = (skill: string): string => {
+    return skillDescriptions[skill] || "";
   };
 
   const makeProps = (): Partial<ICloud> & { root: React.CSSProperties } => ({
@@ -246,8 +211,9 @@ const CloudTag = (props: any) => {
   });
 
   const makeIcons = () =>
-    icons?.map((icon: any) => {
-      const description = renderSkillDescription(icon.title);
+    icons?.map((icon: IconType) => {
+      const { title } = icon;
+      const description = renderSkillDescription(title);
       return renderSimpleIcon({
         icon,
         minContrastRatio: 3,
@@ -260,21 +226,9 @@ const CloudTag = (props: any) => {
           rel: undefined,
           onClick: (e: any) => {
             e.preventDefault();
-            const skillsDescriptionText = document.getElementById(
-              "skillsDescriptionText"
-            );
-            const skillDescriptionHome = document.getElementById(
-              "skillDescriptionHome"
-            );
-            if (skillsDescriptionText) {
-              if (description) {
-                skillsDescriptionText.innerHTML = description;
-              }
-            }
-            if (skillDescriptionHome) {
-              if (description) {
-                skillDescriptionHome.innerHTML = icon.title;
-              }
+
+            if (description) {
+              setSkillSelectedDescription(description);
             }
           },
         },
@@ -284,9 +238,17 @@ const CloudTag = (props: any) => {
   const cloudIcons = makeIcons();
 
   return (
-    <>
-      <div className="flex justify-center items-center flex-col">
-        {<p className="pb-8 absolute top-14" id="skillDescriptionHome" />}
+    <div className="flex justify-center items-center flex-col">
+      <motion.p
+        className="py-8 absolute top-14 px-4"
+        id="skillDescriptionHome"
+        initial="hidden"
+        animate="visible"
+        variants={bounceIn}
+      >
+        {skillSelectedDescription}
+      </motion.p>
+      <div className="mt-32 mx-4">
         <Cloud
           containerProps={constructedProps.containerProps}
           options={constructedProps.options}
@@ -295,7 +257,7 @@ const CloudTag = (props: any) => {
           {cloudIcons}
         </Cloud>
       </div>
-    </>
+    </div>
   );
 };
 export default CloudTag;

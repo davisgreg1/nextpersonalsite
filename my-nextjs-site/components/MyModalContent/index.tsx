@@ -190,7 +190,7 @@ export default function MyModalContent() {
           </div>
           <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md handle">
             {!userEmail ? (
-              <div>
+              <div className="flex justify-evenly">
                 <button onClick={() => handleOnClick("github")}>
                   <AiFillGithub size={"2rem"} />
                 </button>
@@ -221,19 +221,24 @@ export default function MyModalContent() {
                       >
                         <span
                           id="transition-modal-description"
-                          className="break-words text-lg text-blue-500 tablet:text-xl pl-1 pb-1 pr-1"
+                          className="break-words text-lg text-blue-400 tablet:text-xl pl-1 pb-1 pr-1"
                         >
-                          {item.userText
-                            ? `${userName?.split(" ")[0] || "You"}: ${
-                                item.userText
-                              }`
-                            : ""}
+                          <span className="text-blue-300">
+                            {item.userText
+                              ? `${
+                                  userName?.split(" ")[0]
+                                    ? userName?.split(" ")[0]
+                                    : "You"
+                                }: `
+                              : ""}
+                          </span>
+                          <span>{item.userText}</span>
                         </span>
                         <span
                           id="transition-modal-description"
-                          className="break-words text-lg tablet:text-xl pl-1 pb-1 flex flex-row"
+                          className="break-words text-lg tablet:text-xl pl-1 py-4 flex-row inline"
                         >
-                          Greg [A.I.]:
+                          <span className="text-[#a19494]">Greg [A.I.]: </span>
                           {loading && lastItemInList ? (
                             <Lottie
                               loop
@@ -245,7 +250,7 @@ export default function MyModalContent() {
                               className="h-[30px] w-20 .computerScreen"
                             />
                           ) : (
-                            item.botText
+                            <span>{item.botText}</span>
                           )}
                         </span>
                         {!loading && lastItemInList && (
