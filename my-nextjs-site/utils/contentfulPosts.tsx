@@ -11,11 +11,11 @@ const client = contentful.createClient({
 export async function fetchEntries() {
   const entries = await client.getEntries();
   if (entries.items) return entries.items;
-  console.log(`Error getting Entries.`);
+  console.error(`Error getting Entries.`);
 }
 
 export async function fetchEntry(id: string) {
   const entry = await client.getEntry(id);
   if (entry) return entry;
-  console.log(`Error getting Entry.`);
+  console.error(`Error getting Entry.`);
 }

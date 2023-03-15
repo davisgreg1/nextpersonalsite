@@ -20,6 +20,16 @@ export default async function chatHandler(
         if (inputText.length > 10) {
           const response = await fireChatApi(inputText, hashedEmail);
           if (response) {
+            if (response.error) {
+              return res.status(403).json({
+                data: [
+                  {
+                    question: "Why am I seeing this message?",
+                    answer: "\n" + "\n" + `${response.error}`,
+                  },
+                ],
+              });
+            }
             const data = await response;
             const existingUser = await prisma.user.findFirst({
               where: {
@@ -61,7 +71,7 @@ export default async function chatHandler(
           );
         }
       } catch (error) {
-        console.error(error);
+        console.error({ error });
         res.status(500).json({
           data: [
             {

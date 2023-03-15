@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cloud, renderSimpleIcon, ICloud } from "react-icon-cloud";
 import {
   siJavascript,
@@ -102,11 +102,15 @@ const CloudTag = (props: any) => {
 
   const firstNameAvailable = !!firstName;
 
-  const [skillSelectedDescription, setSkillSelectedDescription] = useState(
-    `Hi ${
-      firstNameAvailable ? firstName : "friend"
-    }, try clicking on one of my skills below to learn more about it.`
-  );
+  useEffect(() => {
+    setSkillSelectedDescription(
+      `Hi ${
+        firstNameAvailable ? firstName : "friend"
+      }, try clicking on one of my skills below to learn more about it.`
+    );
+  }, [firstName, firstNameAvailable]);
+
+  const [skillSelectedDescription, setSkillSelectedDescription] = useState("");
 
   const skillDescriptions: SkillDescription = {
     JavaScript: `Javascript is my primary language. I have experience with ES6,
@@ -132,17 +136,17 @@ const CloudTag = (props: any) => {
     TypeScript: `TypeScript is a JavaScript library. It's awesome. We use it over at AutoZone.com`,
     "Node.js": `Node.js is a JavaScript runtime. It's pretty amazing with everything it has to offer.`,
     Sequelize: `Sequelize is a database ORM. I just recently started using it and it's already positively impacted my work efficiency.`,
-    "Next.js": `Next.js is a web framework that I use daily. I built this website with Remix, but NextJS would have been just as much fun to use.`,
+    "Next.js": `Next.js is a web framework that I use daily. I built this website with Next JS.`,
     Activision: `Activision is a video game company that I really enjoy supporting. One of my favorite games is Call of Duty.`,
     Auth0: `Auth0 is an authentication and authorization platform that I use daily. It's pretty awesome.`,
     "Android Studio": `Android Studio is an IDE that I use often. I'm currently working on a mobile app for my team over at Money Captain.`,
     Xcode: `Xcode is an IDE that I use often. I'm currently working on a mobile app for my team over at Money Captain.`,
     "Apollo GraphQL": `Apollo GraphQL is a GraphQL client that I have an abundance of experience with.`,
-    Honda: `Honda is a car company that I really enjoy supporting. I have a 2022 Honda Pilot Black Edition.`,
+    Honda: `Honda is a car company that I really enjoy supporting. My family enjoys our Honda Pilot.`,
     Dogecoin: `Dogecoin is a cryptocurrency I invest in. I'm a big fan of Elon Musk.`,
     [`McDonald's`]: `Pretty much an expert at ordering happy meals for the kids when the "I'm huunnnggryyyyy's!!!" start up. 🤣`,
     Codewars: `Codewars is a website that I use to hone my coding skills.`,
-    Cognizant: `Cognizant is a company at which I am a senior software engineer.`,
+    Cognizant: `Cognizant is a global organization at which I am a senior software engineer.`,
     Figma: `Figma is a design tool that I use daily.`,
     Spotify: `Spotify is a music streaming service that I use daily. I love all genres of music.`,
     Tidal: `Tidal is another music streaming service that I use daily. I love the high quality audio.`,
@@ -190,7 +194,7 @@ const CloudTag = (props: any) => {
     },
     // https://www.goat1000.com/tagcanvas-options.php
     options: {
-      clickToFront: 500,
+      clickToFront: 900,
       depth: 1,
       imageScale: 2,
       initial: [0.1, -0.1],
@@ -198,10 +202,10 @@ const CloudTag = (props: any) => {
       reverse: true,
       tooltipDelay: 0,
       wheelZoom: false,
-      maxSpeed: 0.06,
+      maxSpeed: 0.01,
       freezeActive: true,
       freezeDecel: true,
-      shuffleTags: true,
+      shuffleTags: false,
       radiusX: 0.9,
       radiusY: 0.9,
       radiusZ: 0.9,
