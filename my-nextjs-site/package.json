@@ -32,6 +32,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^10.2.5",
     "googleapis": "^112.0.0",
+    "gpt3-tokenizer": "^1.1.5",
     "kofi-button": "^1.1.1",
     "mysql2": "^3.2.0",
     "next": "^13.2.4",

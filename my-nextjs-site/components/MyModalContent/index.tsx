@@ -73,7 +73,7 @@ export default function MyModalContent() {
           return data;
         }
       } catch (error) {
-        console.error(error);
+        console.error({ error });
       }
     }
     if (inputText.length > 10 && sendResponse) {
@@ -99,7 +99,7 @@ export default function MyModalContent() {
               ...conversation,
               {
                 userText: inputText,
-                botText: `A.I. is sleeping 😴 now. Try again later.`,
+                botText: `Try with a shorter question, or go chat 💬 with Greg to fix.`,
               },
             ]);
           });
@@ -236,7 +236,9 @@ export default function MyModalContent() {
                         </span>
                         <span
                           id="transition-modal-description"
-                          className="break-words text-lg tablet:text-xl pl-1 py-4 flex-row inline"
+                          className={`break-words text-lg tablet:text-xl pl-1 py-4 flex-row ${
+                            loading && lastItemInList ? "flex" : "inline"
+                          }`}
                         >
                           <span className="text-[#a19494]">Greg [A.I.]: </span>
                           {loading && lastItemInList ? (
