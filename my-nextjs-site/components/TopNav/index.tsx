@@ -15,9 +15,6 @@ const linkVariants = {
       damping: 20,
     },
   },
-  tap: {
-    scale: 0.9,
-  },
 };
 
 function TopNav() {
