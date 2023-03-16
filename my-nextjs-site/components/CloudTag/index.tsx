@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Cloud, renderSimpleIcon, ICloud } from "react-icon-cloud";
 import {
   siJavascript,
@@ -102,16 +102,6 @@ const CloudTag = (props: any) => {
 
   const firstNameAvailable = !!firstName;
 
-  useEffect(() => {
-    setSkillSelectedDescription(
-      `Hi ${
-        firstNameAvailable ? firstName : "friend"
-      }, try clicking on one of my skills below to learn more about it.`
-    );
-  }, [firstName, firstNameAvailable]);
-
-  const [skillSelectedDescription, setSkillSelectedDescription] = useState("");
-
   const skillDescriptions: SkillDescription = {
     JavaScript: `Javascript is my primary language. I have experience with ES6,
     TypeScript, React, Redux, Node.js, Express, and many other
@@ -144,7 +134,7 @@ const CloudTag = (props: any) => {
     "Apollo GraphQL": `Apollo GraphQL is a GraphQL client that I have an abundance of experience with.`,
     Honda: `Honda is a car company that I really enjoy supporting. My family enjoys our Honda Pilot.`,
     Dogecoin: `Dogecoin is a cryptocurrency I invest in. I'm a big fan of Elon Musk.`,
-    [`McDonald's`]: `Pretty much an expert at ordering happy meals for the kids when the "I'm huunnnggryyyyy's!!!" start up. 🤣`,
+    [`McDonald's`]: `Pretty much an expert at ordering happy meals for the kids when the, "I'm huunnnggryyyyy's!!!" start up. 🤣`,
     Codewars: `Codewars is a website that I use to hone my coding skills.`,
     Cognizant: `Cognizant is a global organization at which I am a senior software engineer.`,
     Figma: `Figma is a design tool that I use daily.`,
@@ -202,7 +192,7 @@ const CloudTag = (props: any) => {
       reverse: true,
       tooltipDelay: 0,
       wheelZoom: false,
-      maxSpeed: 0.01,
+      maxSpeed: 0.02,
       freezeActive: true,
       freezeDecel: true,
       shuffleTags: false,
@@ -230,9 +220,13 @@ const CloudTag = (props: any) => {
           rel: undefined,
           onClick: (e: any) => {
             e.preventDefault();
-
-            if (description) {
-              setSkillSelectedDescription(description);
+            const skillDescriptionHome = document.getElementById(
+              "skillDescriptionHome"
+            );
+            if (skillDescriptionHome) {
+              if (description) {
+                skillDescriptionHome.innerHTML = description;
+              }
             }
           },
         },
@@ -243,16 +237,20 @@ const CloudTag = (props: any) => {
 
   return (
     <div className="flex justify-center items-center flex-col">
-      <motion.p
-        className="py-8 absolute top-14 px-4"
-        id="skillDescriptionHome"
-        initial="hidden"
-        animate="visible"
-        variants={bounceIn}
-      >
-        {skillSelectedDescription}
-      </motion.p>
-      <div className="mt-32 mx-4">
+      {
+        <motion.p
+          className="px-4 flex"
+          id="skillDescriptionHome"
+          initial="hidden"
+          animate="visible"
+          variants={bounceIn}
+        >
+          {`Hi ${
+            firstNameAvailable ? firstName : "friend"
+          }, try clicking on one of my skills below to learn more about it.`}
+        </motion.p>
+      }
+      <div className="mt-4 mx-4">
         <Cloud
           containerProps={constructedProps.containerProps}
           options={constructedProps.options}
