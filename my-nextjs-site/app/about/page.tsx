@@ -33,7 +33,7 @@ export default function About() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
 
-  const url = "/images/meNYC.jpg";
+  const url = "/images/meSepia.jpeg";
   const id = "background-img";
 
   const [showLetters, setShowLetters] = useState(false);
