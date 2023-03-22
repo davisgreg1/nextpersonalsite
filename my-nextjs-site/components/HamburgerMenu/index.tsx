@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "react-use";
 import HamburgerLink from "./HamburgerLink";
@@ -8,6 +8,7 @@ import {
   AnimatePresence,
   useMotionValue,
   useMotionValueEvent,
+  useAnimation,
 } from "framer-motion";
 import styles from "./styles.module.css";
 
@@ -70,13 +71,14 @@ const hamburgerMenuItems = [
 ];
 
 const HamburgerMenu = () => {
+  const controls = useAnimation();
   const x = useMotionValue(0);
   const { width } = useWindowSize();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
 
   const maxDragDistance = width - 70; // subtract the width of the hamburger button
-  const dragConstraints = { left: 0, right: maxDragDistance };
 
   useMotionValueEvent(x, "animationComplete", () => {
     const currentX = x.get();
@@ -88,36 +90,49 @@ const HamburgerMenu = () => {
     }
   });
 
+  useEffect(() => {
+    setDragConstraints({ left: 0, right: width - 70 });
+  }, [width]);
+
   const handleClick = () => setIsOpen(!isOpen);
 
   return (
-    <div className="relative p-4">
-      <motion.div
-        className="hamburger absolute z-[2]"
-        style={{ x }}
-        drag={isOpen ? false : "x"}
-        dragConstraints={dragConstraints}
-        onClick={handleClick}
-        transition={{ type: "spring", damping: 30, stiffness: 200 }}
-      >
+    <div className="relative p-4 w-full">
+      <div className="w-full h-[45px]">
         <motion.div
-          className={`${styles.bar}`}
-          variants={barVariants}
-          animate={isOpen ? "x" : "closed"}
-        />
-        <motion.div
-          className={`${styles.bar}`}
-          variants={barVariants}
-          animate={isOpen ? "y" : "closed"}
-          transition={{ delay: 0.1 }}
-        />
-        <motion.div
-          className={`${styles.bar}`}
-          variants={barVariants}
-          animate={isOpen ? "open" : "closed"}
-          transition={{ delay: 0.1 }}
-        />
-      </motion.div>
+          className="hamburger absolute z-[2]"
+          style={{ x }}
+          drag={isOpen ? false : "x"}
+          dragConstraints={dragConstraints}
+          onDragEnd={(event, info) => {
+            if (info.point.x < width / 2) {
+              x.set(0);
+            } else {
+              x.set(width - 70);
+            }
+          }}
+          onClick={handleClick}
+          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+        >
+          <motion.div
+            className={`${styles.bar}`}
+            variants={barVariants}
+            animate={isOpen ? "x" : "closed"}
+          />
+          <motion.div
+            className={`${styles.bar}`}
+            variants={barVariants}
+            animate={isOpen ? "y" : "closed"}
+            transition={{ delay: 0.1 }}
+          />
+          <motion.div
+            className={`${styles.bar}`}
+            variants={barVariants}
+            animate={isOpen ? "open" : "closed"}
+            transition={{ delay: 0.1 }}
+          />
+        </motion.div>
+      </div>
       <AnimatePresence>
         {isOpen && (
           <motion.div
