@@ -71,3 +71,8 @@ body {
   filter: blur(0);
   transform: translateX(0);
 }
+
+.cmsEntry {
+  display: contents;
+  color: gray;
+}

@@ -23,7 +23,7 @@ const BlogPage = ({ params }: { params: Params }) => {
         </div>
         <div className="h-full px-4 py-2 flex">
           <div
-            className={`h-full w-full text-black ${styles.content}`}
+            className={`h-full w-full text-black prose lg:prose-xl ${styles.content}`}
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
