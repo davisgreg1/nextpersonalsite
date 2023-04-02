@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next/types";
-import TopNav from "@/components/TopNav";
+import App from "@/components/App";
 import Provider from "./Provider";
 
 export const metadata: Metadata = {
@@ -39,8 +39,7 @@ export default async function RootLayout({
       <head />
       <body className="bg-[#0d47a1] dark:bg-black">
         <Provider>
-          <TopNav />
-          {children}
+          <App>{children}</App>
         </Provider>
       </body>
     </html>

@@ -16,7 +16,7 @@ const BlogPage = ({ params }: { params: Params }) => {
   return (
     <>
       <div
-        className={`bg-white dark:bg-black shadow-lg rounded-lg m-4 mt-24 overflow-scroll tablet:mt-24`}
+        className={`bg-white dark:bg-black shadow-lg rounded-lg m-4 mt-36 overflow-scroll tablet:mt-36`}
       >
         <div className="px-4 py-2">
           <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
