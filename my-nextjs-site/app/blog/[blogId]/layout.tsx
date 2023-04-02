@@ -1,5 +1,6 @@
 import "../../globals.css";
 import { fetchEntry } from "@/utils/contentfulPosts";
+import Link from "next/link";
 
 // Dynamic metadata
 export async function generateMetadata({
@@ -20,5 +21,12 @@ export default function SpecificBlogLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>
+  return (
+    <>
+      <Link className="absolute left-0 p-4 top-[70px]" href="/blog">
+        ⏮️ Back to blog
+      </Link>
+      {children}
+    </>
+  );
 }

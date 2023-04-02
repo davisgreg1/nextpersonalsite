@@ -277,7 +277,7 @@ export default function MyModalContent() {
                     >
                       <span
                         id="transition-modal-description"
-                        className="break-words text-lg text-blue-400 tablet:text-xl pl-1 pb-1 pr-1"
+                        className="break-words text-lg tablet:text-xl text-blue-400 pl-1 pb-1 pr-1"
                       >
                         <span className="text-blue-300">
                           {item.userText
