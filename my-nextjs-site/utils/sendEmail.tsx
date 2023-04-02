@@ -10,15 +10,24 @@ interface SendEmailType {
 }
 
 const sendEmail = async (data: SendEmailType) => {
+  console.log("🚀 ~ file: sendEmail.tsx:13 ~ sendEmail ~ data:", data);
+  const serviceID = process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID as string;
+  const templateID = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID as string;
+  const publicKey = process.env.NEXT_PUBLIC_EMAIL_API_KEY as string;
+  const privateKey = process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY as string;
+  const options = {
+    publicKey,
+    privateKey, // optional, highly recommended for security reasons
+  };
+  const templateParams = {
+    ...data,
+  };
   try {
     const result = await emailjs.send(
-      process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
-      process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID,
-      data,
-      {
-        publicKey: process.env.NEXT_PUBLIC_EMAIL_API_KEY,
-        privateKey: process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY, // optional, highly recommended for security reasons
-      }
+      serviceID,
+      templateID,
+      templateParams,
+      options
     );
     return result;
   } catch (error) {
