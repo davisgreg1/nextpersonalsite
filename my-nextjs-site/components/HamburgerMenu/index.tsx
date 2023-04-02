@@ -115,18 +115,18 @@ const HamburgerMenu = () => {
           transition={{ type: "spring", damping: 30, stiffness: 200 }}
         >
           <motion.div
-            className={`${styles.bar}`}
+            className={`${isOpen ? styles.barOpen : styles.bar}`}
             variants={barVariants}
             animate={isOpen ? "x" : "closed"}
           />
           <motion.div
-            className={`${styles.bar}`}
+            className={`${isOpen ? styles.barOpen : styles.bar}`}
             variants={barVariants}
             animate={isOpen ? "y" : "closed"}
             transition={{ delay: 0.1 }}
           />
           <motion.div
-            className={`${styles.bar}`}
+            className={`${isOpen ? styles.barOpen : styles.bar}`}
             variants={barVariants}
             animate={isOpen ? "open" : "closed"}
             transition={{ delay: 0.1 }}

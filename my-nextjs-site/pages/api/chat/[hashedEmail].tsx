@@ -36,12 +36,12 @@ export default async function chatHandler(
             },
           },
           orderBy: {
-            createdAt: "asc",
+            createdAt: "desc",
           } as any,
           take: 15,
         });
 
-        res.status(200).json({ data: conversations });
+        res.status(200).json({ data: conversations.reverse() });
       } catch (error) {
         console.error(error);
         res.status(500).json({

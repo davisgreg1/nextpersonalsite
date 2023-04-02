@@ -109,7 +109,7 @@ function TopNav() {
           </ul>
         </nav>
       </div>
-      <div className="z-[3] flex fixed tablet:hidden w-full">
+      <div className="z-[3] flex fixed tablet:hidden w-14">
         <HamburgerMenu />
       </div>
     </>

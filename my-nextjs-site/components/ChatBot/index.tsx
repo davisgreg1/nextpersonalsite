@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Lottie from "react-lottie-player";
 import { signOut, useSession } from "next-auth/react";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -13,6 +13,12 @@ function ChatBot() {
   const [showModal, setShowModal] = useState(false);
 
   const handleOnClick = () => setShowModal(!showModal);
+
+  useEffect(() => {
+    if (!!userEmail) {
+      setShowModal(true);
+    }
+  }, [userEmail]);
 
   return (
     <div id="chatBotId" className="flex w-[60%] tablet:w-1/3 cursor-pointer">
@@ -29,7 +35,8 @@ function ChatBot() {
         <>
           {userEmail && (
             <button
-              className={`z-50 text-red-50 fixed top-0 right-0 p-4`}
+              id="signOutButton"
+              className={`z-50 fixed top-0 right-0 p-4 cursor-pointer`}
               onClick={() => signOut()}
             >
               <AiOutlineLogout size={"2rem"} />

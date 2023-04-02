@@ -5,6 +5,7 @@ import MyModalContent from "@/components/MyModalContent";
 export default function AIModal() {
   return (
     <motion.div
+      id="draggableParent"
       initial={{ scale: 0, y: -200 }}
       animate={{ scale: 1, y: 0 }}
       exit={{ scale: 0, y: -200 }}

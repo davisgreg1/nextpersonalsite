@@ -1,12 +1,21 @@
-.bar {
+.bar,
+.barOpen {
   width: 35px;
   height: 5px;
-  background-color: rgb(32, 30, 30);
   margin: 6px 0;
 }
 
+.barOpen {
+  background-color: rgb(32, 30, 30);
+}
+
+.bar {
+  background-color: white;
+}
+
 @media (prefers-color-scheme: dark) {
-  .bar {
+  .bar,
+  .barOpen {
     background-color: #a7aec7;
   }
   .menuItem {
