@@ -16,7 +16,7 @@ const Footer = () => {
   const path = usePathname();
 
   return (
-    path !== "/" && (
+    path !== "/" ? (
       <footer className="bg-transparent p-4 flex flex-col items-center justify-center space-y-4">
         <div className="flex space-x-4">
           <motion.a
@@ -69,7 +69,7 @@ const Footer = () => {
           Made with ❤️ in NYC
         </motion.p>
       </footer>
-    )
+    ) : null
   );
 };
 
