@@ -6,16 +6,16 @@ export default function AIModal() {
   return (
     <motion.div
       id="draggableParent"
-      initial={{ scale: 0, y: -200 }}
+      initial={{ scale: 10, y: -10 }}
       animate={{ scale: 1, y: 0 }}
-      exit={{ scale: 0, y: -200 }}
       transition={{
         type: "spring",
-        stiffness: 400,
-        damping: 25,
-        mass: 0.5,
+        stiffness: 100,
+        damping: 20,
+        mass: 1.4,
+        duration: 1.5,
       }}
-      className="z-[4] flex flex-col w-full h-full"
+      className="z-[4] absolute left-[35%] top-[35%]"
     >
       <MyModalContent />
     </motion.div>

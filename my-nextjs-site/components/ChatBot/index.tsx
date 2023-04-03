@@ -22,15 +22,17 @@ function ChatBot() {
 
   return (
     <div id="chatBotId" className="flex w-[60%] tablet:w-1/3 cursor-pointer">
-      <Lottie
-        loop
-        animationData={chatBotJson}
-        play
-        className={`relative z-[1] flex ${showModal ? "top-0" : ""} ${
-          styles.animate
-        }`}
-        onClick={handleOnClick}
-      />
+      {!showModal && (
+        <Lottie
+          loop
+          animationData={chatBotJson}
+          play
+          className={`relative z-[1] flex ${showModal ? "top-0" : ""} ${
+            styles.animate
+          }`}
+          onClick={handleOnClick}
+        />
+      )}
       {showModal && (
         <>
           {userEmail && (

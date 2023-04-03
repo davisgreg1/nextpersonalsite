@@ -13,7 +13,7 @@ import Cursor from "@/components/Cursor";
 import {
   AiFillGithub,
   AiFillGoogleCircle,
-  AiFillFacebook,
+  // AiFillFacebook,
 } from "react-icons/ai";
 import { hashString } from "@/utils/hashFunctions";
 import { DBConversationDataType, DefaultConversationType } from "@/types";
@@ -210,9 +210,9 @@ export default function MyModalContent() {
                 <button onClick={() => handleOnClick("google")}>
                   <AiFillGoogleCircle size={"3rem"} />
                 </button>
-                <button onClick={() => handleOnClick("facebook")}>
+                {/* <button onClick={() => handleOnClick("facebook")}>
                   <AiFillFacebook size={"3rem"} />
-                </button>
+                </button> */}
               </div>
               {showAnimation && (
                 <Lottie
