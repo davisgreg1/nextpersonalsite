@@ -1,0 +1,10 @@
+@media (prefers-color-scheme: dark) {
+  .footerText {
+    color: #a7aec7;
+  }
+}
+@media (prefers-color-scheme: light) {
+  .footerText {
+    color: black;
+  }
+}
