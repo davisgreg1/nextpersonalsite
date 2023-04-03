@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
 import { FaFacebook, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import styles from "./styles.module.css";
 
@@ -14,9 +14,7 @@ const iconVariants = {
 };
 
 const Footer = () => {
-  const path = usePathname();
-
-  return path !== "/" ? (
+  return (
     <footer className="bg-transparent p-4 flex flex-col items-center justify-center space-y-4">
       <div className="flex space-x-4">
         <motion.a
@@ -69,7 +67,7 @@ const Footer = () => {
         Made with ❤️ in NYC
       </motion.p>
     </footer>
-  ) : null;
+  );
 };
 
 export default Footer;
