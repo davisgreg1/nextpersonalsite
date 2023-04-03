@@ -160,11 +160,7 @@ export default function MyModalContent() {
 
   // const handleStart = () => console.log("handleStart");
   // const handleDrag = () => console.log("handleDrag");
-  // const handleStop = () => {
-  //   setTimeout(() => {
-  //     setDragMode(false);
-  //   }, 1000);
-  // };
+  const handleStop = () => setDragMode(false);
 
   const defaultPosXY = isLargeScreen ? { x: 0, y: 0 } : { x: -150, y: -150 };
 
@@ -175,9 +171,7 @@ export default function MyModalContent() {
     display: "flex",
   };
 
-  const handleOnClick = (method: string) => {
-    signIn(method);
-  };
+  const handleOnClick = (method: string) => signIn(method);
 
   return (
     <Draggable
@@ -189,7 +183,7 @@ export default function MyModalContent() {
       disabled={!dragMode}
       // onStart={handleStart}
       // onDrag={handleDrag}
-      // onStop={handleStop}
+      onStop={handleStop}
     >
       <motion.div
         className={`z-[1] opacity-100 h-96 w-96 absolute flex justify-center items-center`}

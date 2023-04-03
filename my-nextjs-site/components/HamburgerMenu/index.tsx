@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { useWindowSize } from "react-use";
 import HamburgerLink from "./HamburgerLink";
 import {
@@ -8,7 +7,6 @@ import {
   AnimatePresence,
   useMotionValue,
   useMotionValueEvent,
-  useAnimation,
 } from "framer-motion";
 import styles from "./styles.module.css";
 
@@ -70,29 +68,38 @@ const hamburgerMenuItems = [
   { id: 4, name: "Contact", icon: "📧", path: "/contact" },
 ];
 
+// Custom hook to calculate the drag constraints
+// const useDragConstraints = (width: number) => {
+//   const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
+
+//   useEffect(() => {
+//     setDragConstraints({ left: 0, right: width - 70 });
+//   }, [width]);
+
+//   return dragConstraints;
+// };
+
 const HamburgerMenu = () => {
-  const controls = useAnimation();
   const x = useMotionValue(0);
   const { width } = useWindowSize();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
+  const [resizing, setResizing] = useState(false);
 
-  const maxDragDistance = width - 70; // subtract the width of the hamburger button
+  // Use the custom hook to calculate the drag constraints
+  // const dragConstraints = useDragConstraints(width);
 
-  useMotionValueEvent(x, "animationComplete", () => {
-    const currentX = x.get();
-    const halfOfScreen = width / 2;
-    if (currentX < halfOfScreen) {
-      x.set(0);
-    } else {
-      x.set(maxDragDistance);
-    }
-  });
+  // const maxDragDistance = width - 70; // subtract the width of the hamburger button
 
-  useEffect(() => {
-    setDragConstraints({ left: 0, right: width - 70 });
-  }, [width]);
+  // useMotionValueEvent(x, "animationComplete", () => {
+  //   const currentX = x.get();
+  //   const halfOfScreen = width / 2;
+  //   if (currentX < halfOfScreen) {
+  //     x.set(0);
+  //   } else {
+  //     x.set(maxDragDistance);
+  //   }
+  // });
 
   const handleClick = () => setIsOpen(!isOpen);
 
@@ -102,15 +109,15 @@ const HamburgerMenu = () => {
         <motion.div
           className="hamburger absolute z-[2]"
           style={{ x }}
-          drag={isOpen ? false : "x"}
-          dragConstraints={dragConstraints}
-          onDragEnd={(event, info) => {
-            if (info.point.x < width / 2) {
-              x.set(0);
-            } else {
-              x.set(width - 70);
-            }
-          }}
+          // drag={isOpen ? false : "x"}
+          // dragConstraints={dragConstraints}
+          // onDragEnd={(event, info) => {
+          //   if (info.point.x < width / 2) {
+          //     x.set(0);
+          //   } else {
+          //     x.set(width - 70);
+          //   }
+          // }}
           onClick={handleClick}
           transition={{ type: "spring", damping: 30, stiffness: 200 }}
         >

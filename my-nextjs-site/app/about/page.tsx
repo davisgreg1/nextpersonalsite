@@ -17,6 +17,7 @@ import workerJson from "@/public/images/lottie/workerJson.json";
 import pursuitPng from "@/public/images/pursuit.png";
 import mcLogo from "@/public/images/mcLogo.png";
 import AboutMeText from "@/components/AboutMeText";
+import Footer from "@/components/Footer";
 
 export default function About() {
   const router = useRouter();

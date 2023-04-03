@@ -4,34 +4,12 @@ import MyIntro from "@/components/MyIntro";
 
 export default function HomeComp() {
   useEffect(() => {
-    const sections = document.querySelectorAll(".section");
-    const options = {
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const target = entry.target as HTMLElement;
-          scrollTo({
-            top: target.offsetTop,
-            behavior: "smooth",
-          });
-        }
-      });
-    }, options);
-
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-  });
+    console.log("Hi Carmelo, Semira, Cam and Justice!");
+  }, []);
 
   return (
-    <>
-      <main className="snap-mandatory snap-y">
-        <MyIntro />
-      </main>
-    </>
+    <main className="snap-mandatory snap-y">
+      <MyIntro />
+    </main>
   );
 }

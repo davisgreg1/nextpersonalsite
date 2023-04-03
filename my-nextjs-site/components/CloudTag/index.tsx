@@ -176,7 +176,6 @@ const CloudTag = (props: any) => {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        paddingTop: 40,
         backgroundImage:
           "radial-gradient( circle, rgb(11, 34, 238) 0%, rgb(15, 120, 181) 100%, rgb(17, 216, 251) 50% )",
         borderRadius: "777px",
@@ -236,10 +235,10 @@ const CloudTag = (props: any) => {
   const cloudIcons = makeIcons();
 
   return (
-    <div className="flex justify-center items-center flex-col">
+    <div className="flex justify-evenly items-center flex-col">
       {
         <motion.p
-          className="px-4 flex"
+          className="px-4 flex h-28 tablet:pt-12 justify-center items-center"
           id="skillDescriptionHome"
           initial="hidden"
           animate="visible"
@@ -250,7 +249,7 @@ const CloudTag = (props: any) => {
           }, try clicking on one of my skills below to learn more about it.`}
         </motion.p>
       }
-      <div className="mt-4 mx-4">
+      <div className="mx-4 flex">
         <Cloud
           containerProps={constructedProps.containerProps}
           options={constructedProps.options}

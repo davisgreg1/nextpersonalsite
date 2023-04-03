@@ -1,7 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next/types";
-import App from "@/components/App";
 import Provider from "./Provider";
+import TopNav from "@/components/TopNav";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +40,11 @@ export default async function RootLayout({
       <head />
       <body className="bg-[#0d47a1] dark:bg-black">
         <Provider>
-          <App>{children}</App>
+          <>
+            <TopNav />
+            {children}
+            <Footer />
+          </>
         </Provider>
       </body>
     </html>
