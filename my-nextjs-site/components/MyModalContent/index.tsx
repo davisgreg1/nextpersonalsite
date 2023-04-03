@@ -211,13 +211,13 @@ export default function MyModalContent() {
             <>
               <div className="flex justify-evenly">
                 <button onClick={() => handleOnClick("github")}>
-                  <AiFillGithub size={"2rem"} />
+                  <AiFillGithub size={"3rem"} />
                 </button>
                 <button onClick={() => handleOnClick("google")}>
-                  <AiFillGoogleCircle size={"2rem"} />
+                  <AiFillGoogleCircle size={"3rem"} />
                 </button>
                 <button onClick={() => handleOnClick("facebook")}>
-                  <AiFillFacebook size={"2rem"} />
+                  <AiFillFacebook size={"3rem"} />
                 </button>
               </div>
               {showAnimation && (
