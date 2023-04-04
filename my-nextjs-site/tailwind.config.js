@@ -16,6 +16,9 @@ module.exports = {
       "5xl": "3.052rem",
     },
     extend: {
+      textShadow: {
+        default: "0 1px 3px rgba(0, 0, 0, 0.5)",
+      },
       colors: {
         background: "#F7F7F7",
         foreground: "#0d0b15",
@@ -104,9 +107,9 @@ module.exports = {
     },
   },
   plugins: [
-    require("@tailwindcss/line-clamp"),
     require("@tailwindcss/container-queries"),
-    require('@tailwindcss/typography'),
+    require("@tailwindcss/typography"),
+    require("tailwindcss-textshadow"),
   ],
 };
 

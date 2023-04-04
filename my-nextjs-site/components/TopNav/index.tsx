@@ -42,7 +42,7 @@ function TopNav() {
               whileTap="tap"
             >
               <Link
-                className={`${styles.menuLink} ${
+                className={`text-shadow text-xl ${styles.menuLink} ${
                   isActive("/") ? "underline underline-offset-4" : ""
                 }`}
                 href="/"
@@ -56,7 +56,7 @@ function TopNav() {
               whileTap="tap"
             >
               <Link
-                className={`${styles.menuLink} ${
+                className={`text-shadow text-xl ${styles.menuLink} ${
                   isActive("/about") ? "underline underline-offset-4" : ""
                 }`}
                 href="/about"
@@ -70,7 +70,7 @@ function TopNav() {
               whileTap="tap"
             >
               <Link
-                className={`${styles.menuLink} ${
+                className={`text-shadow text-xl ${styles.menuLink} ${
                   isActive("/skills") ? "underline underline-offset-4" : ""
                 }`}
                 href="/skills"
@@ -84,7 +84,7 @@ function TopNav() {
               whileTap="tap"
             >
               <Link
-                className={`${styles.menuLink} ${
+                className={`text-shadow text-xl ${styles.menuLink} ${
                   isActive("/blog") ? "underline underline-offset-4" : ""
                 }`}
                 href="/blog"
@@ -98,7 +98,7 @@ function TopNav() {
               whileTap="tap"
             >
               <Link
-                className={`${styles.menuLink} ${
+                className={`text-shadow text-xl ${styles.menuLink} ${
                   isActive("/contact") ? "underline underline-offset-4" : ""
                 }`}
                 href="/contact"
