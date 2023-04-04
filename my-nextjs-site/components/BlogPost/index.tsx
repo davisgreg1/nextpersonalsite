@@ -21,14 +21,25 @@ function BlogPost({ post }: { post: BlogPostType }) {
 
   const handleLinkClick = () => setIsClicked(false);
 
+  const randomColor = () => {
+    const h = Math.floor(Math.random() * 360);
+    const s = Math.floor(Math.random() * 100);
+    const l = Math.floor(Math.random() * 100);
+    return `hsl(${h}, ${s}%, ${l}%)`;
+  };
+
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.85 }}
       onClick={handleCardClick}
       style={{ position: "relative", userSelect: "none" }}
     >
       <div
-        className={`m-4 w-[250px] h-[350px] bg-background ${styles.blogCard}`}
+        className={`shadow-2xl m-4 w-[250px] h-[350px] ${styles.blogCard}`}
+        style={{
+          background: `linear-gradient(40deg, ${randomColor()} 30%, ${randomColor()} 100%)`,
+        }}
       >
         <Link
           id="blog-link"
@@ -38,14 +49,16 @@ function BlogPost({ post }: { post: BlogPostType }) {
         />
         <div className="flex flex-col h-full justify-end items-start pb-[46px] px-4">
           <div className="grid place-items-start grid-rows-3 gap-4">
-            <div className="dark:text-[#a7aec7]">{date}</div>
             <span
-              className="line-clamp-2"
+              className="line-clamp-2 text-shadow text-xl"
               dangerouslySetInnerHTML={{ __html: content }}
             />
-            <div>
-              <span>By:</span>{" "}
-              <span className="dark:text-[#a7aec7]">Gregory Davis</span>
+            <div className="absolute bottom-0 mb-4">
+              <span className="text-shadow">By:</span>{" "}
+              <span className="dark:text-[#a7aec7] text-shadow">
+                Gregory Davis
+              </span>
+              <div className="dark:text-[#a7aec7] text-shadow">{date}</div>
             </div>
           </div>
         </div>
