@@ -55,7 +55,7 @@ function BlogPost({ post }: { post: BlogPostType }) {
             />
             <div className="absolute bottom-0 mb-4">
               <span className="text-shadow">By:</span>{" "}
-              <span className="dark:text-[#a7aec7] text-shadow">
+              <span className="text-shadow">
                 Gregory Davis
               </span>
               <div className="dark:text-[#a7aec7] text-shadow">{date}</div>
