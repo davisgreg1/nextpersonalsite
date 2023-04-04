@@ -238,7 +238,7 @@ const CloudTag = (props: any) => {
     <div className="flex justify-evenly items-center flex-col">
       {
         <motion.p
-          className="px-4 flex h-28 tablet:pt-12 justify-center items-center"
+          className="px-4 flex h-28 tablet:pt-12 justify-center items-center dark:text-[#a7aec7]"
           id="skillDescriptionHome"
           initial="hidden"
           animate="visible"
