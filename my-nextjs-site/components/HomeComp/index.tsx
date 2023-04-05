@@ -8,7 +8,7 @@ export default function HomeComp() {
   }, []);
 
   return (
-    <main className="snap-mandatory snap-y">
+    <main>
       <MyIntro />
     </main>
   );
