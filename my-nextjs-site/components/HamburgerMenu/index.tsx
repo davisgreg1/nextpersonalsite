@@ -86,6 +86,22 @@ const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [resizing, setResizing] = useState(false);
 
+  useEffect(() => {
+    // close the menu if anywhere outside the menu is clicked
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.closest(".hamburger") === null) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   // Use the custom hook to calculate the drag constraints
   // const dragConstraints = useDragConstraints(width);
 
@@ -143,7 +159,7 @@ const HamburgerMenu = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-white shadow-lg w-72 dark:bg-black dark:text-white pt-4"
+            className="hamburger fixed inset-0 bg-white shadow-lg w-72 dark:bg-black dark:text-white pt-4"
             style={{
               top: 0,
               right: x.get() > width / 2 ? 0 : "unset",
