@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Lottie from "react-lottie-player";
 import { signOut, useSession } from "next-auth/react";
-import { AiOutlineLogout } from "react-icons/ai";
+import { GoSignOut } from "react-icons/go";
 import AIModal from "@/components/AIModal";
 import chatBotJson from "@/public/images/lottie/chatBot.json";
 import styles from "./styles.module.css";
@@ -41,7 +41,7 @@ function ChatBot() {
               className={`z-50 fixed top-0 right-0 p-4 cursor-pointer`}
               onClick={() => signOut()}
             >
-              <AiOutlineLogout size={"2rem"} />
+              <GoSignOut size={"2rem"} />
             </button>
           )}
           <div className="z-[1] w-full h-full flex justify-center items-center">
