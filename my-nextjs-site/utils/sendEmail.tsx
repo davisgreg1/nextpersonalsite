@@ -10,7 +10,6 @@ interface SendEmailType {
 }
 
 const sendEmail = async (data: SendEmailType) => {
-  console.log("🚀 ~ file: sendEmail.tsx:13 ~ sendEmail ~ data:", data);
   const serviceID = process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID as string;
   const templateID = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID as string;
   const publicKey = process.env.NEXT_PUBLIC_EMAIL_API_KEY as string;
