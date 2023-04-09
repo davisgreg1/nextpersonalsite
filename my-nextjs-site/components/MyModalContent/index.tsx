@@ -203,16 +203,35 @@ export default function MyModalContent() {
         <div className="bg-[#146714] h-44 w-60 absolute top-12 overflow-scroll pt-2 border-transparent rounded-md handle">
           {!userEmail ? (
             <>
-              <div className="flex justify-evenly">
-                <button onClick={() => handleOnClick("github")}>
-                  <AiFillGithub size={"3rem"} />
-                </button>
-                <button onClick={() => handleOnClick("google")}>
-                  <AiFillGoogleCircle size={"3rem"} />
-                </button>
-                {/* <button onClick={() => handleOnClick("facebook")}>
+              <div className="flex justify-evenly flex-col">
+                <div className="flex justify-evenly">
+                  <button onClick={() => handleOnClick("github")}>
+                    <AiFillGithub size={"3rem"} />
+                  </button>
+                  <button onClick={() => handleOnClick("google")}>
+                    <AiFillGoogleCircle size={"3rem"} />
+                  </button>
+                  {/* <button onClick={() => handleOnClick("facebook")}>
                   <AiFillFacebook size={"3rem"} />
                 </button> */}
+                </div>
+                <div>
+                  <p>
+                    <span
+                      className="text-lg tablet:text-xl p-4 flex flex-col leading-5"
+                      style={{ fontFamily: "'DEC VT100', monospace" }}
+                    >
+                      <span>
+                        <span className="text-blue-500">Sign in</span> above to
+                        use the A.I. chat.
+                      </span>
+                      <span className="pt-2">
+                        <span className="text-blue-500">Enable drag mode</span>{" "}
+                        to reposition this computer.
+                      </span>
+                    </span>
+                  </p>
+                </div>
               </div>
               {showAnimation && (
                 <Lottie
@@ -320,7 +339,7 @@ export default function MyModalContent() {
         <input
           value={inputText}
           placeholder={
-            !userEmail ? "Choose an option to sign in." : "Ask me anything."
+            !userEmail ? "Sign in to ask me anything." : "Ask me anything."
           }
           className={`bg-gray-400 h-12 w-60 absolute bottom-[-50px] rounded-[10px] placeholder-black px-2 ${styles.inputText}}`}
           onChange={handleInputText}
