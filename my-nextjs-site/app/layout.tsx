@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next/types";
+import { Analytics } from "@vercel/analytics/react";
 import Provider from "./Provider";
 import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
@@ -46,6 +47,7 @@ export default async function RootLayout({
             <Footer />
           </>
         </Provider>
+        <Analytics />
       </body>
     </html>
   );
