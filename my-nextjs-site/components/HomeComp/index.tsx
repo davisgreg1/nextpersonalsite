@@ -4,7 +4,7 @@ import MyIntro from "@/components/MyIntro";
 
 export default function HomeComp() {
   useEffect(() => {
-    console.log("Hi Carmelo, Semira, Cam and Justice!");
+    console.log("Hi Buddah, Semira, Cam and Justice!");
   }, []);
 
   return (
