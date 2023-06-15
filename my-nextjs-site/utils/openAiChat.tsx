@@ -2,11 +2,11 @@ import prisma from "@/lib/prisma";
 import { getTokens } from "@/lib/tokenizer";
 
 export async function fireChatApi(inputText: string, email: string) {
-  const command = `reply in a funny way using facts in less than 150 characters: `;
+  const command = `reply in a funny way using facts in less than 350 characters: `;
   const userQuestion = `${command}${inputText}`;
   try {
     const DEFAULT_PARAMS = {
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-0613",
       messages: [
         {
           role: "user",
@@ -14,7 +14,7 @@ export async function fireChatApi(inputText: string, email: string) {
         },
       ],
       temperature: 0.5,
-      max_tokens: 60,
+      max_tokens: 300,
       top_p: 0.3,
       frequency_penalty: 0.5,
       presence_penalty: 0,
