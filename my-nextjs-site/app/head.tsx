@@ -14,7 +14,7 @@ export default function Head() {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'GTM-KC2Z5C7', {
+        gtag('config', 'G-FTB6JXX6N4', {
           page_path: window.location.pathname,
         });
         `,
@@ -22,7 +22,7 @@ export default function Head() {
           />
           <Script
             defer
-            src={`https://www.googletagmanager.com/gtag/js?id=GTM-KC2Z5C7`}
+            src={`https://www.googletagmanager.com/gtag/js?id=G-FTB6JXX6N4`}
           />
         </>
       )}
