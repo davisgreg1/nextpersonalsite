@@ -52,7 +52,7 @@ export default async function RootLayout({
           async
           src="https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js"
         ></script>
-        {process.env.NODE_ENV !== "development" ? null : (
+        {process.env.NODE_ENV === "development" ? null : (
           <>
             <script
               async
