@@ -222,8 +222,8 @@ export default function MyModalContent() {
                       style={{ fontFamily: "'DEC VT100', monospace" }}
                     >
                       <span>
-                        <span className="text-blue-500">Sign in</span> above to
-                        use the A.I. chat.
+                        <span className="text-blue-500">Click</span> an option above, sign in and try
+                        my A.I.!
                       </span>
                       <span className="pt-2">
                         <span className="text-blue-500">Enable drag mode</span>{" "}
