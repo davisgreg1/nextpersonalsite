@@ -6,7 +6,7 @@ export async function fireChatApi(inputText: string, email: string) {
   const userQuestion = `${command}${inputText}`;
   try {
     const DEFAULT_PARAMS = {
-      model: "gpt-4-0613",
+      model: "gpt-4",
       messages: [
         {
           role: "user",
