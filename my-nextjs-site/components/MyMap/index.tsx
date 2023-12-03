@@ -9,7 +9,7 @@ const MyMap = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || "",
   });
 
-  const center = useMemo(() => ({ lat: 40.7465, lng: -74.0014 }), []);
+  const center = useMemo(() => ({ lat: 35.14198, lng: -90.05591 }), []);
 
   const containerStyle = {
     width: "100%",

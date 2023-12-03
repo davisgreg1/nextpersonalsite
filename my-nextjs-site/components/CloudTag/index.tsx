@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { Cloud, renderSimpleIcon, ICloud } from "react-icon-cloud";
 import {
+  siOpenai,
   siJavascript,
   siTypescript,
   siNextdotjs,
@@ -39,7 +40,7 @@ import {
   siSpotify,
   siTidal,
   siUsps,
-  siW3c,
+  // siW3schools,
   siContentful,
 } from "simple-icons";
 
@@ -89,8 +90,9 @@ const CloudTag = (props: any) => {
     siSpotify,
     siTidal,
     siUsps,
-    siW3c,
+    // siW3schools,
     siContentful,
+    siOpenai,
   ];
   const { data: session } = useSession();
 
@@ -141,8 +143,9 @@ const CloudTag = (props: any) => {
     Spotify: `Spotify is a music streaming service that I use daily. I love all genres of music.`,
     Tidal: `Tidal is another music streaming service that I use daily. I love the high quality audio.`,
     USPS: `USPS is a shipping company at which I decided to spend 1 year helping. It was an eye opening experience. Much respect to all the hard working people at USPS.`,
-    W3C: `I leveraged the standards and guidelines of W3C to lead the push to improve a11y for autozone.com.`,
+    // W3C: `I leveraged the standards and guidelines of W3C to lead the push to improve a11y for autozone.com.`,
     Contentful: `Contentful is a content management system I use to create blogs for my personal website.`,
+    OpenAI: `OpenAI is a company that I am very interested in. I'm currently learning more about GPT-4 and how I can leverage it to help me with my projects.`,
   };
 
   const bounceIn = {
