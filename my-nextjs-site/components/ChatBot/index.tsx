@@ -64,10 +64,12 @@ function ChatBot() {
         <>
           {userEmail && (
             <button
+              title="Sign Out"
+              type="button"
               id="signOutButton"
               className={`z-50 fixed top-0 right-0 p-4 cursor-pointer`}
               onClick={() => signOut()}>
-              <GoSignOut size={"2rem"} />
+              <GoSignOut color="white" size={"2rem"} />
             </button>
           )}
           <div className="z-[1] w-full h-full flex justify-center items-center">
