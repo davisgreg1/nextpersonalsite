@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next/types";
+import type { Metadata, Viewport } from "next/types";
 import Provider from "./Provider";
 import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
@@ -17,11 +17,6 @@ export const metadata: Metadata = {
   applicationName: "Next.js",
   keywords: ["Next.js", "React", "JavaScript", "Gregory Davis", "blog"],
   authors: [{ name: "Gregory Davis", url: "https://www.gregdavistech.com" }],
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#a7aec7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d47a1" },
-  ],
-  colorScheme: "dark",
   creator: "Gregory Davis",
   publisher: "Gregory Davis",
   alternates: {
@@ -32,13 +27,20 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+  // viewport: {
+  //   width: "device-width",
+  //   initialScale: 1,
+  //   maximumScale: 1,
+  // },
   category: "technology",
 };
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#a7aec7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d47a1" },
+  ],
+  colorScheme: "dark",
+}
 
 export default async function RootLayout({
   children,
