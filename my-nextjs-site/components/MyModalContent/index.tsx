@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import useSwr from "swr";
 import { signIn, useSession } from "next-auth/react";
 import Switch from "react-switch";
 import Draggable from "react-draggable";
