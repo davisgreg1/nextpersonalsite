@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 export default async function chatHandler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const {
     method,
@@ -15,7 +15,12 @@ export default async function chatHandler(
   switch (method) {
     case "POST":
       try {
+        if (!email || !inputText) {
+          throw new Error("Both email and input text are required.");
+        }
+
         const hashedEmail = hashString(email);
+        console.log("GREG LOOK! ~ hashedEmail:", hashedEmail);
 
         if (inputText.length > 10) {
           const response = await fireChatApi(inputText, hashedEmail);
@@ -25,72 +30,82 @@ export default async function chatHandler(
                 data: [
                   {
                     question: "Why am I seeing this message?",
-                    answer: "\n" + "\n" + `${response.error}`,
+                    answer: `\n\n${response.error}`,
                   },
                 ],
               });
             }
-            const data = await response;
-            const existingUser = await prisma.user.findFirst({
+
+            let existingUser = await prisma.user.findFirst({
               where: {
                 email: hashedEmail,
               },
             });
 
-            const userIsBanned = Boolean(existingUser?.banned);
-
-            if (!existingUser && !userIsBanned) {
-              await prisma.user.create({
+            // If user doesn't exist, create a new one
+            if (!existingUser) {
+              console.log("Creating new user");
+              existingUser = await prisma.user.create({
                 data: {
                   email: hashedEmail,
-                  userId: hashedEmail,
+                  userid: hashedEmail,
+                  updatedat: new Date(),
                 },
               });
-              // user with this email already exists, return an error or do something else
             }
+
+            // Check if the user is banned
+            const userIsBanned = existingUser.banned === 1;
+
             if (!userIsBanned) {
+              // Create a new conversation record
               await prisma.conversation.create({
                 data: {
                   question: inputText,
-                  answer: data?.choices[0]?.message?.content,
-                  user: {
-                    connect: {
-                      email: hashedEmail,
-                    },
-                  },
+                  answer:
+                    response.choices[0]?.message?.content ||
+                    "No answer available",
+                  user_id: existingUser.id, // Link the conversation to the user
                 },
               });
+
+              return res.status(200).json({ data: response });
+            } else {
+              return res.status(403).json({
+                data: [
+                  {
+                    question: "Why am I seeing this message?",
+                    answer: "\n\nYou are banned from using this service.",
+                  },
+                ],
+              });
             }
-            res.status(200).json({ data });
           } else {
-            throw new Error("No response received from pages API.");
+            throw new Error("No response received from OpenAI API.");
           }
         } else {
-          throw new Error(
-            "Not enough characters in request. Need 10 at least."
-          );
+          throw new Error("Input text must be at least 10 characters.");
         }
       } catch (error) {
-        console.error({ error });
+        console.error("Error:", error);
         res.status(500).json({
           data: [
             {
               question: "Why am I seeing this message?",
-              answer:
-                "\n" + "\n" + `Because something broke ☹️. Greg is on it!`,
+              answer: "\n\nBecause something broke ☹️. Greg is on it!",
             },
           ],
         });
       }
       break;
+
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
-      res.status(405).end({
+      res.setHeader("Allow", ["POST"]);
+      res.status(405).json({
         data: [
           {
             question: "Why am I seeing this message?",
-            answer:
-              "\n" + "\n" + `Because Method: ${method} is not allowed. 😕`,
+            answer: `\n\nMethod ${method} is not allowed.`,
           },
         ],
       });
