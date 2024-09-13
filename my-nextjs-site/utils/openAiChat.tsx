@@ -58,7 +58,7 @@ export async function fireChatApi(inputText: string, email: string) {
           email: email,
         },
         data: {
-          banned: true,
+          banned: 1,
         },
       });
       return {
