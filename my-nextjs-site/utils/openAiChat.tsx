@@ -6,8 +6,9 @@ export async function fireChatApi(inputText: string, email: string) {
   const userQuestion = `${command}${inputText}`;
   try {
     const DEFAULT_PARAMS = {
-      model: "gpt-4",
+      model: "gpt-4o-mini",
       messages: [
+        { role: "system", content: "You are a funny helpful assistant to Greg." },
         {
           role: "user",
           content: userQuestion,
@@ -45,7 +46,7 @@ export async function fireChatApi(inputText: string, email: string) {
 
     const moderationsRes = await fetch(
       "https://api.openai.com/v1/moderations",
-      moderationOptions
+      moderationOptions,
     );
     const moderationData = await moderationsRes.json();
 
@@ -69,7 +70,7 @@ export async function fireChatApi(inputText: string, email: string) {
     } else {
       const data = await fetch(
         "https://api.openai.com/v1/chat/completions",
-        requestOptions
+        requestOptions,
       );
       const response = await data.json();
 

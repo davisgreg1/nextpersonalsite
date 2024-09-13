@@ -1,31 +1,43 @@
-datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id           Int            @id @default(autoincrement())
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  conversation Conversation[]
-  userId       String
-  email        String         @unique
-  banned       Boolean        @default(false)
+datasource db {
+  provider     = "cockroachdb"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-model Conversation {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [user_id], references: [id])
-  user_id   Int
-  question  String   @db.VarChar(500) // allow up to 500 characters for question
-  answer    String   @db.VarChar(1000) // allow up to 1000 characters for answer
+model migration_internal_statements {
+  statement_order BigInt @id
+  statement_id    String @unique @db.Uuid
+  data            Json?
+
+  @@map("_migration_internal_statements")
+}
+
+model conversation {
+  createdat DateTime  @default(now())
+  updatedat DateTime? @updatedAt
+  id        String    @id @default(uuid())
+  user_id   String
+  question  String    @db.String(500)
+  answer    String    @db.String(1000)
+  user      user      @relation(fields: [user_id], references: [id])
 
   @@index([user_id])
+}
+
+model user {
+  id            String         @id @default(uuid())
+  createdat     DateTime       @default(now())
+  updatedat     DateTime?      @updatedAt
+  userid        String         @db.String(191)
+  email         String         @unique @db.String(191)
+  banned        Int?           @default(0) @db.Int2
+  conversations conversation[]
+}
+
+enum crdb_internal_region {
+  gcp_us_east1 @map("gcp-us-east1")
 }
