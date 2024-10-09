@@ -20,7 +20,6 @@ export default async function chatHandler(
         }
 
         const hashedEmail = hashString(email);
-        console.log("GREG LOOK! ~ hashedEmail:", hashedEmail);
 
         if (inputText.length > 10) {
           const response = await fireChatApi(inputText, hashedEmail);
@@ -105,7 +104,7 @@ export default async function chatHandler(
         data: [
           {
             question: "Why am I seeing this message?",
-            answer: `\n\nMethod ${method} is not allowed.`,
+            answer: `\n\nMethod: "${method}" is not allowed.`,
           },
         ],
       });

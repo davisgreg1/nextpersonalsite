@@ -338,7 +338,7 @@ export default function MyModalContent() {
         <input
           value={inputText}
           placeholder={
-            !userEmail ? "Sign in to ask me anything." : "Ask me anything."
+            !userEmail ? "Sign in to ask about me." : "Ask me anything."
           }
           className={`bg-gray-400 h-12 w-60 absolute bottom-[-50px] rounded-[10px] placeholder-black px-2 ${styles.inputText}}`}
           onChange={handleInputText}
