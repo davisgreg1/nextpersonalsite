@@ -18,7 +18,8 @@ function ChatBot() {
     `Try clicking on me!`,
     `Hi, I am your AI assistant.`,
     `How can I help you?`,
-    `Ask me questions!`,
+    `Ask me questions about Greg!`,
+    `Ask me questions about anything!`
   ];
   const [dynamicText, setDynamicText] = useState(dynamicTextArr[0]);
 
