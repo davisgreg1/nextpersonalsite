@@ -55,7 +55,7 @@ const AboutDesktop = () => {
       isImg={true}
       imgURL={pursuitPng}
       handleOnClick={() =>
-        window.open("https://pursuit.org/blog/the-skys-the-limit")
+        window.open("https://www.pursuit.org/")
       }
       buttonText="Visit"
     />,
