@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const words = [
-  {word:"Father", color: "text-orange-500"},
-  {word:"Web Developer", color: "text-purple-500"},
-  {word:"Software Engineer", color: "text-red-500"},
-  {word:"Full Stack Developer", color: "text-yellow-500"},
-  {word:"Tech Enthusiast", color: "text-green-500"},
-  {word:"Dreamer", color: "text-blue-500"},
-  {word:"Athlete", color: "text-rose-500"},
+  { word: "Father", color: "text-orange-500" },
+  { word: "Web Developer", color: "text-purple-500" },
+  { word: "Software Engineer", color: "text-red-500" },
+  { word: "Full Stack Developer", color: "text-yellow-500" },
+  { word: "Tech Enthusiast", color: "text-green-500" },
+  { word: "Dreamer", color: "text-blue-500" },
+  { word: "Athlete", color: "text-rose-500" },
 ];
 
 const wordVariants = {
@@ -60,12 +60,10 @@ const MorphingWords = () => {
       animate={animate}
       exit="exit"
       transition={wordTransition}
-      className={`font-bold text-4xl select-none ${words[index].color}`}
-    >
+      className={`font-bold text-4xl select-none ${words[index].color}`}>
       {words[index].word}
     </motion.div>
   );
 };
-
 
 export default MorphingWords;
