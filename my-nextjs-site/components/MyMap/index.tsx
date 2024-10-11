@@ -9,7 +9,23 @@ const MyMap = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || "",
   });
 
-  const center = useMemo(() => ({ lat: 35.14198, lng: -90.05591 }), []);
+  const locations = [
+    { lat: 35.14198, lng: -90.05591 }, // Memphis
+    { lat: 32.7767, lng: -96.797 }, // Dallas, TX
+    { lat: 36.1627, lng: -86.7816 }, // Nashville, TN
+    { lat: 19.7496, lng: -70.517 }, // Sosua, Dominican Republic
+    { lat: 32.5839, lng: -117.1131 }, // Imperial Beach, CA
+    { lat: 40.8116, lng: -73.9456 }, // Harlem Hospital, NYC
+    { lat: 43.1009, lng: -75.2327 }, // Utica, NY
+    { lat: 33.749, lng: -84.388 }, // Atlanta, GA
+  ];
+
+  const getRandomLocation = () => {
+    const randomIndex = Math.floor(Math.random() * locations.length);
+    return locations[randomIndex];
+  };
+
+  const center = useMemo(() => getRandomLocation(), []);
 
   const containerStyle = {
     width: "100%",
@@ -42,8 +58,7 @@ const MyMap = () => {
   return !isLoaded ? (
     <div
       className="flex justify-center items-center self-center m-auto h-screen"
-      aria-label="Gregory location"
-    >
+      aria-label="Gregory location">
       Map loading...
       <Lottie
         loop
@@ -58,8 +73,7 @@ const MyMap = () => {
       center={center}
       options={mapOptions}
       onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
+      onUnmount={onUnmount}>
       <MarkerF
         key="Greg Map Marker"
         animation={google.maps.Animation.DROP}

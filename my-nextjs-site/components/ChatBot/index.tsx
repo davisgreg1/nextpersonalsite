@@ -19,7 +19,7 @@ function ChatBot() {
     `Hi, I am your AI assistant.`,
     `How can I help you?`,
     `Ask me questions about Greg!`,
-    `Ask me questions about anything!`
+    `Ask me questions about anything!`,
   ];
   const [dynamicText, setDynamicText] = useState(dynamicTextArr[0]);
 
@@ -70,7 +70,10 @@ function ChatBot() {
               id="signOutButton"
               className={`z-50 fixed top-0 right-0 p-4 cursor-pointer`}
               onClick={() => signOut()}>
-              <GoSignOut color="white" size={"2rem"} />
+              <div className={styles.signOutContainer}>
+                <GoSignOut color="white" size={"2rem"} />
+                <span>Sign out</span>
+              </div>
             </button>
           )}
           <div className="z-[1] w-full h-full flex justify-center items-center">
