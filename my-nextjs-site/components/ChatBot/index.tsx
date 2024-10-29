@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Lottie from "react-lottie-player";
 import { signOut, useSession } from "next-auth/react";
 import cx from "classnames";
@@ -7,11 +7,12 @@ import { GoSignOut } from "react-icons/go";
 import AIModal from "@/components/AIModal";
 import chatBotJson from "@/public/images/lottie/chatBot.json";
 import styles from "./styles.module.css";
+import { ChatBotContext } from "../ChatBotProvider";
 
 function ChatBot() {
   const { data: session } = useSession();
+  const { isChatOpen, setIsChatOpen } = useContext(ChatBotContext);
   const userEmail = session?.user?.email;
-  const [showModal, setShowModal] = useState(false);
   const [showHint, setShowHint] = useState(true);
 
   const dynamicTextArr = [
@@ -23,11 +24,11 @@ function ChatBot() {
   ];
   const [dynamicText, setDynamicText] = useState(dynamicTextArr[0]);
 
-  const handleOnClick = () => setShowModal(!showModal);
+  const handleOnClick = () => setIsChatOpen(!isChatOpen);
 
   useEffect(() => {
     if (!!userEmail) {
-      setShowModal(true);
+      setIsChatOpen(true);
     }
   }, [userEmail]);
 
@@ -45,23 +46,19 @@ function ChatBot() {
 
   return (
     <div id="chatBotId" className="flex w-[60%] tablet:w-1/3 cursor-pointer">
-      {!showModal && (
+      {!isChatOpen && (
         <Lottie
           loop
           animationData={chatBotJson}
           play
           data-hint-text={dynamicText}
-          className={cx(
-            `relative z-[1] flex ${showModal ? "top-0" : ""} ${styles.animate}`,
-            {
-              [styles.animateText]: !showHint,
-              [styles.animateText]: showHint,
-            },
-          )}
+          className={cx(`relative z-[1] flex ${isChatOpen ? "top-0" : ""}`, {
+            [styles.animate]: !isChatOpen,
+          })}
           onClick={handleOnClick}
         />
       )}
-      {showModal && (
+      {isChatOpen && (
         <>
           {userEmail && (
             <button
