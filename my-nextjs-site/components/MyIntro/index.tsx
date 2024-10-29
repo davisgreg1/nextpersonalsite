@@ -18,7 +18,6 @@ function MyIntro() {
   const firstName = trimmedUserName?.split(" ")[0];
 
   const moniker = firstName ? ` ${firstName}` : "";
-  console.log("GREG LOOK!  ~ MyIntro ~ firstName:", firstName);
   return (
     <>
       <MyParticles />
@@ -29,7 +28,7 @@ function MyIntro() {
           <h1 className="flex select-none">
             <MorphingLetters str={`Hi${moniker},`} />
             <MorphingLetters
-              str={`I'm ${moniker === " Greg" ? "also " : ""}Greg!`}
+              str={`I'm ${moniker.toLowerCase() === " greg" ? "also " : ""}Greg!`}
             />
           </h1>
           {isChatOpen ? null : <MorphingWords />}
