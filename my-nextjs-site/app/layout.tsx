@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next/types";
 import Provider from "./Provider";
+import { ChatBotProvider } from "@/components/ChatBotProvider";
 import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
 
@@ -40,7 +41,7 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#0d47a1" },
   ],
   colorScheme: "dark",
-}
+};
 
 export default async function RootLayout({
   children,
@@ -52,8 +53,7 @@ export default async function RootLayout({
       <head>
         <script
           async
-          src="https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js"
-        ></script>
+          src="https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js"></script>
         {process.env.NODE_ENV === "development" ? null : (
           <>
             <script
@@ -79,11 +79,13 @@ export default async function RootLayout({
       </head>
       <body className="bg-[#0d47a1] dark:bg-black">
         <Provider>
-          <>
-            <TopNav />
-            {children}
-            <Footer />
-          </>
+          <ChatBotProvider>
+            <>
+              <TopNav />
+              {children}
+              <Footer />
+            </>
+          </ChatBotProvider>
         </Provider>
       </body>
     </html>
