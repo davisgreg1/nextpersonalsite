@@ -23,6 +23,7 @@ export default function MyModalContent() {
   const hashedEmail = hashString(userEmail || "");
   const userName = session?.user?.name;
   const computerScreenRef = useRef<HTMLDivElement>(null);
+  const draggableRef = useRef<HTMLDivElement>(null);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
   const [sendResponse, setSendResponse] = useState(false);
@@ -40,10 +41,11 @@ export default function MyModalContent() {
             "Content-Type": "application/json",
           },
         });
-        if (response) {
+        
+        if (response.ok) {
           const data = await response.json();
-          if (data.data.length > 0) {
-            const newData = data?.data?.map((item: DBConversationDataType) => {
+          if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+            const newData = data.data.map((item: DBConversationDataType) => {
               return {
                 userText: item.question,
                 botText: item.answer,
@@ -51,12 +53,22 @@ export default function MyModalContent() {
             });
             return setConversation(newData);
           }
+        } else if (response.status === 404) {
+          // User not found or no conversations - this is normal for new users
+          console.log('No conversation history found for user');
+          setConversation([]);
+        } else {
+          console.error('API response not ok:', response.status, response.statusText);
+          console.error('URL attempted:', `/api/chat/${hashedEmail}`);
         }
       } catch (error) {
-        console.error({ error });
+        console.error('Error in getConversation:', error);
       }
     }
-    getConversation();
+    
+    if (hashedEmail) {
+      getConversation();
+    }
   }, [hashedEmail]);
 
   useEffect(() => {
@@ -174,6 +186,7 @@ export default function MyModalContent() {
 
   return (
     <Draggable
+      nodeRef={draggableRef}
       axis="both"
       handle={".handle"}
       defaultPosition={defaultPosXY}
@@ -185,6 +198,7 @@ export default function MyModalContent() {
       onStop={handleStop}
     >
       <motion.div
+        ref={draggableRef}
         className={`z-[1] opacity-100 h-96 w-96 absolute flex justify-center items-center`}
         style={screenImgStyle}
       >

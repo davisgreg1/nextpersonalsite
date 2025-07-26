@@ -332,7 +332,7 @@ export default function About() {
                     initial={{ x: "100vw" }}
                     animate={inView ? { x: 0 } : { x: "100vw" }}
                     transition={{
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 120,
                       duration: 0.5,
                     }}

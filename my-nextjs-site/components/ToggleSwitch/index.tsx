@@ -26,7 +26,7 @@ const ToggleSwitch = () => {
         className="absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow-md user-select-none"
         variants={switchVariants}
         animate={isOn ? "on" : "off"}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        transition={{ type: "spring" as const, stiffness: 500, damping: 30 }}
       />
     </motion.div>
   );

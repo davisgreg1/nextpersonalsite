@@ -25,7 +25,7 @@ const MorphingLetters = ({ str }: MorphingLetterType) => {
       y: [-50, -60, 0, 60, 50],
       transition: {
         duration: 0.5,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
         times: [0, 0.25, 0.5, 0.75, 1],
       },
       scale: [1, 1.2, 0.8, 1.1, 0.9, 1],
@@ -43,8 +43,8 @@ const MorphingLetters = ({ str }: MorphingLetterType) => {
           exit="exit"
           transition={{
             duration: Math.random() * 2 + 0.5,
-            loop: Infinity,
-            ease: "easeInOut",
+            repeat: Infinity,
+            ease: "easeInOut" as const,
           }}
           className={`font-bold text-white text-xl tablet:text-2xl select-none pr-2 pb-2`}
           whileHover={{ scale: 2, rotate: 360 }}

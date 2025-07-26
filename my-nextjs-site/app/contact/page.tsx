@@ -1,6 +1,4 @@
 "use client";
-import { useRef } from "react";
-import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import { motion } from "framer-motion";
 import ContactForm from "@/components/ContactForm";
 import MyMap from "@/components/MyMap";
@@ -8,8 +6,6 @@ import styles from "./styles.module.css";
 import Footer from "@/components/Footer";
 
 function Contact() {
-  const tawkMessengerRef = useRef();
-
   // Define variants for the ContactForm and MyMap components
   const formVariants = {
     hidden: {
@@ -21,8 +17,8 @@ function Contact() {
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeInOut",
-        type: "spring",
+        ease: "easeInOut" as const,
+        type: "spring" as const,
         damping: 8,
         stiffness: 100,
       },
@@ -41,8 +37,8 @@ function Contact() {
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeInOut",
-        type: "spring",
+        ease: "easeInOut" as const,
+        type: "spring" as const,
         damping: 8,
         stiffness: 100,
       },
@@ -52,17 +48,9 @@ function Contact() {
     },
   };
 
-  const propertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
-  const widgetId = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID;
-
   return (
     <>
       <div className="flex flex-col tablet:flex-row justify-between items-center h-full mt-24 tablet:mt-0 ml-4">
-        <TawkMessengerReact
-          propertyId={propertyId}
-          widgetId={widgetId}
-          useRef={tawkMessengerRef}
-        />
         <div className="w-full p-4 pl-0">
           <motion.div
             className={`${styles.contactFormDiv} flex w-full justify-center h-[600px] border-solid border-2 border-black rounded-[10px] mr-4`}

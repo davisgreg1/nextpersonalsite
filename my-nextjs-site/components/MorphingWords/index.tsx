@@ -27,7 +27,7 @@ const wordVariants = {
 };
 
 const wordTransition = {
-  type: "spring",
+  type: "spring" as const,
   bounce: 0.69,
   duration: 0.9,
 };

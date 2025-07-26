@@ -6,9 +6,17 @@ import Link from "next/link";
 export async function generateMetadata({
   params,
 }: {
-  params: { blogId: string };
+  params: Promise<{ blogId: string }>;
 }) {
-  const post = await fetchEntry(params.blogId);
+  const resolvedParams = await params;
+  const post = await fetchEntry(resolvedParams.blogId);
+
+  if (!post) {
+    return {
+      title: 'Blog Post Not Found',
+      description: 'The requested blog post could not be found.',
+    };
+  }
 
   return {
     title: `${post.fields.title}`,

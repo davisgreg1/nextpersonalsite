@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import Lottie from "react-lottie-player";
 import { signOut, useSession } from "next-auth/react";
 import cx from "classnames";
@@ -15,13 +15,13 @@ function ChatBot() {
   const userEmail = session?.user?.email;
   const [showHint, setShowHint] = useState(true);
 
-  const dynamicTextArr = [
+  const dynamicTextArr = useMemo(() => [
     `Try clicking on me!`,
     `Hi, I am your AI assistant.`,
     `How can I help you?`,
     `Ask me questions about Greg!`,
     `Ask me questions about anything!`,
-  ];
+  ], []);
   const [dynamicText, setDynamicText] = useState(dynamicTextArr[0]);
 
   const handleOnClick = () => setIsChatOpen(!isChatOpen);
@@ -30,7 +30,7 @@ function ChatBot() {
     if (!!userEmail) {
       setIsChatOpen(true);
     }
-  }, [userEmail]);
+  }, [userEmail, setIsChatOpen]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -42,7 +42,7 @@ function ChatBot() {
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * dynamicTextArr.length);
     setDynamicText(dynamicTextArr[randomIndex]);
-  });
+  }, [dynamicTextArr]);
 
   return (
     <div id="chatBotId" className="flex w-[60%] tablet:w-1/3 cursor-pointer">

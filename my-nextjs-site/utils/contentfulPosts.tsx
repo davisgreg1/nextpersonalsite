@@ -1,11 +1,11 @@
-const contentful = require("contentful");
+import { createClient } from "contentful";
 
 const space = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
 const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_DELIVERY_TOKEN;
 
-const client = contentful.createClient({
-  space: space,
-  accessToken: accessToken,
+const client = createClient({
+  space: space!,
+  accessToken: accessToken!,
 });
 
 export async function fetchEntries() {

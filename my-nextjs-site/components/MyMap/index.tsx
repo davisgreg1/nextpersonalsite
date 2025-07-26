@@ -9,7 +9,7 @@ const MyMap = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || "",
   });
 
-  const locations = [
+  const locations = useMemo(() => [
     { lat: 35.14198, lng: -90.05591 }, // Memphis
     { lat: 32.7767, lng: -96.797 }, // Dallas, TX
     { lat: 36.1627, lng: -86.7816 }, // Nashville, TN
@@ -18,14 +18,14 @@ const MyMap = () => {
     { lat: 40.8116, lng: -73.9456 }, // Harlem Hospital, NYC
     { lat: 43.1009, lng: -75.2327 }, // Utica, NY
     { lat: 33.749, lng: -84.388 }, // Atlanta, GA
-  ];
+  ], []);
 
-  const getRandomLocation = () => {
+  const getRandomLocation = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * locations.length);
     return locations[randomIndex];
-  };
+  }, [locations]);
 
-  const center = useMemo(() => getRandomLocation(), []);
+  const center = useMemo(() => getRandomLocation(), [getRandomLocation]);
 
   const containerStyle = {
     width: "100%",
