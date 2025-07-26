@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import ErrorPage from "@/app/error";
 
 const Custom404 = () => {
@@ -15,9 +16,9 @@ const Custom404 = () => {
     >
       <ErrorPage />
       <div style={{padding: '16px'}}>
-        <a style={{ textDecoration: "none" }} href="/">
+        <Link style={{ textDecoration: "none" }} href="/">
           Go home 🏠
-        </a>
+        </Link>
       </div>
     </div>
   );

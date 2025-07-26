@@ -10,7 +10,7 @@ const errorVariant = {
     y: 0,
     opacity: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 500,
       damping: 25,
       duration: 1,

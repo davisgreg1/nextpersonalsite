@@ -14,28 +14,28 @@ const menuVariants = {
   openLeft: {
     x: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
     },
   },
   openRight: {
     x: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
     },
   },
   closeLeft: {
     x: "-100%",
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 500,
     },
   },
   closeRight: {
     x: "100%",
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 500,
     },
   },
@@ -135,7 +135,7 @@ const HamburgerMenu = () => {
           //   }
           // }}
           onClick={handleClick}
-          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+          transition={{ type: "spring" as const, damping: 30, stiffness: 200 }}
         >
           <motion.div
             className={`shadow ${isOpen ? styles.barOpen : styles.bar}`}

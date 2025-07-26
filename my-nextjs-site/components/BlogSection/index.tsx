@@ -12,7 +12,9 @@ const BlogSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       const entries = await fetchEntries();
-      setPosts(entries);
+      if (entries) {
+        setPosts(entries as unknown as BlogPostType[]);
+      }
     };
     fetchData();
   }, []);

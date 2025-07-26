@@ -1,17 +1,27 @@
 import { fetchEntry } from "@/utils/contentfulPosts";
 import snarkdown from "snarkdown";
-import { use } from "react";
 import styles from "./style.module.css";
 
-type Params = {
+type Params = Promise<{
   blogId: string;
-};
+}>;
 
-const BlogPage = ({ params }: { params: Params }) => {
-  const { blogId } = params;
-  const post = use(fetchEntry(blogId));
+const BlogPage = async ({ params }: { params: Params }) => {
+  const { blogId } = await params;
+  const post = await fetchEntry(blogId);
+  
+  if (!post) {
+    return (
+      <div className="bg-white dark:bg-black shadow-lg rounded-lg m-4 mt-36">
+        <div className="px-4 py-2 flex justify-center">
+          <h1 className="text-2xl font-bold dark:text-[#a7aec7] text-gray-800">Post Not Found</h1>
+        </div>
+      </div>
+    );
+  }
+  
   const { title, body } = post.fields;
-  const content = snarkdown(body);
+  const content = snarkdown(String(body || ''));
 
   return (
     <>
@@ -19,7 +29,7 @@ const BlogPage = ({ params }: { params: Params }) => {
         className={`bg-white dark:bg-black shadow-lg rounded-lg m-4 mt-36 overflow-scroll tablet:mt-36`}
       >
         <div className="px-4 py-2 flex justify-center">
-          <h1 className="text-2xl font-bold dark:text-[#a7aec7] text-gray-800">{title}</h1>
+          <h1 className="text-2xl font-bold dark:text-[#a7aec7] text-gray-800">{String(title || 'Untitled')}</h1>
         </div>
         <div className="h-full px-4 py-2 flex justify-center">
           <div
