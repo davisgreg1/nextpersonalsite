@@ -43,7 +43,7 @@ const MorphingLetters = ({ str }: MorphingLetterType) => {
           exit="exit"
           transition={{
             duration: Math.random() * 2 + 0.5,
-            repeat: Infinity,
+            repeat: .5,
             ease: "easeInOut" as const,
           }}
           className={`font-bold text-white text-xl tablet:text-2xl select-none pr-2 pb-2`}
