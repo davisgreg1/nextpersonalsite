@@ -66,6 +66,14 @@ const Footer = () => {
       >
         Made with ❤️ in NYC
       </motion.p>
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className={`text-sm tablet:text-base ${styles.footerText} opacity-80`}
+      >
+        © 2025 GregDavisTech, LLC
+      </motion.p>
     </footer>
   );
 };

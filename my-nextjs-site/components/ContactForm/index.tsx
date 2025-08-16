@@ -120,6 +120,10 @@ function ContactForm() {
               id="form-element"
               className="flex flex-col w-full h-full justify-around p-4"
             >
+              <div className="text-center mb-4">
+                <h2 className="text-xl font-semibold mb-2">Get In Touch</h2>
+                <p className="text-sm opacity-70">GregDavisTech, LLC • Professional Software Development</p>
+              </div>
               <div className="flex flex-col m-2">
                 <motion.div
                   className="w-full"
