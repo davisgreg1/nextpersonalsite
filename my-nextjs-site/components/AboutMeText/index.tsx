@@ -19,7 +19,7 @@ function AboutMeText() {
           Harlem, NY with a love for sports, travel, and animals. I
           discovered my love for coding in 2017, and since then, I have
           been actively pursuing my passion for creating innovative
-          websites that are both functional and aesthetically pleasing.`}
+          websites that are both functional and aesthetically pleasing. Through my company, GregDavisTech, LLC, I help businesses and individuals bring their digital visions to life.`}
       </p>
       <p className="flex py-4 px-4 text-base hiddenAnim dark:text-[#a7aec7]">
         {`\u00A0\u00A0\u00A0When I'm not working on exciting new projects, I'm either on the
